@@ -29,6 +29,7 @@ class Login extends CB_Controller
     {
         parent::__construct();
 
+        $this->load->library(array('querystring', 'email','cmalllib'));
     }
 
 
@@ -47,7 +48,7 @@ class Login extends CB_Controller
 
         $view = array();
         $view['view'] = array();
-
+        $param =& $this->querystring;
         // 이벤트가 존재하면 실행합니다
         $view['view']['event']['before'] = Events::trigger('before', $eventname);
 
@@ -59,34 +60,36 @@ class Login extends CB_Controller
 
         $use_login_account = $this->cbconfig->item('use_login_account');
 
+        $view['view']['login_url']=site_url('login') . '?' .$param->output();
+        $view['view']['findidpw_url']=site_url('login/findidpw') . '?' .$param->output();
         /**
          * 전송된 데이터의 유효성을 체크합니다
          */
         if ($use_login_account === 'both') {
             $config[] = array(
                 'field' => 'mem_userid',
-                'label' => '아이디 또는 이메일',
+                'label' => 'id or email',
                 'rules' => 'trim|required',
             );
-            $view['view']['userid_label_text'] = '아이디 또는 이메일';
+            $view['view']['userid_label_text'] = 'id or email';
         } elseif ($use_login_account === 'email') {
             $config[] = array(
                 'field' => 'mem_userid',
-                'label' => '이메일',
+                'label' => 'email',
                 'rules' => 'trim|required|valid_email',
             );
-            $view['view']['userid_label_text'] = '이메일';
+            $view['view']['userid_label_text'] = 'email';
         } else {
             $config[] = array(
                 'field' => 'mem_userid',
-                'label' => '아이디',
+                'label' => 'id',
                 'rules' => 'trim|required|alphanumunder|min_length[3]|max_length[20]',
             );
-            $view['view']['userid_label_text'] = '아이디';
+            $view['view']['userid_label_text'] = 'id';
         }
         $config[] = array(
             'field' => 'mem_password',
-            'label' => '패스워드',
+            'label' => 'password',
             'rules' => 'trim|required|min_length[4]|callback__check_id_pw[' . $this->input->post('mem_userid') . ']',
         );
 
@@ -204,8 +207,8 @@ class Login extends CB_Controller
                     );
                     $this->session->set_flashdata(
                         'message',
-                        html_escape($site_title) . ' 은(는) 회원님의 비밀번호를 주기적으로 변경하도록 권장합니다.
-                        <br /> 오래된 비밀번호를 사용중인 회원님께서는 안전한 서비스 이용을 위해 비밀번호 변경을 권장합니다'
+                        html_escape($site_title) . ' We encourage you to periodically change your password. 
+                        <br /> If you are using an old password, we recommend that you change your password to use a secure service.'
                     );
                     redirect('membermodify/password_modify');
                 }
@@ -219,6 +222,11 @@ class Login extends CB_Controller
                 $url_after_login = $this->input->get_post('url') ? urldecode($this->input->get_post('url')) : site_url();
             }
 
+
+            $return = $this->cmalllib->cart_to_cart(
+                element('mem_id', $userinfo),
+                $_COOKIE[config_item('sess_cookie_name')]
+            );
             // 이벤트가 존재하면 실행합니다
             Events::trigger('after', $eventname);
 
@@ -268,14 +276,14 @@ class Login extends CB_Controller
                 if ($next_login > 0) {
                     $this->form_validation->set_message(
                         '_check_id_pw',
-                        '회원님은 패스워드를 연속으로 ' . $loginfailnum . '회 잘못 입력하셨기 때문에 '
-                        . $next_login . '초 후에 다시 로그인 시도가 가능합니다'
+                        'You entered the wrong password ' . $loginfailnum . ' in a row ,so you can try again in '
+                        . $next_login . ' second'
                     );
                     return false;
                 }
             }
-            $loginfailmessage = '<br />회원님은 ' . ($loginfailnum + 1)
-                . '회 연속으로 패스워드를 잘못입력하셨습니다. ';
+            $loginfailmessage = '<br />You have entered the wrong password ' . ($loginfailnum + 1)
+                . ' in a row ';
         }
 
         $use_login_account = $this->cbconfig->item('use_login_account');
@@ -314,16 +322,16 @@ class Login extends CB_Controller
         if ( ! element('mem_id', $userinfo) OR ! element('mem_password', $userinfo)) {
             $this->form_validation->set_message(
                 '_check_id_pw',
-                '회원 아이디와 패스워드가 서로 맞지 않습니다' . $loginfailmessage
+                'Member ID and password do not match' . $loginfailmessage
             );
-            $this->member->update_login_log(0, $userid, 0, '회원 아이디가 존재하지 않습니다');
+            $this->member->update_login_log(0, $userid, 0, 'Member ID does not exist');
             return false;
         } elseif ( ! password_verify($password, element('mem_password', $userinfo))) {
             $this->form_validation->set_message(
                 '_check_id_pw',
-                '회원 아이디와 패스워드가 서로 맞지 않습니다' . $loginfailmessage
+                'Member ID and password do not match' . $loginfailmessage
             );
-            $this->member->update_login_log(element('mem_id', $userinfo), $userid, 0, '패스워드가 올바르지 않습니다');
+            $this->member->update_login_log(element('mem_id', $userinfo), $userid, 0, 'The password is incorrect');
             return false;
         } elseif (element('mem_denied', $userinfo)) {
             $this->form_validation->set_message(
@@ -392,5 +400,323 @@ class Login extends CB_Controller
         Events::trigger('after', $eventname);
 
         redirect($url_after_logout, 'refresh');
+    }
+
+
+    function findidpw(){
+
+        // 이벤트 라이브러리를 로딩합니다
+        $eventname = 'event_findaccount_index';
+        $this->load->event($eventname);
+
+        if ($this->member->is_member() !== false
+            && ! (
+                $this->member->is_admin() === 'super' && $this->uri->segment(1) === config_item('uri_segment_admin')
+            )) {
+            redirect();
+        }
+
+        $view = array();
+        $view['view'] = array();
+        $param =& $this->querystring;
+        // 이벤트가 존재하면 실행합니다
+        $view['view']['event']['before'] = Events::trigger('before', $eventname);
+
+        $this->load->library(array('form_validation'));
+
+        if ( ! function_exists('password_hash')) {
+            $this->load->helper('password');
+        }
+
+        $view['view']['login_url']=site_url('login') . '?' .$param->output();
+        $view['view']['findidpw_url']=site_url('login/findidpw') . '?' .$param->output();
+
+        /**
+         * 전송된 데이터의 유효성을 체크합니다
+         */
+        $config = array();
+        if ($this->input->post('findtype') === 'findid') {
+            $config[] = array(
+                'field' => 'telnum',
+                'label' => '핸드폰',
+                'rules' => 'trim|required|valid_phone|callback__existphone',
+            );
+        } elseif ($this->input->post('findtype') === 'findidpw') {
+            $config[] = array(
+                'field' => 'telnum',
+                'label' => '핸드폰',
+                'rules' => 'trim|required|valid_phone|callback__existphone',
+            );
+        } 
+
+        $this->form_validation->set_rules($config);
+        /**
+         * 유효성 검사를 하지 않는 경우, 또는 유효성 검사에 실패한 경우입니다.
+         * 즉 글쓰기나 수정 페이지를 보고 있는 경우입니다
+         */
+        if ($this->form_validation->run() === false) {
+
+            // 이벤트가 존재하면 실행합니다
+            $view['view']['event']['formrunfalse'] = Events::trigger('formrunfalse', $eventname);
+
+            if ($this->input->post('returnurl')) {
+                if (validation_errors('<div class="alert alert-warning" role="alert">', '</div>')) {
+                    $this->session->set_flashdata(
+                        'loginvalidationmessage',
+                        validation_errors('<div class="alert alert-warning" role="alert">', '</div>')
+                    );
+                }
+                $this->session->set_flashdata(
+                    'loginuserid',
+                    $this->input->post('mem_userid')
+                );
+                redirect(urldecode($this->input->post('returnurl')));
+            }
+
+        } else {
+
+            // 이벤트가 존재하면 실행합니다
+            $view['view']['event']['formruntrue'] = Events::trigger('formruntrue', $eventname);
+
+            if ($this->input->post('findtype') === 'findid') {
+
+                // 이벤트가 존재하면 실행합니다
+                $view['view']['event']['findidpw_before'] = Events::trigger('findidpw_before', $eventname);
+
+                $mb = $this->Member_model->get_by_phone($this->input->post('telnum'));
+                
+
+                $mem_id = (int) element('mem_id', $mb);
+                
+
+               
+                
+
+                
+
+                $searchconfig = array(
+                    '{홈페이지명}',
+                    '{회사명}',
+                    '{홈페이지주소}',
+                    '{회원아이디}',
+                    '{회원닉네임}',
+                    '{회원실명}',
+                    '{회원이메일}',
+                    '{메일수신여부}',
+                    '{쪽지수신여부}',
+                    '{문자수신여부}',
+                    '{회원아이피}',
+                    '{패스워드변경주소}',
+                );
+                $receive_email = element('mem_receive_email', $mb) ? '동의' : '거부';
+                $receive_note = element('mem_use_note', $mb) ? '동의' : '거부';
+                $receive_sms = element('mem_receive_sms', $mb) ? '동의' : '거부';
+                $replaceconfig = array(
+                    $this->cbconfig->item('site_title'),
+                    $this->cbconfig->item('company_name'),
+                    site_url(),
+                    element('mem_userid', $mb),
+                    element('mem_nickname', $mb),
+                    element('mem_username', $mb),
+                    element('mem_email', $mb),
+                    $receive_email,
+                    $receive_note,
+                    $receive_sms,
+                    $this->input->ip_address(),
+                );
+                $replaceconfig_escape = array(
+                    html_escape($this->cbconfig->item('site_title')),
+                    html_escape($this->cbconfig->item('company_name')),
+                    site_url(),
+                    element('mem_userid', $mb),
+                    html_escape(element('mem_nickname', $mb)),
+                    html_escape(element('mem_username', $mb)),
+                    html_escape(element('mem_email', $mb)),
+                    $receive_email,
+                    $receive_note,
+                    $receive_sms,
+                    $this->input->ip_address(),
+                );
+
+                $title = str_replace(
+                    $searchconfig,
+                    $replaceconfig,
+                    $this->cbconfig->item('send_email_findaccount_user_title')
+                );
+                $content = str_replace(
+                    $searchconfig,
+                    $replaceconfig_escape,
+                    $this->cbconfig->item('send_email_findaccount_user_content')
+                );
+
+                $this->email->clear(true);
+                $this->email->from($this->cbconfig->item('webmaster_email'), $this->cbconfig->item('webmaster_name'));
+                $this->email->to(element('mem_email', $mb));
+                $this->email->subject($title);
+                $this->email->message($content);
+                $this->email->send();
+
+                $view['view']['message'] = 'I have sent an ID to the email address you entered when you signed up.';
+
+                // 이벤트가 존재하면 실행합니다
+                $view['view']['event']['findidpw_after'] = Events::trigger('findidpw_after', $eventname);
+
+            } elseif ($this->input->post('findtype') === 'findidpw') {
+
+                // 이벤트가 존재하면 실행합니다
+                $view['view']['event']['findidpw_before'] = Events::trigger('findidpw_before', $eventname);
+
+                $mb = $this->Member_model->get_by_phone($this->input->post('telnum'));
+
+                $mem_id = (int) element('mem_id', $mb);
+                $mae_type = 3;
+
+                $vericode = array('$', '/', '.');
+                $verificationcode = str_replace(
+                    $vericode,
+                    '',
+                    password_hash($mem_id . '-' . $this->input->post('telnum') . '-' . random_string('alnum', 10), PASSWORD_BCRYPT)
+                );
+
+                $beforeauthdata = array(
+                    'mem_id' => $mem_id,
+                    'mae_type' => $mae_type,
+                );
+                $this->Member_auth_email_model->delete_where($beforeauthdata);
+                $authdata = array(
+                    'mem_id' => $mem_id,
+                    'mae_key' => $verificationcode,
+                    'mae_type' => $mae_type,
+                    'mae_generate_datetime' => cdate('Y-m-d H:i:s'),
+                );
+                $this->Member_auth_email_model->insert($authdata);
+
+                $verify_url = site_url('verify/resetpassword?user=' . element('mem_userid', $mb) . '&code=' . $verificationcode);
+
+                $searchconfig = array(
+                    '{홈페이지명}',
+                    '{회사명}',
+                    '{홈페이지주소}',
+                    '{회원아이디}',
+                    '{회원닉네임}',
+                    '{회원실명}',
+                    '{회원이메일}',
+                    '{메일수신여부}',
+                    '{쪽지수신여부}',
+                    '{문자수신여부}',
+                    '{회원아이피}',
+                    '{패스워드변경주소}',
+                );
+                $receive_email = element('mem_receive_email', $mb) ? '동의' : '거부';
+                $receive_note = element('mem_use_note', $mb) ? '동의' : '거부';
+                $receive_sms = element('mem_receive_sms', $mb) ? '동의' : '거부';
+                $replaceconfig = array(
+                    $this->cbconfig->item('site_title'),
+                    $this->cbconfig->item('company_name'),
+                    site_url(),
+                    element('mem_userid', $mb),
+                    element('mem_nickname', $mb),
+                    element('mem_username', $mb),
+                    element('mem_email', $mb),
+                    $receive_email,
+                    $receive_note,
+                    $receive_sms,
+                    $this->input->ip_address(),
+                    $verify_url,
+                );
+                $replaceconfig_escape = array(
+                    html_escape($this->cbconfig->item('site_title')),
+                    html_escape($this->cbconfig->item('company_name')),
+                    site_url(),
+                    element('mem_userid', $mb),
+                    html_escape(element('mem_nickname', $mb)),
+                    html_escape(element('mem_username', $mb)),
+                    html_escape(element('mem_email', $mb)),
+                    $receive_email,
+                    $receive_note,
+                    $receive_sms,
+                    $this->input->ip_address(),
+                    $verify_url,
+                );
+
+                $title = str_replace(
+                    $searchconfig,
+                    $replaceconfig,
+                    $this->cbconfig->item('send_email_findaccount_user_title')
+                );
+                $content = str_replace(
+                    $searchconfig,
+                    $replaceconfig_escape,
+                    $this->cbconfig->item('send_email_findaccount_user_content')
+                );
+
+                $this->email->clear(true);
+                $this->email->from($this->cbconfig->item('webmaster_email'), $this->cbconfig->item('webmaster_name'));
+                $this->email->to(element('mem_email', $mb));
+                $this->email->subject($title);
+                $this->email->message($content);
+                $this->email->send();
+
+                $view['view']['message'] = 'Send your encrypted password to your email';
+
+                // 이벤트가 존재하면 실행합니다
+                $view['view']['event']['findidpw_after'] = Events::trigger('findidpw_after', $eventname);
+
+                
+            }
+        }
+
+        
+        $view['view']['canonical'] = site_url('login');
+        // 이벤트가 존재하면 실행합니다
+        $view['view']['event']['before_layout'] = Events::trigger('before_layout', $eventname);
+
+        /**
+         * 레이아웃을 정의합니다
+         */
+        $page_title = $this->cbconfig->item('site_meta_title_login');
+        $meta_description = $this->cbconfig->item('site_meta_description_login');
+        $meta_keywords = $this->cbconfig->item('site_meta_keywords_login');
+        $meta_author = $this->cbconfig->item('site_meta_author_login');
+        $page_name = $this->cbconfig->item('site_page_name_login');
+
+        $layoutconfig = array(
+            'path' => 'login',
+            'layout' => 'layout',
+            'skin' => 'login',
+            'layout_dir' => $this->cbconfig->item('layout_login'),
+            'mobile_layout_dir' => $this->cbconfig->item('mobile_layout_login'),
+            'use_sidebar' => $this->cbconfig->item('sidebar_login'),
+            'use_mobile_sidebar' => $this->cbconfig->item('mobile_sidebar_login'),
+            'skin_dir' => $this->cbconfig->item('skin_login'),
+            'mobile_skin_dir' => $this->cbconfig->item('mobile_skin_login'),
+            'page_title' => $page_title,
+            'meta_description' => $meta_description,
+            'meta_keywords' => $meta_keywords,
+            'meta_author' => $meta_author,
+            'page_name' => $page_name,
+        );
+        $view['layout'] = $this->managelayout->front($layoutconfig, $this->cbconfig->get_device_view_type());
+        $this->data = $view;
+        $this->layout = element('layout_skin_file', element('layout', $view));
+        $this->view = element('view_skin_file', element('layout', $view));
+    
+    }
+
+    public function _existphone($str)
+    {
+        $userinfo = $this->Member_model
+            ->get_by_phone($str, 'mem_id, mem_email, mem_denied, mem_email_cert');
+        
+        if ( ! element('mem_id', $userinfo)) {
+            $this->form_validation->set_message(
+                '_existphone',
+                '존재하지 않는 핸드폰입니다'
+            );
+            return false;
+        }
+        
+
+        return true;
     }
 }

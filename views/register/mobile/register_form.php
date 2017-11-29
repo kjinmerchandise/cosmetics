@@ -1,138 +1,114 @@
 <?php $this->managelayout->add_css(element('view_skin_url', $layout) . '/css/style.css'); ?>
 
-<div class="register">
-    <div class="table-box">
-        <div class="table-heading">회원 가입</div>
-        <div class="table-body">
-            <?php
-            echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
-            echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
-            $attributes = array('class' => 'form-horizontal', 'name' => 'fregisterform', 'id' => 'fregisterform');
-            echo form_open_multipart(current_full_url(), $attributes);
-            ?>
-            <ol class="registerform">
-                <?php
-                foreach (element('html_content', $view) as $key => $value) {
-                ?>
-                    <li>
-                        <span><?php echo element('display_name', $value); ?></span>
-                        <div class="form-text text-primary group">
-                            <?php echo element('input', $value); ?>
-                            <?php if (element('description', $value)) { ?>
-                                <p class="help-block"><?php echo element('description', $value); ?></p>
-                            <?php } ?>
-                        </div>
-                    </li>
-                <?php
-                }
-                if ($this->cbconfig->item('use_member_photo') && $this->cbconfig->item('member_photo_width') > 0 && $this->cbconfig->item('member_photo_height') > 0) {
-                ?>
-                    <li>
-                        <span>프로필사진</span>
-                        <div class="form-text text-primary group">
-                            <input type="file" name="mem_photo" id="mem_photo" />
-                            <p class="help-block">가로길이 : <?php echo number_format($this->cbconfig->item('member_photo_width')); ?>px, 세로길이 : <?php echo number_format($this->cbconfig->item('member_photo_height')); ?>px 에 최적화되어있습니다, gif, jpg, png 파일 업로드가 가능합니다</p>
-                        </div>
-                    </li>
-                <?php
-                }
-                if ($this->cbconfig->item('use_member_icon') && $this->cbconfig->item('member_icon_width') > 0 && $this->cbconfig->item('member_icon_height') > 0) {
-                ?>
-                    <li>
-                        <span>회원아이콘</span>
-                        <div class="form-text text-primary group">
-                            <input type="file" name="mem_icon" id="mem_icon" />
-                            <p class="help-block">가로길이 : <?php echo number_format($this->cbconfig->item('member_icon_width')); ?>px, 세로길이 : <?php echo number_format($this->cbconfig->item('member_icon_height')); ?>px 에 최적화되어있습니다, gif, jpg, png 파일 업로드가 가능합니다</p>
-                        </div>
-                    </li>
-                <?php
-                }
-                ?>
-                    <li>
-                        <span>정보공개</span>
-                        <div class="form-text text-primary group">
-                            <label for="mem_open_profile">
-                                <input type="checkbox" name="mem_open_profile" id="mem_open_profile" value="1" <?php echo set_checkbox('mem_open_profile', '1', true); ?> />
-                                다른분들이 나의 정보를 볼 수 있도록 합니다.
-                            </label>
-                            <?php
-                            if (element('open_profile_description', $view)) {
-                            ?>
-                                <p class="help-block"><?php echo element('open_profile_description', $view); ?></p>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </li>
-                    <?php
-                    if ($this->cbconfig->item('use_note')) {
-                    ?>
+
+<article class="content02">
+        <!-- 회원가입 02 -->
+            <section class="sign_up sign_up02">
+                <!-- 타이틀 -->
+                    <h2>
+                        SIGN UP
+                    </h2>
+                <!-- step -->
+                    <ol>
                         <li>
-                            <span>쪽지기능사용</span>
-                            <div class="form-text text-primary group">
-                                <div class="checkbox">
-                                    <label for="mem_use_note">
-                                        <input type="checkbox" name="mem_use_note" id="mem_use_note" value="1" <?php echo set_checkbox('mem_use_note', '1', true); ?> />
-                                        쪽지를 주고 받을 수 있습니다.
-                                    </label>
-                                    <?php
-                                    if (element('use_note_description', $view)) {
-                                    ?>
-                                        <p class="help-block"><?php echo element('use_note_description', $view); ?></p>
-                                    <?php
-                                    }
-                                    ?>
-                                </div>
-                            </div>
+                            <a href="">
+                                <figure>
+                                    <img src="<?php echo base_url('assets/images/signup04.png');?>" alt="signup04">
+                                    <figcaption>
+                                        <h3>
+                                            01<br>
+                                            Accept<br>
+                                            Terms
+                                        </h3>
+                                    </figcaption>
+                                </figure>
+                            </a>
                         </li>
+
+                        <li>
+                            <a href="">
+                                <figure>
+                                    <img src="<?php echo base_url('assets/images/signup02.png');?>" alt="signup02">
+                                    <figcaption>
+                                        <h3>
+                                            02<br>
+                                            Enter<br>
+                                            Information
+                                        </h3>
+                                    </figcaption>
+                                </figure>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="">
+                                <figure>
+                                    <img src="<?php echo base_url('assets/images/signup06.png');?>" alt="signup03">
+                                    <figcaption>
+                                        <h3>
+                                            03<br>
+                                            Signed<br>
+                                            Up
+                                        </h3>
+                                    </figcaption>
+                                </figure>
+                            </a>
+                        </li>
+                    </ol>
+                <!-- 정보 입력란 -->
+
                     <?php
-                    }
+                    echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
+                    echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+                    $attributes = array('class' => 'form-horizontal', 'name' => 'fregisterform', 'id' => 'fregisterform', 'onSubmit' => 'return registerform_submit(this)');
+                    echo form_open_multipart(current_full_url(), $attributes);
                     ?>
-                    <li>
-                        <span>이메일수신여부</span>
-                        <div class="form-text text-primary group">
-                            <div class="checkbox">
-                                <label for="mem_receive_email" >
-                                    <input type="checkbox" name="mem_receive_email" id="mem_receive_email" value="1" <?php echo set_checkbox('mem_receive_email', '1', true); ?> /> 수신
-                                </label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <span>SMS 문자수신</span>
-                        <div class="form-text text-primary group">
-                            <div class="checkbox">
-                            <label for="mem_receive_sms">
-                                <input type="checkbox" name="mem_receive_sms" id="mem_receive_sms" value="1" <?php echo set_checkbox('mem_receive_sms', '1', true); ?> /> 수신
-                            </label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <?php if ($this->cbconfig->item('use_recaptcha')) { ?>
-                            <span></span>
-                            <div class="form-text text-primary group captcha" id="recaptcha"><button type="button" id="captcha"></button></div>
-                            <input type="hidden" name="recaptcha" />
-                        <?php } else { ?>
-                            <span><img src="<?php echo base_url('assets/images/preload.png'); ?>" width="160" height="40" id="captcha" alt="captcha" title="captcha" /></span>
-                            <div class="form-text text-primary group">
-                                <input type="text" name="captcha_key" id="captcha_key" class=" input px150" value="" />
-                                <p class="help-block">좌측에 보이는 문자를 입력해주세요</p>
-                            </div>
-                        <?php } ?>
-                    </li>
-                    <li>
-                        <span></span>
-                        <div class="group">
-                            <button type="submit" class="btn btn-success">회원가입</button>
-                            <a href="<?php echo site_url(); ?>" class="btn btn-default">취소</a>
-                        </div>
-                    </li>
-                </ol>
-            <?php echo form_close(); ?>
-        </div>
-    </div>
-</div>
+                    <input type="hidden" name="mem_open_profile" id="mem_open_profile" value="0">
+                    <input type="hidden" name="mem_receive_email" id="mem_receive_email" value="0">
+                    <input type="hidden" name="mem_receive_sms" id="mem_receive_sms" value="0" >
+                    <table>
+
+
+                        <?php
+                        
+                        foreach (element('html_content', $view) as $key => $value) {
+                            $dispaly='';
+                            if(element('field_name',$value)==='mem_nickname') $dispaly='style="display:none";';
+                        ?>
+                            <tr <?php echo $dispaly ?>>
+                                <td>
+                                <label><?php echo element('display_name', $value); ?></label>
+                                <div class="">
+                                    <?php echo element('input', $value); ?>
+                                    <?php if (element('description', $value)) { ?>
+                                        <p class="help-block"><?php echo element('description', $value); ?></p>
+                                    <?php } ?>
+                                </div>
+                                </td>
+                            </tr>
+                        <?php
+                        }
+                        
+                        ?>
+
+                           
+                    </table>
+                    
+                <!-- next, cancel 버튼 -->
+                    <div class="sign_up_btn">
+                        <button type="submit" >Next</button>
+                        <button type="button" onclick="location.href='<?php echo site_url(); ?>';">
+                            Cancel
+                        </button>
+                    </div>
+                    <?php echo form_close(); ?>
+            </section>
+
+        <!-- 하단 광고 -->
+            <section class="ad">
+                <?php echo banner("product_details_banner") ?>
+            </section>
+    </article>
 
 <?php
 $this->managelayout->add_css(base_url('assets/css/datepicker3.css'));
@@ -164,11 +140,13 @@ $(function() {
             mem_email: {required :true, email:true, is_email_available:true},
             mem_password: {required :true, is_password_available:true},
             mem_password_re : {required: true, equalTo : '#mem_password' },
-            mem_nickname: {required :true, is_nickname_available:true}
+            mem_nickname: {required :true, is_nickname_available:true},
+            mem_phone: {required :true}
+            
             <?php if ($this->cbconfig->item('use_recaptcha')) { ?>
                 , recaptcha : {recaptchaKey:true}
             <?php } else { ?>
-                , captcha_key : {required: true, captchaKey:true}
+                , captcha_key : {required: false, captchaKey:true}
             <?php } ?>
         },
         messages: {
@@ -176,6 +154,16 @@ $(function() {
             captcha_key: '자동등록방지용 코드가 올바르지 않습니다.'
         }
     });
+
+    
 });
+
+
+function registerform_submit(f) {
+        if($("#mem_userid").val())
+            $("#mem_nickname").val($("#mem_userid").val());
+
+        return true;
+}
 //]]>
 </script>

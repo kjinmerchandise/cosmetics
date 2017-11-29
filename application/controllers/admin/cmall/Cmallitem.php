@@ -277,6 +277,11 @@ class Cmallitem extends CB_Controller
                 'rules' => 'trim',
             ),
             array(
+                'field' => 'display_price',
+                'label' => '노출용 상품가격',
+                'rules' => 'trim|required|numeric|is_natural',
+            ),
+            array(
                 'field' => 'cit_price',
                 'label' => '상품가격',
                 'rules' => 'trim|required|numeric|is_natural',
@@ -521,6 +526,7 @@ class Cmallitem extends CB_Controller
         $uploadfiledata2 = '';
 
         if ($form_validation && $file_error === '') {
+
             $this->load->library('upload');
             if (isset($_FILES) && isset($_FILES['cde_file']) && isset($_FILES['cde_file']['name']) && is_array($_FILES['cde_file']['name'])) {
                 $filecount = count($_FILES['cde_file']['name']);
@@ -584,9 +590,22 @@ class Cmallitem extends CB_Controller
                             $file_error = $this->upload->display_errors();
                             break;
                         }
+                    } else {
+                
+                        $uploadfiledata[$i]['cde_filename'] = '';
+                        $uploadfiledata[$i]['cde_originname'] = '';
+                        $uploadfiledata[$i]['cde_filesize'] = '';
+                        $uploadfiledata[$i]['cde_type'] = '';
+                        $uploadfiledata[$i]['is_image'] = 0;
+                        $cde_title = $this->input->post('cde_title');
+                        $uploadfiledata[$i]['cde_title'] = element($i, $cde_title);
+                        $cde_price = $this->input->post('cde_price');
+                        $uploadfiledata[$i]['cde_price'] = element($i, $cde_price) ? element($i, $cde_price) : 0;
+                        $cde_status = $this->input->post('cde_status');
+                        $uploadfiledata[$i]['cde_status'] = element($i, $cde_status) ? element($i, $cde_status) : 0;
                     }
                 }
-            }
+            } 
             if (isset($_FILES) && isset($_FILES['cde_file_update']) && isset($_FILES['cde_file_update']['name']) && is_array($_FILES['cde_file_update']['name']) && $file_error === '') {
                 $filecount = count($_FILES['cde_file_update']['name']);
                 $upload_path = config_item('uploads_dir') . '/cmallitemdetail/';
@@ -737,6 +756,7 @@ class Cmallitem extends CB_Controller
             $cit_status = $this->input->post('cit_status') ? 1 : 0;
             $content_type = $this->cmallconfig->item('use_cmall_product_dhtml') ? 1 : 0;
             $cit_price = $this->input->post('cit_price') ? $this->input->post('cit_price') : 0;
+            $display_price = $this->input->post('display_price') ? $this->input->post('display_price') : 0;
             $cit_download_days = $this->input->post('cit_download_days') ? $this->input->post('cit_download_days') : 0;
 
             $updatedata = array(
@@ -753,6 +773,7 @@ class Cmallitem extends CB_Controller
                 'cit_mobile_content' => $this->input->post('cit_mobile_content', null, ''),
                 'cit_content_html_type' => $content_type,
                 'cit_price' => $cit_price,
+                'display_price' => $display_price,
                 'cit_updated_datetime' => cdate('Y-m-d H:i:s'),
                 'cit_download_days' => $cit_download_days,
             );
@@ -836,9 +857,11 @@ class Cmallitem extends CB_Controller
 
             $file_updated = false;
             $file_changed = false;
+
             if ($uploadfiledata && is_array($uploadfiledata) && count($uploadfiledata) > 0) {
                 foreach ($uploadfiledata as $pkey => $pval) {
                     if ($pval) {
+
                         $cde_price = element('cde_price', $pval) ? element('cde_price', $pval) : 0;
                         $cde_is_image = element('is_image', $pval) ? 1 : 0;
                         $cde_status = element('cde_status', $pval) ? element('cde_status', $pval) : 0;
@@ -924,6 +947,7 @@ class Cmallitem extends CB_Controller
 
             $cit_name = $this->input->post('cit_name');
             $cit_price = $this->input->post('cit_price');
+            $display_price = $this->input->post('display_price');
             $cit_order = $this->input->post('cit_order');
             $cit_status = $this->input->post('cit_status');
 
@@ -937,11 +961,13 @@ class Cmallitem extends CB_Controller
             foreach ($this->input->post('chk') as $val) {
                 if ($val) {
                     $cit_price_update = element($val, $cit_price) ? element($val, $cit_price) : 0;
+                    $display_price_update = element($val, $display_price) ? element($val, $display_price) : 0;
                     $cit_order_update = element($val, $cit_order) ? element($val, $cit_order) : 0;
                     $cit_status_update = element($val, $cit_status) ? 1 : 0;
                     $updatedata = array(
                         'cit_name' => element($val, $cit_name),
                         'cit_price' => $cit_price_update,
+                        'display_price_update' => $display_price_update,
                         'cit_order' => $cit_order_update,
                         'cit_status' => $cit_status_update,
                     );
@@ -995,6 +1021,7 @@ class Cmallitem extends CB_Controller
                 if ($val) {
                     $this->{$this->modelname}->delete($val);
                     $this->Cmall_item_meta_model->deletemeta($val);
+                    $this->Cmall_item_detail_model->delete($val);
                 }
             }
         }

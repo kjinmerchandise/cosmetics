@@ -56,14 +56,15 @@ class Cmallact extends CB_Controller
         }
 
         if ($this->member->is_member() === false) {
-            show_404();
+            // show_404();
         }
 
         $return = $this->cmalllib->addcart(
             $this->member->item('mem_id'),
             $cit_id,
             $this->input->post('chk_detail', null, ''),
-            $this->input->post('detail_qty', null, '')
+            $this->input->post('detail_qty', null, ''),
+            $_COOKIE[config_item('sess_cookie_name')]
         );
 
         if ($return) {
@@ -75,7 +76,7 @@ class Cmallact extends CB_Controller
     /**
      * 장바구니삭제 입니다
      */
-    public function cart_delete()
+    public function cart_delete($val)
     {
         // 이벤트 라이브러리를 로딩합니다
         $eventname = 'event_cmallact_cart_delete';
@@ -84,7 +85,7 @@ class Cmallact extends CB_Controller
         /**
          * 로그인이 필요한 페이지입니다
          */
-        required_user_login();
+        // required_user_login();
 
         // 이벤트가 존재하면 실행합니다
         Events::trigger('before', $eventname);
@@ -94,18 +95,20 @@ class Cmallact extends CB_Controller
         /**
          * 체크한 게시물의 삭제를 실행합니다
          */
-        if ($this->input->post('chk') && is_array($this->input->post('chk'))) {
-            foreach ($this->input->post('chk') as $val) {
-                if ($val) {
-                    $where = array(
-                        'mem_id' => $this->member->item('mem_id'),
-                        'cit_id' => $val,
-                        'cct_cart' => 1,
-                    );
-                    $this->Cmall_cart_model->delete_where($where);
-                }
-            }
+        
+        if ($val) {
+            $where = array(
+                'cit_id' => $val,
+                'cct_cart' => 1
+            );
+            if(empty($this->member->item('mem_id')))
+                $where['session_id'] = $_COOKIE[config_item('sess_cookie_name')];
+            else 
+                $where['mem_id'] = $this->member->item('mem_id');
+
+            $this->Cmall_cart_model->delete_where($where);
         }
+            
 
         // 이벤트가 존재하면 실행합니다
         Events::trigger('after', $eventname);

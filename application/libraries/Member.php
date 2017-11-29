@@ -340,4 +340,16 @@ class Member extends CI_Controller
         return true;
     }
 
+
+    public function get_cart_num_in()
+    {
+        $this->CI->load->model('Cmall_cart_model');
+        if(!empty($_COOKIE[config_item('sess_cookie_name')]))
+            return count($this->CI->Cmall_cart_model->get_cart_list_in(array('session_id'=>$_COOKIE[config_item('sess_cookie_name')])));
+        else return 0;
+
+        
+        
+    }
+
 }

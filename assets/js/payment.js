@@ -123,19 +123,19 @@ if (typeof(PAYMENT_JS) === 'undefined') {
             email_regexp = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
         
         if( ! jQuery.trim(mem_realname_val) ){
-            alert("실명을 올바르게 입력해 주세요.");
+            alert("Please enter your real name correctly.");
             f.mem_realname.select();
             return false;
         }
 
         if( !email_regexp.test(mem_email_val) ){
-            alert("이메일을 올바르게 입력해 주세요.");
+            alert("Please enter your email correctly.");
             f.mem_email.select();
             return false;
         }
 
-        if( !phone_regexp.test(mem_phone_val) ){
-            alert("휴대폰 번호를 올바르게 입력해 주세요.");
+        if( !jQuery.trim(mem_phone_val) ){
+            alert("Please enter your mobile phone number correctly");
             f.mem_phone.select();
             return false;
         }
@@ -160,19 +160,19 @@ if (typeof(PAYMENT_JS) === 'undefined') {
             }
         }
 
-        var pay_type = document.getElementsByName('pay_type');
-        var pay_type_check = false;
-        for (i = 0; i < pay_type.length; i++) {
-            if (pay_type[i].checked) {
-                pay_type_check = true;
-                p_method = pay_type[i].value;
-                break;
-            }
-        }
-        if ( ! pay_type_check) {
-            alert('결제방식을 선택하십시오.');
-            return false;
-        }
+        // var pay_type = document.getElementsByName('pay_type');
+        // var pay_type_check = false;
+        // for (i = 0; i < pay_type.length; i++) {
+        //     if (pay_type[i].checked) {
+        //         pay_type_check = true;
+        //         p_method = pay_type[i].value;
+        //         break;
+        //     }
+        // }
+        // if ( ! pay_type_check) {
+        //     alert('결제방식을 선택하십시오.');
+        //     return false;
+        // }
 
         if (ptype === 'cmall') {
 

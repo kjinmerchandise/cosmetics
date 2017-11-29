@@ -56,9 +56,12 @@ class Cmall_order_detail_model extends CB_Model
             return;
         }
 
-        $this->db->select('cmall_item_detail.*, cmall_order_detail.cod_count, cmall_order_detail.cod_download_days, cmall_order_detail.cod_status');
+        $this->db->select('cmall_item_detail.*, cmall_order_detail.cod_count, cmall_order_detail.cod_download_days, cmall_order_detail.cod_status, cmall_category.cca_value');
         $this->db->from('cmall_order_detail');
         $this->db->join('cmall_item_detail', 'cmall_order_detail.cde_id = cmall_item_detail.cde_id', 'inner');
+        $this->db->join('cmall_category_rel', 'cmall_item_detail.cit_id = cmall_category_rel.cit_id', 'inner');
+        $this->db->join('cmall_category', 'cmall_category_rel.cca_id = cmall_category.cca_id', 'inner');
+
         $this->db->where('cmall_order_detail.cor_id', $cor_id);
         $this->db->where('cmall_order_detail.cit_id', $cit_id);
         $qry = $this->db->get();

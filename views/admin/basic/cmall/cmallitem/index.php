@@ -30,9 +30,9 @@
                             <th>이미지</th>
                             <th><a href="<?php echo element('cit_name', element('sort', $view)); ?>">상품명</a></th>
                             <th><a href="<?php echo element('cit_price', element('sort', $view)); ?>">판매가격</a></th>
-                            <th><a href="<?php echo element('cit_download_days', element('sort', $view)); ?>">판매기한</a></th>
+                            <!-- <th><a href="<?php echo element('cit_download_days', element('sort', $view)); ?>">판매기한</a></th>
                             <th>PC (레이아웃 / 사이드바 / 스킨)</th>
-                            <th>모바일 (레이아웃 / 사이드바 / 스킨)</th>
+                            <th>모바일 (레이아웃 / 사이드바 / 스킨)</th> -->
                             <th><a href="<?php echo element('cit_order', element('sort', $view)); ?>">정렬순서</a></th>
                             <th><a href="<?php echo element('cit_status', element('sort', $view)); ?>">판매여부</a></th>
                             <th><a href="<?php echo element('cit_sell_count', element('sort', $view)); ?>">판매량</a></th>
@@ -48,7 +48,7 @@
                     ?>
                         <tr>
                             <td><a href="<?php echo goto_url(cmall_item_url(html_escape(element('cit_key', $result)))); ?>" target="_blank"><?php echo html_escape(element('cit_key', $result)); ?></a></td>
-                            <td style="width:130px;">
+                            <td style="width:230px;">
                                 <?php foreach (element('category', $result) as $cv) { echo '<label class="label label-info">' . html_escape(element('cca_value', $cv)) . '</label> ';} ?>
                                 <?php if (element('cit_type1', $result)) { ?><label class="label label-danger">추천</label> <?php } ?>
                                 <?php if (element('cit_type2', $result)) { ?><label class="label label-warning">인기</label> <?php } ?>
@@ -64,7 +64,7 @@
                             </td>
                             <td><input type="text" name="cit_name[<?php echo element(element('primary_key', $view), $result); ?>]" class="form-control" value="<?php echo html_escape(element('cit_name', $result)); ?>" /></td>
                             <td><input type="number" name="cit_price[<?php echo element(element('primary_key', $view), $result); ?>]" class="form-control" value="<?php echo html_escape(element('cit_price', $result)); ?>" /></td>
-                            <td><?php echo number_format(element('cit_download_days', $result)); ?></td>
+                           <!--  <td><?php echo number_format(element('cit_download_days', $result)); ?></td>
                             <td class=" form-group-sm">
                                 <select class="form-control" name="item_layout[<?php echo element(element('primary_key', $view), $result); ?>]" >
                                     <?php echo element('item_layout_option', $result); ?>
@@ -94,7 +94,7 @@
                                 <select class="form-control" name="item_mobile_skin[<?php echo element(element('primary_key', $view), $result); ?>]" >
                                     <?php echo element('item_mobile_skin_option', $result); ?>
                                 </select>
-                            </td>
+                            </td> -->
                             <td><input type="number" name="cit_order[<?php echo element(element('primary_key', $view), $result); ?>]" class="form-control" value="<?php echo html_escape(element('cit_order', $result)); ?>" /></td>
                             <td><input type="checkbox" name="cit_status[<?php echo element(element('primary_key', $view), $result); ?>]" value="1" <?php echo set_checkbox('cit_status', '1', (element('cit_status', $result) ? true : false)); ?> /></td>
                             <td class="text-right"><?php echo number_format(element('cit_sell_count', $result)); ?></td>

@@ -105,7 +105,7 @@
                             <div class="help-inline">정렬순서가 낮은 상품이 먼저 나옵니다</div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">PC 레이아웃/스킨</label>
                         <div class="col-sm-10 form-inline">
                             레이아웃 -
@@ -124,7 +124,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">모바일 레이아웃/스킨</label>
                         <div class="col-sm-10 form-inline">
                             레이아웃 -
@@ -150,6 +150,12 @@
                 </div>
                 <div class="collapse in" id="cmalltab3">
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">허위 판매가격</label>
+                        <div class="col-sm-10 form-inline">
+                            <input type="number" class="form-control" name="display_price" value="<?php echo set_value('display_price', element('display_price', element('data', $view))); ?>" /> 원
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">판매가격</label>
                         <div class="col-sm-10 form-inline">
                             <input type="number" class="form-control" name="cit_price" value="<?php echo set_value('cit_price', element('cit_price', element('data', $view))); ?>" /> 원
@@ -162,7 +168,7 @@
                             <div class="help-block">요약설명을 입력해주세요</div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">기본정보</label>
                         <div class="col-sm-10">
                             <?php for ($k= 1; $k<= 10; $k++) { ?>
@@ -173,23 +179,23 @@
                             <?php } ?>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">사용자데모</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="demo_user_link" value="<?php echo set_value('demo_user_link', element('demo_user_link', element('data', $view))); ?>" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">관리자데모</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="demo_admin_link" value="<?php echo set_value('demo_admin_link', element('demo_admin_link', element('data', $view))); ?>" />
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">상품유형</label>
                         <div class="col-sm-10">
                             <label for="cit_type1" class="checkbox-inline">
-                                <input type="checkbox" name="cit_type1" id="cit_type1" value="1" <?php echo set_checkbox('cit_type1', '1', (element('cit_type1', element('data', $view)) ? true : false)); ?> /> 추천
+                                <input type="checkbox" name="cit_type1" id="cit_type1" value="1" checked="checked" <?php echo set_checkbox('cit_type1', '1', (element('cit_type1', element('data', $view)) ? true : false)); ?> /> 추천
                             </label>
                             <label for="cit_type2" class="checkbox-inline">
                                 <input type="checkbox" name="cit_type2" id="cit_type2" value="1" <?php echo set_checkbox('cit_type2', '1', (element('cit_type2', element('data', $view)) ? true : false)); ?> /> 인기
@@ -212,14 +218,14 @@
                             <div class="help-inline" >체크를 해제하시면 상품 리스트에서 사라지며, 구매할 수 없습니다. </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">다운로드 가능기간</label>
                         <div class="col-sm-10 form-inline">
                             <input type="number" class="form-control" name="cit_download_days" value="<?php echo set_value('cit_download_days', element('cit_download_days', element('data', $view)) + 0); ?>" />일
                             <div class="help-inline" >해당기간동안 계속 다운로드 받을 수 있습니다. 0 이면 기간제한 없이 한번 결제후 언제든지 다운로드가 가능합니다</div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">판매자 회원아이디</label>
                         <div class="col-sm-10 form-inline">
                             <input type="text" class="form-control" name="seller_mem_userid" value="<?php echo set_value('seller_mem_userid', element('seller_mem_userid', element('data', $view))); ?>" />
@@ -237,7 +243,7 @@
                             <?php echo display_dhtml_editor('cit_content', set_value('cit_content', element('cit_content', element('data', $view))), $classname = 'form-control dhtmleditor', $is_dhtml_editor = $this->cmallconfig->item('use_cmall_product_dhtml'), $editor_type = $this->cmallconfig->item('cmall_product_editor_type')); ?>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                         <label class="col-sm-2 control-label">모바일내용</label>
                         <div class="col-sm-10">
                             <?php echo display_dhtml_editor('cit_mobile_content', set_value('cit_mobile_content', element('cit_mobile_content', element('data', $view))), $classname = 'form-control dhtmleditor', $is_dhtml_editor = $this->cmallconfig->item('use_cmall_product_dhtml'), $editor_type = $this->cmallconfig->item('cmall_product_editor_type')); ?>
@@ -245,11 +251,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="box-table-header">
+                <div class="box-table-header" style="display:none">
                     <h4><a data-toggle="collapse" href="#cmalltab5" aria-expanded="true" aria-controls="cmalltab5">상품옵션</a></h4>
                     <a data-toggle="collapse" href="#cmalltab5" aria-expanded="true" aria-controls="cmalltab5"><i class="fa fa-chevron-up pull-right"></i></a>
                 </div>
-                <div class="collapse in" id="cmalltab5">
+                <div class="collapse in" id="cmalltab5" style="display:none">
                     <div class="table-responsive">
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
@@ -261,6 +267,7 @@
                                 </tr>
                             </thead>
                             <tbody id="item_option_wrap">
+                                
                             <?php
                             if (element('item_detail', element('data', $view))) {
                                 foreach (element('item_detail', element('data', $view)) as $detail) {
@@ -278,6 +285,12 @@
                                 </tr>
                             <?php
                                 }
+                            } else {
+                                echo '<tr>
+                                    <td>
+                                        <input type="text" class="form-control" name="cde_title[]" value="Change quantity" /></td><td class="form-inline"><input type="file" class="form-control" name="cde_file[]" /></td><td><input type="number" class="form-control" name="cde_price[]" value="0" />원</td><td><input type="checkbox" name="cde_status[]" value="1" checked="checked" />
+                                    </td>
+                                </tr>';
                             }
                             ?>
                             </tbody>
@@ -315,11 +328,11 @@
                     </div>
                 <?php } ?>
                 </div>
-                <div class="box-table-header">
+                <div class="box-table-header" style="display: none">
                     <h4><a data-toggle="collapse" href="#cmalltab4" aria-expanded="true" aria-controls="cmalltab4">상/하단 내용</a></h4>
                     <a data-toggle="collapse" href="#cmalltab4" aria-expanded="true" aria-controls="cmalltab4"><i class="fa fa-chevron-up pull-right"></i></a>
                 </div>
-                <div class="collapse in" id="cmalltab4">
+                <div class="collapse in" id="cmalltab4" style="display: none">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">일반 상단 내용</label>
                         <div class="col-sm-10">
@@ -409,17 +422,17 @@ jQuery(function($) {
                 }
             });
 
-            if(option_count == 0) {
-                alert("상품옵션을 하나이상 입력해 주십시오.");
-                $("#cmalltab5").focus();
-                return false;
-            }
+            // if(option_count == 0) {
+            //     alert("상품옵션을 하나이상 입력해 주십시오.");
+            //     $("#cmalltab5").focus();
+            //     return false;
+            // }
 
-            if(option_count > 0 && (option_file == 0 || option_count > option_file)) {
-                alert("입력하신 상품옵션의 파일을 업로드해 주십시오.");
-                $("#cmalltab5").focus();
-                return false;
-            }
+            // if(option_count > 0 && (option_file == 0 || option_count > option_file)) {
+            //     alert("입력하신 상품옵션의 파일을 업로드해 주십시오.");
+            //     $("#cmalltab5").focus();
+            //     return false;
+            // }
 
             form.submit();
         }

@@ -60,7 +60,7 @@ class Cmall extends CB_Controller
 
         $config = array(
             'cit_type1' => '1',
-            'limit' => '4',
+            // 'limit' => '4',
         );
         $view['view']['type1'] = $this->Cmall_item_model->get_latest($config);
 
@@ -305,10 +305,10 @@ class Cmall extends CB_Controller
         );
 
         if ($this->input->post('stype')) {
-            if ( ! $mem_id) {
+            if ( !$mem_id && $this->input->post('stype') !== 'cart') {
                 $this->session->set_flashdata(
                     'message',
-                    '로그인 후 이용이 가능합니다'
+                    'Available after login'
                 );
                 redirect('login?url=' . urlencode(current_full_url()));
             }
@@ -331,9 +331,13 @@ class Cmall extends CB_Controller
                     $mem_id,
                     $cit_id,
                     $this->input->post('chk_detail'),
-                    $this->input->post('detail_qty')
+                    $this->input->post('detail_qty'),
+                    $_COOKIE[config_item('sess_cookie_name')]
                 );
-                if ($return) {
+                if($this->input->post('chk_referer')==='index'){
+                    redirect('cmall');
+                }
+                if ($this->input->post('chk_referer')==='cart') {
                     redirect('cmall/cart');
                 }
             } elseif ($this->input->post('stype') === 'order'
@@ -344,13 +348,15 @@ class Cmall extends CB_Controller
                     $mem_id,
                     $cit_id,
                     $this->input->post('chk_detail'),
-                    $this->input->post('detail_qty')
+                    $this->input->post('detail_qty'),
+                    $_COOKIE[config_item('sess_cookie_name')]
                 );
                 if ($return) {
                     redirect('cmall/order');
                 }
             }
         }
+
 
         if ( ! $this->session->userdata('cmall_item_id_' . element('cit_id', $data))) {
             $this->Cmall_item_model->update_hit(element('cit_id', $data));
@@ -477,7 +483,7 @@ class Cmall extends CB_Controller
         }
 
         if ($this->member->is_member() === false) {
-            show_404();
+            // show_404();
         }
         $mem_id = (int) $this->member->item('mem_id');
 
@@ -492,7 +498,7 @@ class Cmall extends CB_Controller
         if ($detail) {
             foreach ($detail as $key => $value) {
                 $detail[$key]['cart'] = $this->Cmall_cart_model
-                    ->get_item_is_cart(element('cde_id', $value), $mem_id);
+                    ->get_item_is_cart(element('cde_id', $value), $mem_id,$_COOKIE[config_item('sess_cookie_name')]);
             }
         }
 
@@ -586,13 +592,16 @@ class Cmall extends CB_Controller
         $eventname = 'event_cmall_cart';
         $this->load->event($eventname);
 
+        $session_id='';
+        if(!empty($_COOKIE[config_item('sess_cookie_name')])) $session_id = $_COOKIE[config_item('sess_cookie_name')];
+
         /**
          * 로그인이 필요한 페이지입니다
          */
-        required_user_login();
+        // required_user_login();
 
         $mem_id = (int) $this->member->item('mem_id');
-
+        
         $view = array();
         $view['view'] = array();
 
@@ -605,7 +614,8 @@ class Cmall extends CB_Controller
             $cit_id = $this->input->post('chk');
             $return = $this->cmalllib->cart_to_order(
                 $mem_id,
-                $cit_id
+                $cit_id,
+                $_COOKIE[config_item('sess_cookie_name')]
             );
             if ($return) {
                 redirect('cmall/order');
@@ -638,16 +648,21 @@ class Cmall extends CB_Controller
          */
         $where = array();
         $where['cmall_cart.mem_id'] = $mem_id;
+        
+        if(!empty($session_id)) $where['cmall_cart.session_id'] = $session_id;
+        
+
         $result = $this->Cmall_cart_model->get_cart_list($where, $findex, $forder);
         if ($result) {
             foreach ($result as $key => $val) {
                 $result[$key]['item_url'] = cmall_item_url(element('cit_key', $val));
                 $result[$key]['detail'] = $this->Cmall_cart_model
-                    ->get_cart_detail($mem_id, element('cit_id', $val));
+                    ->get_cart_detail($mem_id, element('cit_id', $val),$session_id);
+                $result[$key]['list_delete_url'] = site_url('cmallact/cart_delete/'.element('cit_id', $val).'?' . $param->output());
             }
         }
         $view['view']['data'] = $result;
-        $view['view']['list_delete_url'] = site_url('cmallact/cart_delete/?' . $param->output());
+        
 
         // 이벤트가 존재하면 실행합니다
         $view['view']['event']['before_layout'] = Events::trigger('before_layout', $eventname);
@@ -1379,9 +1394,13 @@ class Cmall extends CB_Controller
         $this->load->model(array('Cmall_item_model', 'Cmall_order_model', 'Cmall_order_detail_model'));
         $res = $this->Cmall_order_model->insert($insertdata);
         if ($res) {
+            $session_id='';
+            if(!empty($_COOKIE[config_item('sess_cookie_name')])) $session_id = $_COOKIE[config_item('sess_cookie_name')];
+
             $cwhere = array(
                 'mem_id' => $mem_id,
                 'cct_order' => 1,
+                'ssesion_id' => $session_id,
             );
             $cartorder = $this->Cmall_cart_model->get('', '', $cwhere);
             if ($cartorder) {
@@ -1448,7 +1467,7 @@ class Cmall extends CB_Controller
     }
 
 
-    public function orderlist()
+    public function orderlist($month=3)
     {
         // 이벤트 라이브러리를 로딩합니다
         $eventname = 'event_cmall_orderlist';
@@ -1481,8 +1500,12 @@ class Cmall extends CB_Controller
          * 게시판 목록에 필요한 정보를 가져옵니다.
          */
         $where = array();
-        $where['mem_id'] = $this->member->item('mem_id');
+        $where['cmall_order.mem_id'] = $this->member->item('mem_id');
 
+
+        $criterion = cdate('Y-m-d 00:00:00', strtotime(-$month. ' month'));
+
+        $where['cmall_order.cor_datetime>='] = $criterion;
         $result = $this->Cmall_order_model
             ->get_list($per_page, $offset, $where, '', $findex, $forder);
         $list_num = $result['total_rows'] - ($page - 1) * $per_page;

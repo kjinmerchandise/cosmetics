@@ -377,7 +377,7 @@ class Attendance extends CB_Controller
         if ($this->member->is_member() === false) {
             $this->form_validation->set_message(
                 '_check_attendance',
-                '로그인 후 이용이 가능합니다'
+                'Available after login'
             );
             return false;
         }

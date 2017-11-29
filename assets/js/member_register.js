@@ -13,13 +13,21 @@
             success : function(data) {
                 if (data.result === 'available'){
                     response = true;
+                    if ($('#mem_userid-error').length) {
+                        $("#mem_userid-error").remove();
+                        $("#mem_userid").after('<label id="mem_userid-error" class="error" for="mem_userid">'+data.reason+'</label>');
+                    } else {
+                        $("#mem_userid").after('<label id="mem_userid-error" class="error" for="mem_userid">'+data.reason+'</label>');
+                    }
+                    
                 } else {
                     response = false;
+                    $.validator.messages.is_userid_available = data.reason;
                 }
             }
         });
         return response;
-    }, '이 아이디는 사용하실 수 없습니다');
+    }, $.validator.messages.is_userid_available);
 
 
     $.validator.addMethod('is_email_available', function(value, element) {
@@ -36,13 +44,20 @@
             success : function(data) {
                 if (data.result === 'available'){
                     response = true;
+                    if ($('#mem_email-error').length) {
+                        $("#mem_email-error").remove();
+                        $("#mem_email").after('<label id="mem_email-error" class="error" for="mem_email">'+data.reason+'</label>');
+                    } else {
+                        $("#mem_email").after('<label id="mem_email-error" class="error" for="mem_email">'+data.reason+'</label>');
+                    }
                 } else {
                     response = false;
+                    $.validator.messages.is_email_available = data.reason;
                 }
             }
         });
         return response;
-    }, '이 이메일은 사용하실 수 없습니다');
+    }, $.validator.messages.is_email_available);
 
 
     $.validator.addMethod('is_password_available', function(value, element) {
@@ -59,13 +74,15 @@
             success : function(data) {
                 if (data.result === 'available'){
                     response = true;
+                    $.validator.messages.is_password_available = data.reason;
                 } else {
                     response = false;
+                    $.validator.messages.is_password_available = data.reason;
                 }
             }
         });
         return response;
-    }, '이 패스워드는 사용하실 수 없습니다');
+    }, $.validator.messages.is_password_available);
 
 
     $.validator.addMethod('is_nickname_available', function(value, element) {
@@ -82,11 +99,18 @@
             success : function(data) {
                 if (data.result === 'available'){
                     response = true;
+                    if ($('#mem_nickname-error').length) {
+                        $("#mem_nickname-error").remove();
+                        $("#mem_nickname").after('<label id="mem_nickname-error" class="error" for="mem_nickname">'+data.reason+'</label>');
+                    } else {
+                        $("#mem_nickname").after('<label id="mem_nickname-error" class="error" for="mem_nickname">'+data.reason+'</label>');
+                    }                    
                 } else {
                     response = false;
+                    $.validator.messages.is_nickname_available = data.reason;
                 }
             }
         });
         return response;
-    }, '이 닉네임은 사용하실 수 없습니다');
+    }, $.validator.messages.is_nickname_available);
 

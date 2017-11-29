@@ -5,51 +5,36 @@ $attributes = array('class' => 'form-inline', 'name' => 'foption', 'id' => 'fopt
 echo form_open(site_url('cmallact/optionupdate'), $attributes);
 ?>
     <input type="hidden" name="cit_id" value="<?php echo element('cit_id', element('item', $view)); ?>" />
-    <div class="popup-cart">
-        <p>상품옵션</p>
-        <div class="product-option table-responsive">
-            <table class="table table-bordered">
-                <tbody>
-                    <tr class="warning">
-                        <th>옵션</th>
-                        <th><input type="checkbox" id="chk_all_item" /></th>
-                        <th>수량</th>
-                        <th>판매가</th>
-                    </tr>
-                    <?php
-                    if (element('detail', $view)) {
-                        foreach (element('detail', $view) as $key => $value) {
-                            $price = element('cit_price', element('item', $view)) + element('cde_price', $value);
-                    ?>
-                        <tr>
-                            <td><?php echo html_escape(element('cde_title', $value)); ?></td>
-                            <td><input type="checkbox" name="chk_detail[]" value="<?php echo element('cde_id', $value); ?>" <?php echo (element('cct_id', element('cart', $value))) ? 'checked="checked" ' : '';?> /></td>
-                            <td>
-                                <div class="btn-group" role="group" aria-label="...">
-                                    <button type="button" class="btn btn-default btn-xs btn-change-qty" data-change-type="minus">-</button>
-                                    <input type="text" name="detail_qty[<?php echo element('cde_id', $value); ?>]" class="btn btn-default btn-xs detail_qty" value="<?php echo element('cct_count', element('cart', $value)) ? element('cct_count', element('cart', $value)) : 1; ?>" />
-                                    <button type="button" class="btn btn-default btn-xs btn-change-qty" data-change-type="plus">+</button>
-                                </div>
-                            </td>
-                            <td>
-                                <input type="hidden" name="item_price[<?php echo element('cde_id', $value); ?>]" value="<?php echo $price; ?>" />
-                                <?php echo number_format($price); ?>
-                            </td>
-                        </tr>
-                    <?php
-                        }
-                    }
-                    ?>
-                </tbody>
-            </table>
-            <div class="pull-right mb20">
-                총 구매금액 <span class="product-title"><span id="total_order_price">0</span>원</span>
+    <div class="change_quantity">
+        <?php
+        if (element('detail', $view)) {
+            foreach (element('detail', $view) as $key => $value) {
+                $price = element('cit_price', element('item', $view)) + element('cde_price', $value);
+        ?>
+            <input type="hidden" name="chk_detail[]" value="<?php echo element('cde_id', $value); ?>" />
+            <input type="hidden" name="item_price[<?php echo element('cde_id', $value); ?>]" value="<?php echo $price; ?>" />
+            <h3>
+                <?php echo html_escape(element('cde_title', $value)); ?>
+                <span>
+                    <img id="mod_option_close" src="<?php echo base_url('assets/images/clear.png') ?>" alt="clear">
+                </span>
+            </h3>
+            <div class="quantity">
+                <span class="btn-change-qty" data-change-type="minus">-</span>
+                <input type="text" name="detail_qty[<?php echo element('cde_id', $value); ?>]"  style="border:0px;" value="<?php echo element('cct_count', element('cart', $value)) ? element('cct_count', element('cart', $value)) : 1; ?>" />
+                <span class="btn-change-qty" data-change-type="plus">+</span>
             </div>
-        </div>
-        <div class="form-group textcenter">
-            <button type="submit" class="btn btn-success btn-sm">선택사항적용</button> <button type="button" class="btn btn-default btn-sm" id="mod_option_close">취소</button>
-        </div>
-    </div>
+
+                
+            
+        <?php
+            }
+        }
+        ?>
+    
+        <button type="submit" class="">Change Completed</button>
+    
+</div>
 <?php echo form_close(); ?>
 
 <script type="text/javascript">
@@ -60,7 +45,7 @@ item_price_calculate();
 
 function fcart_submit(f)
 {
-    var $el_chk = $('input[name^=chk_detail]:checked');
+    var $el_chk = $('input[name^=chk_detail]');
 
     if ($el_chk.size() < 1) {
         alert('상품의 옵션을 하나이상 선택해 주십시오.');

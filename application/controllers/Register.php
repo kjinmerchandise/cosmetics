@@ -107,11 +107,11 @@ class Register extends CB_Controller
                 'label' => '회원가입약관',
                 'rules' => 'trim|required',
             ),
-            array(
-                'field' => 'agree2',
-                'label' => '개인정보취급방침',
-                'rules' => 'trim|required',
-            ),
+            // array(
+            //     'field' => 'agree2',
+            //     'label' => '개인정보취급방침',
+            //     'rules' => 'trim|required',
+            // ),
         );
         $this->form_validation->set_rules($config);
 
@@ -290,12 +290,13 @@ class Register extends CB_Controller
 
         $configbasic['mem_userid'] = array(
             'field' => 'mem_userid',
-            'label' => '아이디',
-            'rules' => 'trim|required|alphanumunder|min_length[3]|max_length[20]|is_unique[member_userid.mem_userid]|callback__mem_userid_check',
-            'description' => '영문자, 숫자, _ 만 입력 가능. 최소 3자이상 입력하세요',
+            'label' => 'ID',
+            'rules' => 'trim|required|alphanumunder|min_length[4]|max_length[20]|is_unique[member_userid.mem_userid]|callback__mem_userid_check',
+            'description' => 'Only alphabetic characters, numbers, and _ can be entered. Please enter at least 4 characters',
         );
 
-        $password_description = '비밀번호는 ' . $password_length . '자리 이상이어야 ';
+
+        $password_description = 'Password must be at least ' . $password_length . ' digit ';
         if ($this->cbconfig->item('password_uppercase_length')
             OR $this->cbconfig->item('password_numbers_length')
             OR $this->cbconfig->item('password_specialchars_length')) {
@@ -312,17 +313,17 @@ class Register extends CB_Controller
             }
             $password_description .= '를 포함해야 ';
         }
-        $password_description .= '합니다';
+        $password_description .= '';
 
         $configbasic['mem_password'] = array(
             'field' => 'mem_password',
-            'label' => '패스워드',
+            'label' => 'password',
             'rules' => 'trim|required|min_length[' . $password_length . ']|callback__mem_password_check',
             'description' => $password_description,
         );
         $configbasic['mem_password_re'] = array(
             'field' => 'mem_password_re',
-            'label' => '패스워드 확인',
+            'label' => 'password',
             'rules' => 'trim|required|min_length[' . $password_length . ']|matches[mem_password]',
         );
         if ( ! $selfcert_username) {
@@ -334,13 +335,13 @@ class Register extends CB_Controller
         }
         $configbasic['mem_nickname'] = array(
             'field' => 'mem_nickname',
-            'label' => '닉네임',
+            'label' => 'nickname',
             'rules' => 'trim|required|min_length[2]|max_length[20]|callback__mem_nickname_check',
             'description' => '공백없이 한글, 영문, 숫자만 입력 가능 2글자 이상' . $nickname_description,
         );
         $configbasic['mem_email'] = array(
             'field' => 'mem_email',
-            'label' => '이메일',
+            'label' => 'email',
             'rules' => 'trim|required|valid_email|max_length[50]|is_unique[member.mem_email]|callback__mem_email_check',
             'description' => $email_description,
         );
@@ -352,8 +353,8 @@ class Register extends CB_Controller
         if ( ! $selfcert_phone) {
             $configbasic['mem_phone'] = array(
                 'field' => 'mem_phone',
-                'label' => '전화번호',
-                'rules' => 'trim|valid_phone',
+                'label' => 'phone',
+                'rules' => 'trim',
             );
         }
         if ( ! $selfcert_birthday) {
@@ -377,7 +378,7 @@ class Register extends CB_Controller
         );
         $configbasic['mem_address1'] = array(
             'field' => 'mem_address1',
-            'label' => '기본주소',
+            'label' => 'address',
             'rules' => 'trim',
         );
         $configbasic['mem_address2'] = array(
@@ -461,7 +462,7 @@ class Register extends CB_Controller
 
                     if ($key === 'mem_address') {
                         if (element('required', $value) === '1') {
-                            $configbasic['mem_zipcode']['rules'] = $configbasic['mem_zipcode']['rules'] . '|required';
+                            // $configbasic['mem_zipcode']['rules'] = $configbasic['mem_zipcode']['rules'] . '|required';
                         }
                         $config[] = $configbasic['mem_zipcode'];
                         if (element('required', $value) === '1') {
@@ -469,7 +470,7 @@ class Register extends CB_Controller
                         }
                         $config[] = $configbasic['mem_address1'];
                         if (element('required', $value) === '1') {
-                            $configbasic['mem_address2']['rules'] = $configbasic['mem_address2']['rules'] . '|required';
+                            // $configbasic['mem_address2']['rules'] = $configbasic['mem_address2']['rules'] . '|required';
                         }
                         $config[] = $configbasic['mem_address2'];
                     } else {
@@ -477,7 +478,7 @@ class Register extends CB_Controller
                             $configbasic[$value['field_name']]['rules'] = $configbasic[$value['field_name']]['rules'] . '|required';
                         }
                         if (element('field_type', $value) === 'phone') {
-                            $configbasic[$value['field_name']]['rules'] = $configbasic[$value['field_name']]['rules'] . '|valid_phone';
+                            // $configbasic[$value['field_name']]['rules'] = $configbasic[$value['field_name']]['rules'] . '|valid_phone';
                         }
                         $config[] = $configbasic[$value['field_name']];
                         if ($key === 'mem_password') {
@@ -510,11 +511,11 @@ class Register extends CB_Controller
                 'rules' => 'trim|required|callback__check_recaptcha',
             );
         } else {
-            $config[] = array(
-                'field' => 'captcha_key',
-                'label' => '자동등록방지문자',
-                'rules' => 'trim|required|callback__check_captcha',
-            );
+            // $config[] = array(
+            //     'field' => 'captcha_key',
+            //     'label' => '자동등록방지문자',
+            //     'rules' => 'trim|required|callback__check_captcha',
+            // );
         }
         $this->form_validation->set_rules($config);
 
@@ -721,25 +722,11 @@ class Register extends CB_Controller
                         $html_content[$k]['input'] .= '</div>';
                     } elseif (element('field_name', $value) === 'mem_address') {
                         $html_content[$k]['input'] .= '
-                            <label for="mem_zipcode">우편번호</label>
-                            <label>
-                                <input type="text" name="mem_zipcode" value="' . set_value('mem_zipcode') . '" id="mem_zipcode" class="form-control input" size="7" maxlength="7" ' . $required . '/>
-                            </label>
-                            <label>
-                                <button type="button" class="btn btn-black btn-sm" style="margin-top:0px;" onclick="win_zip(\'fregisterform\', \'mem_zipcode\', \'mem_address1\', \'mem_address2\', \'mem_address3\', \'mem_address4\');">주소 검색</button>
-                            </label>
-                            <div class="addr-line mt10">
-                                <label for="mem_address1">기본주소</label>
-                                <input type="text" name="mem_address1" value="' . set_value('mem_address1') . '" id="mem_address1" class="form-control input" placeholder="기본주소" ' . $required . ' />
-                            </div>
-                            <div class="addr-line mt10">
-                                <label for="mem_address2">상세주소</label>
-                                <input type="text" name="mem_address2" value="' . set_value('mem_address2') . '" id="mem_address2" class="form-control input" placeholder="상세주소" ' . $required . ' />
-                            </div>
-                            <div class="addr-line mt10">
-                                <label for="mem_address3">참고항목</label>
-                                <input type="text" name="mem_address3" value="' . set_value('mem_address3') . '" id="mem_address3" class="form-control input" readonly="readonly" placeholder="참고항목" />
-                            </div>
+                            
+                            
+                                <input type="text" name="mem_address1" value="' . set_value('mem_address1') . '" id="mem_address1" class="form-control input"  ' . $required . ' />
+                            
+                            
                             <input type="hidden" name="mem_address4" value="' . set_value('mem_address4') . '" />
                         ';
                     } elseif (element('field_name', $value) === 'mem_password') {
@@ -753,7 +740,7 @@ class Register extends CB_Controller
                     if (element('field_name', $value) === 'mem_password') {
                         $k++;
                         $html_content[$k]['field_name'] = 'mem_password_re';
-                        $html_content[$k]['display_name'] = '비밀번호 확인';
+                        $html_content[$k]['display_name'] = 'password confirm';
                         $html_content[$k]['input'] = '<input type="password" id="mem_password_re" name="mem_password_re" class="form-control input" minlength="' . $password_length . '" />';
                     }
                     $k++;
@@ -1267,9 +1254,31 @@ class Register extends CB_Controller
                 }
             }
 
+            
+
+            $this->session->set_flashdata(
+                'userid',
+                $this->input->post('mem_userid')
+            );
+
+            $this->session->set_flashdata(
+                'email',
+                $this->input->post('mem_email')
+            );
+
+            $this->session->set_flashdata(
+                'phone',
+                $this->input->post('mem_phone')
+            );
+
             $this->session->set_flashdata(
                 'nickname',
                 $this->input->post('mem_nickname')
+            );
+
+            $this->session->set_flashdata(
+                'address',
+                $this->input->post('mem_address1')
             );
 
             if ( ! $this->cbconfig->item('use_register_email_auth')) {
@@ -1300,6 +1309,7 @@ class Register extends CB_Controller
         // 이벤트가 존재하면 실행합니다
         $view['view']['event']['before'] = Events::trigger('before', $eventname);
 
+        $this->session->keep_flashdata('nickname');
         $this->session->keep_flashdata('nickname');
         $this->session->keep_flashdata('email_auth_message');
 
@@ -1358,7 +1368,7 @@ class Register extends CB_Controller
         if (empty($userid)) {
             $result = array(
                 'result' => 'no',
-                'reason' => '아이디값이 넘어오지 않았습니다',
+                'reason' => 'ID value is not exceeded',
             );
             exit(json_encode($result));
         }
@@ -1366,7 +1376,7 @@ class Register extends CB_Controller
         if ( ! preg_match("/^([a-z0-9_])+$/i", $userid)) {
             $result = array(
                 'result' => 'no',
-                'reason' => '아이디는 숫자, 알파벳, _ 만 입력가능합니다',
+                'reason' => 'ID can only be entered in numbers, alphabets, and _',
             );
             exit(json_encode($result));
         }
@@ -1378,7 +1388,7 @@ class Register extends CB_Controller
         if ($count > 0) {
             $result = array(
                 'result' => 'no',
-                'reason' => '이미 사용중인 아이디입니다',
+                'reason' => 'This ID is already taken',
             );
             exit(json_encode($result));
         }
@@ -1386,7 +1396,7 @@ class Register extends CB_Controller
         if ($this->_mem_userid_check($userid) === false) {
             $result = array(
                 'result' => 'no',
-                'reason' => $userid . '은(는) 예약어로 사용하실 수 없는 회원아이디입니다',
+                'reason' => $userid . ' A member ID that can not be used as a reserved word',
             );
             exit(json_encode($result));
         }
@@ -1396,7 +1406,7 @@ class Register extends CB_Controller
 
         $result = array(
             'result' => 'available',
-            'reason' => '사용 가능한 아이디입니다',
+            'reason' => 'Username is available',
         );
         exit(json_encode($result));
     }
@@ -1418,7 +1428,7 @@ class Register extends CB_Controller
         if (empty($email)) {
             $result = array(
                 'result' => 'no',
-                'reason' => '이메일값이 넘어오지 않았습니다',
+                'reason' => 'Email value is not passed',
             );
             exit(json_encode($result));
         }
@@ -1427,7 +1437,7 @@ class Register extends CB_Controller
             && $this->member->item('mem_email') === $email) {
             $result = array(
                 'result' => 'available',
-                'reason' => '사용 가능한 이메일입니다',
+                'reason' => 'Email available',
             );
             exit(json_encode($result));
         }
@@ -1439,7 +1449,7 @@ class Register extends CB_Controller
         if ($count > 0) {
             $result = array(
                 'result' => 'no',
-                'reason' => '이미 사용중인 이메일입니다',
+                'reason' => 'This email is already in use',
             );
             exit(json_encode($result));
         }
@@ -1447,7 +1457,7 @@ class Register extends CB_Controller
         if ($this->_mem_email_check($email) === false) {
             $result = array(
                 'result' => 'no',
-                'reason' => $email . '은(는) 예약어로 사용하실 수 없는 이메일입니다',
+                'reason' => $email . ' You can not use this as a reserved word.',
             );
             exit(json_encode($result));
         }
@@ -1457,7 +1467,7 @@ class Register extends CB_Controller
 
         $result = array(
             'result' => 'available',
-            'reason' => '사용 가능한 이메일입니다',
+            'reason' => 'Email available',
         );
         exit(json_encode($result));
     }
@@ -1479,7 +1489,7 @@ class Register extends CB_Controller
         if (empty($password)) {
             $result = array(
                 'result' => 'no',
-                'reason' => '패스워드값이 넘어오지 않았습니다',
+                'reason' => 'The password value has not been exceeded',
             );
             exit(json_encode($result));
         }
@@ -1487,14 +1497,14 @@ class Register extends CB_Controller
         if ($this->_mem_password_check($password) === false) {
             $result = array(
                 'result' => 'no',
-                'reason' => '패스워드는 최소 1개 이상의 숫자를 포함해야 합니다',
+                'reason' => 'The password must contain at least one number',
             );
             exit(json_encode($result));
         }
 
         $result = array(
             'result' => 'available',
-            'reason' => '사용 가능한 패스워드입니다',
+            'reason' => 'Available password',
         );
         exit(json_encode($result));
     }
@@ -1566,7 +1576,7 @@ class Register extends CB_Controller
         if (preg_match("/[\,]?{$str}/i", $this->cbconfig->item('denied_userid_list'))) {
             $this->form_validation->set_message(
                 '_mem_userid_check',
-                $str . ' 은(는) 예약어로 사용하실 수 없는 회원아이디입니다'
+                $str . ' A member ID that can not be used as a reserved word'
             );
             return false;
         }
@@ -1638,7 +1648,7 @@ class Register extends CB_Controller
         if (in_array($emaildomain, $denied_list)) {
             $this->form_validation->set_message(
                 '_mem_email_check',
-                $emaildomain . ' 은(는) 사용하실 수 없는 이메일입니다'
+                $emaildomain . ' You can not use this email'
             );
             return false;
         }
@@ -1665,7 +1675,7 @@ class Register extends CB_Controller
         if ($row === 0) {
             $this->form_validation->set_message(
                 '_mem_recommend_check',
-                $str . ' 는 존재하지 않는 추천인 회원아이디입니다'
+                $str . ' A non-existent referral member ID'
             );
             return false;
         }

@@ -83,10 +83,11 @@ class Cmalllib extends CI_Controller
     }
 
 
-    public function addcart($mem_id = 0, $cit_id = 0, $detail_array = '', $qty_array = '')
+    public function addcart($mem_id = 0, $cit_id = 0, $detail_array = '', $qty_array = '', $session_id = '')
     {
+
         $mem_id = (int) $mem_id;
-        if (empty($mem_id) OR $mem_id < 1) {
+        if (empty($mem_id) && empty($session_id)) {
             return;
         }
         $cit_id = (int) $cit_id;
@@ -99,15 +100,26 @@ class Cmalllib extends CI_Controller
 
         $this->CI->load->model(array('Cmall_cart_model', 'Cmall_item_detail_model'));
 
+        
+
         $deletewhere = array(
-            'mem_id' => $mem_id,
+       
             'cit_id' => $cit_id,
             'cct_cart' => 1,
-        );
+       
+        );    
+        
+        
+        if(empty($mem_id))
+            $deletewhere['session_id'] = $session_id;
+        else 
+            $deletewhere['mem_id'] = $mem_id;
+        
         $this->CI->Cmall_cart_model->delete_where($deletewhere);
 
         if ($detail_array && is_array($detail_array)) {
             foreach ($detail_array as $cde_id) {
+
                 $detail = $this->CI->Cmall_item_detail_model->get_one($cde_id, 'cit_id');
                 if ( ! element('cit_id', $detail) OR (int) element('cit_id', $detail) !== $cit_id) {
                     return;
@@ -125,6 +137,7 @@ class Cmalllib extends CI_Controller
                     'cct_cart' => 1,
                     'cct_datetime' => cdate('Y-m-d H:i:s'),
                     'cct_ip' => $this->CI->input->ip_address(),
+                    'session_id' => $session_id,
                 );
                 $cct_id = $this->CI->Cmall_cart_model->insert($insertdata);
             }
@@ -133,10 +146,10 @@ class Cmalllib extends CI_Controller
     }
 
 
-    public function addorder($mem_id = 0, $cit_id = 0, $detail_array = '', $qty_array = '')
+    public function addorder($mem_id = 0, $cit_id = 0, $detail_array = '', $qty_array = '', $session_id = '')
     {
         $mem_id = (int) $mem_id;
-        if (empty($mem_id) OR $mem_id < 1) {
+        if (empty($mem_id) && empty($session_id)) {
             return;
         }
         $cit_id = (int) $cit_id;
@@ -150,9 +163,15 @@ class Cmalllib extends CI_Controller
         $this->CI->load->model(array('Cmall_cart_model', 'Cmall_item_detail_model'));
 
         $deletewhere = array(
-            'mem_id' => $mem_id,
+            
             'cct_order' => 1,
         );
+
+        if(empty($mem_id))
+            $deletewhere['session_id'] = $session_id;
+        else 
+            $deletewhere['mem_id'] = $mem_id;
+
         $this->CI->Cmall_cart_model->delete_where($deletewhere);
 
         if ($detail_array && is_array($detail_array)) {
@@ -174,6 +193,7 @@ class Cmalllib extends CI_Controller
                     'cct_order' => 1,
                     'cct_datetime' => cdate('Y-m-d H:i:s'),
                     'cct_ip' => $this->CI->input->ip_address(),
+                    'session_id' => $session_id,
                 );
                 $cct_id = $this->CI->Cmall_cart_model->insert($insertdata);
             }
@@ -182,10 +202,10 @@ class Cmalllib extends CI_Controller
     }
 
 
-    public function cart_to_order($mem_id = 0, $cit_id_array = '')
+    public function cart_to_order($mem_id = 0, $cit_id_array = '', $session_id = '')
     {
         $mem_id = (int) $mem_id;
-        if (empty($mem_id) OR $mem_id < 1) {
+        if (empty($mem_id) && empty($session_id)) {
             return;
         }
         if (empty($cit_id_array)) {
@@ -195,17 +215,27 @@ class Cmalllib extends CI_Controller
         $this->CI->load->model(array('Cmall_cart_model'));
 
         $deletewhere = array(
-            'mem_id' => $mem_id,
+            
             'cct_order' => 1,
         );
+
+        if(empty($mem_id))
+            $deletewhere['session_id'] = $session_id;
+        else 
+            $deletewhere['mem_id'] = $mem_id;
+
         $this->CI->Cmall_cart_model->delete_where($deletewhere);
 
         if ($cit_id_array && is_array($cit_id_array)) {
             foreach ($cit_id_array as $cit_id) {
                 $where = array(
-                    'mem_id' => $mem_id,
+                    
                     'cit_id' => $cit_id,
                 );
+                if(empty($mem_id))
+                    $where['session_id'] = $session_id;
+                else 
+                    $where['mem_id'] = $mem_id;
                 $result = $this->CI->Cmall_cart_model->get('', '', $where);
                 if ($result) {
                     foreach ($result as $value) {
@@ -217,6 +247,7 @@ class Cmalllib extends CI_Controller
                             'cct_order' => 1,
                             'cct_datetime' => cdate('Y-m-d H:i:s'),
                             'cct_ip' => $this->CI->input->ip_address(),
+                            'session_id' => $session_id,
                         );
                         $cct_id = $this->CI->Cmall_cart_model->insert($insertdata);
                     }
@@ -1311,5 +1342,38 @@ class Cmalllib extends CI_Controller
             $receiver[] = $smssendlistuser;
             $smsresult = $this->CI->smslib->send($receiver, $sender, $content, $date = '', '컨텐츠몰');
         }
+    }
+
+    public function cart_to_cart($mem_id = 0, $session_id = '')
+    {
+        $mem_id = (int) $mem_id;
+        if (empty($mem_id) && empty($session_id)) {
+            return;
+        }
+        
+
+        $this->CI->load->model(array('Cmall_cart_model'));
+
+        
+
+       
+        
+
+        
+        
+        $where['session_id'] = $session_id;
+        
+        $result = $this->CI->Cmall_cart_model->get('', '', $where);
+        if ($result) {
+            foreach ($result as $value) {
+                $updatedata = array(
+                    'mem_id' => $mem_id,
+                );
+                $this->CI->Cmall_cart_model->update(element('cct_id',$value),$updatedata);
+            }
+        }
+
+
+        return true;
     }
 }

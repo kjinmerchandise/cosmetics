@@ -1,0 +1,228 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="css/import.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/js_com.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('.notice li > span').click(function(){
+			/*화살표 클릭시 공지사항 내용펼치기*/
+				if($(this).siblings('p').css('display') === 'none'){
+					$('p').slideUp();
+					$('.notice li > span').css('transform' , 'rotate(0deg)');
+					$(this).siblings('p').slideDown();
+					$(this).siblings('p').css('display' ,'inline-block');
+					$(this).css('transform' , 'rotate(180deg)');
+				}else{
+					$(this).siblings('p').slideUp();
+					$(this).css('transform' , 'rotate(0deg)');
+				}
+		});
+	});
+</script>
+
+</head>
+
+<body>
+<!-- ham 클릭시 화면 -->
+	<article class="top">
+		<div class="ham">
+			<section class="ham_menu">
+				<ul>
+					<li>
+						<button onclick="location.href='index04.html'">
+							LOGIN
+						</button>
+						<a href="index02.html">
+							<img src="./images/cart.png" alt="cart">
+						</a>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index09.html">
+								My Page
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index11.html">
+								Order Inquiry
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>SERVICE</h2>
+						<table>
+							<tr>
+								<td>
+								<a href="index12.html">
+									Notice
+										<span>
+											▶
+										</span>
+								</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="index13.html">
+										FAQ
+										<span>
+											▶
+										</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+
+					<li>
+						<h2>ABOUT ME</h2>
+						Call Center : 000.0000.0000
+
+					</li>
+				</ul>
+			</section>
+			<img src="./images/clear.png" alt="clear">
+		</div>
+	</article>
+
+<!-- 팝업창 배경 -->
+	<article class="cover">
+	</article>
+
+<!-- header -->
+	<header>
+		<h1>
+			<a href="index.html">
+				<img src="./images/logo.png" alt="logo">
+			</a>
+		</h1>
+				
+		<span><img src="./images/ham.png" alt="ham"></span>
+		<span><a href="index02.html"><img src="./images/cart.png" alt="cart"></a></span>
+	</header>
+
+<!--content -->
+	<article class="content02">
+		<!-- notice -->
+			<section class="notice service">
+				<!-- title -->
+					<h2>FAQ</h2>
+
+
+				<!-- FAQ 리스트 -->
+					<ul>
+						<li>
+							<h3>
+								As soon as you 
+							</h3>
+								
+							<span>▼</span>
+							
+							<p>
+								We will hold 
+							</p>
+						</li>
+
+						<li>
+							<h3>
+								As soon as you sign up for our Open Memorial event at our mall, you will receive 5000PHP points immediately available.
+							</h3>
+								
+							<span>▼</span>
+							
+							<p>
+								We will hold a new open event in our shopping mall.
+								We can meet various cheap, high quality Korean cosmetics at cheap price.
+								You will also earn 5,000 points when you sign up as an Open Memorial.
+							</p>
+						</li>
+
+						<li>
+							<h3>
+								As soon as you sign up for our Open Memorial event at our mall, you will receive 5000PHP points immediately available.
+							</h3>
+								
+							<span>▼</span>
+							
+							<p>
+								We will hold a new open event in our shopping mall.
+								We can meet various cheap, high quality Korean cosmetics at cheap price.
+								You will also earn 5,000 points when you sign up as an Open Memorial.
+							</p>
+						</li>
+
+						<li>
+							<h3>
+								As soon as you sign up for our Open Memorial event at our mall, you will receive 5000PHP points immediately available.
+							</h3>
+								
+							<span>▼</span>
+							
+							<p>
+								We will hold a new open event in our shopping mall.
+								We can meet various cheap, high quality Korean cosmetics at cheap price.
+								You will also earn 5,000 points when you sign up as an Open Memorial.
+							</p>
+						</li>
+					</ul>
+			</section>
+
+		<!-- 하단광고 -->
+			<section class="ad">
+				<img src="./images/bottom_banner.png" alt="bottom_banner">
+			</section>
+	</article>
+
+<!-- footer -->
+	<footer>
+		<h2>
+			ABOUT ME
+			<span>Call Center:000.0000.0000</span>
+		</h2>
+
+		<ul>
+			<li>
+					Confirm Terms of Use ▼
+			</li>
+			<li>
+					Chapter 1: General Provisions
+					Article 1 [Purpose)
+					The purpose of these Terms and Conditions
+					is to provide the terms and conditions
+					of use of all services provided by About
+					Me (hereinafter referred to as "Company")
+					at aboutmeshop.com (hereinafter referred to as "Service").
+
+					Article 2 (Definitions)
+					The terms used in these Terms and Conditions are as follows.
+					1. User: Member and non-member who receive services provided
+					by the Company in accordance with these Terms and Conditions.
+					2. Use Contract: Agreement between the Company and the User
+					regarding the use of the Service
+					3. Enrollment: Completing the service usage contract by filling
+					in the information on the application form provided by the company
+					and agreeing to these terms and conditions.
+					4. Member: Anyone who has registered for membership by providing
+					personal information necessary for membership on this site
+					5. User ID (ID): A combination of alphabetic and numeric
+					characters selected by the user and approved by the company
+					for member identification and member service use
+			</li>
+		</ul>
+
+		<p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+	</footer>
+</body>
+</html>

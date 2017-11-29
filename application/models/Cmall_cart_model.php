@@ -43,8 +43,10 @@ class Cmall_cart_model extends CB_Model
 
     public function get_cart_list($where = '', $findex = '', $forder = '', $limit = '')
     {
-        $this->db->select('cmall_cart.*, cmall_item.cit_name, cmall_item.cit_key, cmall_item.cit_file_1, cmall_item.cit_price');
+        $this->db->select('cmall_cart.*, cmall_item.cit_name, cmall_item.cit_key, cmall_item.cit_file_1, cmall_item.cit_price, cmall_item.cit_summary, cmall_category.cca_value');
         $this->db->join('cmall_item', 'cmall_cart.cit_id = cmall_item.cit_id', 'inner');
+        $this->db->join('cmall_category_rel', 'cmall_category_rel.cit_id = cmall_item.cit_id', 'inner');
+        $this->db->join('cmall_category', 'cmall_category_rel.cca_id = cmall_category.cca_id', 'inner');
         if ($where) {
             $this->db->where($where);
         }
@@ -61,10 +63,10 @@ class Cmall_cart_model extends CB_Model
     }
 
 
-    public function get_cart_detail($mem_id = 0, $cit_id = 0)
+    public function get_cart_detail($mem_id = 0, $cit_id = 0, $session_id = '')
     {
         $mem_id = (int) $mem_id;
-        if (empty($mem_id) OR $mem_id < 1) {
+        if (empty($mem_id) && empty($session_id) ) {
             return;
         }
         $cit_id = (int) $cit_id;
@@ -75,7 +77,11 @@ class Cmall_cart_model extends CB_Model
         $this->db->select('cmall_item_detail.*, cmall_cart.cct_count, cct_datetime');
         $this->db->join('cmall_item_detail', 'cmall_item_detail.cde_id = cmall_cart.cde_id', 'inner');
         $this->db->where(array('cmall_cart.cit_id' => $cit_id));
-        $this->db->where(array('cmall_cart.mem_id' => $mem_id));
+        $this->db->where(array('cmall_cart.session_id' => $session_id));
+
+        if (!empty($mem_id)) 
+            $this->db->where(array('cmall_cart.mem_id' => $mem_id));
+        
         $this->db->where(array('cmall_cart.cct_cart' => 1));
         $this->db->where(array('cmall_item_detail.cde_status' => 1));
         $this->db->order_by('cmall_item_detail.cde_id', 'asc');
@@ -88,8 +94,10 @@ class Cmall_cart_model extends CB_Model
 
     public function get_order_list($where = '', $findex = '', $forder = '', $limit = '')
     {
-        $this->db->select('cmall_cart.*, cmall_item.cit_name, cmall_item.cit_key, cmall_item.cit_file_1, cmall_item.cit_price, cmall_item.cit_download_days');
+        $this->db->select('cmall_cart.*, cmall_item.cit_name, cmall_item.cit_key, cmall_item.cit_file_1, cmall_item.cit_price, cmall_item.cit_download_days, cmall_item.cit_summary, cmall_item.display_price, cmall_category.cca_value');
         $this->db->join('cmall_item', 'cmall_cart.cit_id = cmall_item.cit_id', 'inner');
+        $this->db->join('cmall_category_rel', 'cmall_category_rel.cit_id = cmall_item.cit_id', 'inner');
+        $this->db->join('cmall_category', 'cmall_category_rel.cca_id = cmall_category.cca_id', 'inner');
         if ($where) {
             $this->db->where($where);
         }
@@ -148,21 +156,26 @@ class Cmall_cart_model extends CB_Model
     }
 
 
-    public function get_item_is_cart($cde_id = 0, $mem_id = 0)
+    public function get_item_is_cart($cde_id = 0, $mem_id = 0,$session_id='')
     {
         $cde_id = (int) $cde_id;
         if (empty($cde_id) OR $cde_id < 1) {
             return;
         }
         $mem_id = (int) $mem_id;
-        if (empty($mem_id) OR $mem_id < 1) {
+        if (empty($mem_id) && empty($session_id) ) {
             return;
         }
         $where = array(
             'cde_id' => $cde_id,
-            'mem_id' => $mem_id,
+            'session_id' => $session_id,
             'cct_cart' => 1,
         );
+
+        
+
+        if(!empty($mem_id)) $where['mem_id']=$mem_id;
+        
         $this->db->where($where);
         $this->db->order_by('cde_id', 'ASC');
         $qry = $this->db->get($this->_table);

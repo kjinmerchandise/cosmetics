@@ -43,7 +43,7 @@
                     <?php
                     if (element('result', element('data', $view))) {
                         foreach (element('result', element('data', $view)) as $key => $result) {
-                            if ( array_key_exists ($key, element('default_form', element('data', $view)))) {
+                            if (! array_key_exists ($key, element('default_form', element('data', $view)))) {
                     ?>
                         <div class="form-group list-group-item">
                             <div class="col-sm-1"><div class="fa fa-arrows" style="cursor:pointer;"></div><input type="hidden" name="key[<?php echo $key; ?>]" value="<?php echo $key; ?>" /><input type="hidden" name="basic[<?php echo $key; ?>]" value="<?php echo $key; ?>" /></div>

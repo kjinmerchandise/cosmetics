@@ -279,7 +279,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
                     $cor_pay_type = element('cor_pay_type', element('data', $view));
                     $cor_bank_info = element('cor_bank_info', element('data', $view));
-
+                    $bank_account='';
                     if ( in_array($cor_pay_type, array('vbank', 'bank', 'realtime')) ) { ########## 시작
 
                         if ($cor_pay_type === 'bank')   //무통장

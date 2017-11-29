@@ -1,0 +1,229 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="css/import.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/js_com.js"></script>
+
+<script>
+	$(document).ready(function(){
+		$('.term td').click(function(){
+			$('.term td').css('background-color' , '#fff');
+			$(this).css('background-color' , '#f6ebec');
+		});
+	});
+</script>
+
+</head>
+
+<body>
+<!-- ham 클릭시 화면 -->
+	<article class="top">
+		<div class="ham">
+			<section class="ham_menu">
+				<ul>
+					<li>
+						<button onclick="location.href='index04.html'">
+							LOGIN
+						</button>
+						<a href="index02.html">
+							<img src="./images/cart.png" alt="cart">
+						</a>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index09.html">
+								My Page
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index11.html">
+								Order Inquiry
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>SERVICE</h2>
+						<table>
+							<tr>
+								<td>
+								<a href="index12.html">
+									Notice
+										<span>
+											▶
+										</span>
+								</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="index13.html">
+										FAQ
+										<span>
+											▶
+										</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+
+					<li>
+						<h2>ABOUT ME</h2>
+						Call Center : 000.0000.0000
+
+					</li>
+				</ul>
+			</section>
+			<img src="./images/clear.png" alt="clear">
+		</div>
+	</article>
+
+<!-- 팝업창 배경 -->
+	<article class="cover">
+	</article>
+
+<!-- header -->
+	<header>
+		<h1>
+			<a href="index.html">
+				<img src="./images/logo.png" alt="logo">
+			</a>
+		</h1>
+				
+		<span><img src="./images/ham.png" alt="ham"></span>
+		<span><a href="index02.html"><img src="./images/cart.png" alt="cart"></a></span>
+	</header>
+
+<!-- content -->
+	<article class="content02">
+		<!-- 주문 내역 -->
+			<section class="order_inquiry">
+				<!-- title -->
+					<h2>
+						ORDER INQUIRY
+					</h2>
+
+				<!-- 기간 -->
+					<div class="term">
+						<h3>
+							Term
+						</h3>
+						<table>
+							<tr>
+								<td>3 Moon</td>
+								<td>6 Moon</td>
+								<td>12 Moon</td>
+							</tr>
+						</table>
+
+						<span>※ You can check the order completed goods 1 year ago</span>
+					</div>
+
+				<!-- 상품리스트 -->
+				<ul>
+					<li>
+						<a href="index05.html">
+							<figure>
+								<img src="./images/thum01.png" alt="thum01">
+								<figcaption>
+									<h3>
+										[Raydear] Raydear Point Care
+									</h3>
+									<p>
+										Light of Time Against Time LED Beauty Light Therapy
+									</p>
+									<b>
+										12,000 PHP
+									</b>
+								</figcaption>
+							</figure>
+
+							<div class="payment">
+								<p>Waiting for Payment</p>
+								<span>2017.00.00</span>	
+							</div>
+						</a>
+					</li>
+
+					<li>
+						<a href="">
+							<figure>
+								<img src="./images/thum02.png" alt="thum02">
+								<figcaption>
+									<h3>
+										[Second list] Fragrant lip balm
+									</h3>
+									<p>
+										Contains natural moisturizing ingredients!
+									</p>
+									<b>
+										12,000 PHP
+									</b>
+								</figcaption>
+							</figure>
+
+							<div class="payment">
+								<p>Complete Payment</p>
+								<span>2017.00.00</span>	
+							</div>
+						</a>
+					</li>
+				</ul>
+			</section>
+		<!-- 하단 광고 -->
+			<section class="ad">
+				<img src="./images/bottom_banner.png" alt="bottom_banner">
+			</section>
+	</article>
+
+<!-- footer -->
+	<footer>
+		<h2>
+			ABOUT ME
+			<span>Call Center:000.0000.0000</span>
+		</h2>
+
+		<ul>
+			<li>
+					Confirm Terms of Use ▼
+			</li>
+			<li>
+					Chapter 1: General Provisions
+					Article 1 [Purpose)
+					The purpose of these Terms and Conditions
+					is to provide the terms and conditions
+					of use of all services provided by About
+					Me (hereinafter referred to as "Company")
+					at aboutmeshop.com (hereinafter referred to as "Service").
+
+					Article 2 (Definitions)
+					The terms used in these Terms and Conditions are as follows.
+					1. User: Member and non-member who receive services provided
+					by the Company in accordance with these Terms and Conditions.
+					2. Use Contract: Agreement between the Company and the User
+					regarding the use of the Service
+					3. Enrollment: Completing the service usage contract by filling
+					in the information on the application form provided by the company
+					and agreeing to these terms and conditions.
+					4. Member: Anyone who has registered for membership by providing
+					personal information necessary for membership on this site
+					5. User ID (ID): A combination of alphabetic and numeric
+					characters selected by the user and approved by the company
+					for member identification and member service use
+			</li>
+		</ul>
+
+		<p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+	</footer>
+</body>
+</html>

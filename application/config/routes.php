@@ -50,7 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
-$route['default_controller'] = 'main';
+$route['default_controller'] = 'cmall';
 $route['404_override'] = '';
 
 $route[config_item('uri_segment_admin') . '/preview/adminshow/(.+)'] = "$1";

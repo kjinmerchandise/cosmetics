@@ -16,11 +16,11 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
     });
 
     // 수량변경
-    $(document).on('click', 'button.btn-change-qty', function() {
+    $(document).on('click', 'span.btn-change-qty', function() {
 
         if( $(this).triggerHandler( 'item_change_qty' ) !== false ){
             var change_type = $(this).attr('data-change-type');
-            var $qty = $(this).closest('tr').find('input[name^=detail_qty]');
+            var $qty = $(this).closest('div.quantity').find('input[name^=detail_qty]');
             var qty = parseInt($qty.val().replace(/[^0-9]/g, ""));
             if (isNaN(qty)) {
                 qty = 1;
@@ -66,16 +66,16 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
         var tot_price = 0,
             price = 0,
             qty = 0,
-            $sel = jQuery('input[name^=chk_detail]:checked'),
+            $sel = jQuery('input[name^=chk_detail]'),
             $total_order_price = jQuery('#total_order_price');
 
         if( $total_order_price.triggerHandler( 'item_total_order_price' ) !== false ){
 
             if ($sel.size() > 0) {
                 $sel.each(function() {
-                    price = parseInt($(this).closest('tr').find('input[name^=item_price]').val());
-                    qty = parseInt($(this).closest('tr').find('input[name^=detail_qty]').val());
-
+                    price = parseInt($('input[name^=cit_price]').val());
+                    qty = parseInt($('input[name^=detail_qty]').val());
+                    
                     tot_price += (price * qty);
                 });
             }
@@ -87,16 +87,17 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
 
     // 바로구매, 장바구니, 찜하기
     function fitem_submit(f) {
+        
         if (f.stype.value === 'wish') {
             return true;
         }
 
-        var $el_chk = jQuery('input[name^=chk_detail]:checked');
+        // var $el_chk = jQuery('input[name^=chk_detail]:checked');
 
-        if ($el_chk.size() < 1) {
-            alert('상품의 옵션을 하나이상 선택해 주십시오.');
-            return false;
-        }
+        // if ($el_chk.size() < 1) {
+        //     alert('상품의 옵션을 하나이상 선택해 주십시오.');
+        //     return false;
+        // }
 
         if( jQuery(f).triggerHandler( 'item_form_submit' ) !== false ){
             // 수량체크

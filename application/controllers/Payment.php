@@ -1058,6 +1058,7 @@ class Payment extends CB_Controller
                             $insertdata['mem_email'] = $this->CI->input->post('mem_email', null, '');
                             $insertdata['mem_phone'] = $this->CI->input->post('mem_phone', null, '');
                             $insertdata['cor_pay_type'] = $this->CI->input->post('pay_type', null, '');
+                            $insertdata['cor_addr'] = $this->CI->input->post('cor_addr', null, '');
                             $insertdata['cor_content'] = $this->CI->input->post('cor_content', null, '');
                             $insertdata['cor_ip'] = $this->CI->input->ip_address();
                             $insertdata['cor_useragent'] = $this->CI->agent->agent_string();
@@ -1066,7 +1067,10 @@ class Payment extends CB_Controller
                             
                             $res = $this->Cmall_order_model->insert($insertdata);
                             if ($res) {
-                                $where = array('mem_id' => $mem_id);
+
+                                $session_id='';
+                                if(!empty($_COOKIE[config_item('sess_cookie_name')])) $session_id = $_COOKIE[config_item('sess_cookie_name')];
+                                $where = array('mem_id' => $mem_id,'ssesion_id' => $session_id);
                                 $where_in = explode('-', $cart_ids);
                                 $cartorder = $this->Cmall_cart_model->get_cart_list_in($where, $where_in);
 

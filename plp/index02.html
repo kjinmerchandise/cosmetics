@@ -1,0 +1,405 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="css/import.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/js_com.js"></script>
+
+<script>
+	$(document).ready(function(){
+
+		/*cover 영역 보여주기*/
+			$('.shopping_basket li > img , .change_quantity button').click(function(){
+				$('.cover').css('display' , 'block');
+				$('.cover').css('z-index' , '100');
+				$('.cover').animate({'opacity' : '1'} , 1000);
+			});
+
+		/*팝업창  스크롤바 따라다니기 */
+				var currentPosition = parseInt($(".popup , .popup02").css("top"));
+
+				$(window).scroll(function() {
+					var position = $(window).scrollTop();
+					$(".popup , .popup02").stop().animate({"top":position+currentPosition+"px"},1000);
+				});
+
+		/*휴지통 버튼 클릭시 팝업창 보여주기*/
+			$('.shopping_basket li > img').click(function(){
+				$('.popup02').css('display' , 'block');
+			});
+
+			/*Yes , No 버튼 클릭시 팝업창 사라짐*/
+			$('.popup02 button').click(function(){
+				$('.cover,.popup02').css('display' , 'none');
+			});
+
+		/*change quantity 버튼 클릭시*/
+
+			/*change quantity 버튼 클릭시 slideDown*/
+				$('.change_btn > button').click(function(){
+					$(this).parents('.change_btn').siblings('.change_quantity').slideDown();
+				});
+
+			/*change quantity의 X , change completed 클릭시 , slideUp*/
+				$('.change_quantity h3 span img').click(function(){
+					$(this).parents('.change_quantity').slideUp();
+				});
+
+			/*change completed 버튼 클릭시*/
+				/*chanage completed 버튼 클릭시 팝업창 보여주기*/
+					$('.change_quantity button').click(function(){
+						$('.popup').css('display' , 'block');
+					});
+
+				/*팝업창 yes 버튼 클릭시*/
+					$('.popup button:first-child').click(function(){
+						$('.cover,.popup').css('display' , 'none');
+						$('.change_quantity').slideUp();
+					});
+
+				/*팝업창 no 버튼 클릭시*/
+					$('.popup button:last-child').click(function(){
+						$('.cover,.popup').css('display' , 'none');
+					});
+
+			/*+,- 버튼 클릭 할때마다 수량 증가 함수*/
+				var increase = $('.change_quantity div span:last-child') // + 버튼
+				var decrease = $('.change_quantity div span:first-child') // - 버튼
+				$(increase).click(function(e){
+					e.preventDefault();
+
+					var stat = $(this).siblings('p').text();
+					var num = parseInt(stat,10);
+						num++;
+
+						if(num>5){
+						alert('더이상 늘릴수 없습니다.');
+						num=5;
+							}
+						$(this).siblings('p').text(num);
+				});
+
+				$(decrease).click(function(e){
+					e.preventDefault();
+
+					var stat = $(this).siblings('p').text() ;//  숫자 영역
+					var num = parseInt(stat,10);
+					num--;
+
+					if(num<=0){
+						alert('더이상 줄일수 없습니다.');
+						num =1;
+						}
+						$(this).siblings('p').text(num);
+					});
+
+		/*all select 클릭시 모두 체크*/
+			$('.shopping_basket li:first-child input').click(function(){
+				if($(this).prop('checked')){
+					$('.shopping_basket li input').prop('checked',true);
+				}else{
+					$('.shopping_basket li input').prop('checked',false);
+				}
+				
+			});
+	});
+</script>
+
+</head>
+
+<body>
+<!-- ham 클릭시 화면 -->
+	<article class="top">
+		<div class="ham">
+			<section class="ham_menu">
+				<ul>
+					<li>
+						<button onclick="location.href='index04.html'">
+							LOGIN
+						</button>
+						<a href="index02.html">
+							<img src="./images/cart.png" alt="cart">
+						</a>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index09.html">
+								My Page
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index11.html">
+								Order Inquiry
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>SERVICE</h2>
+						<table>
+							<tr>
+								<td>
+								<a href="index12.html">
+									Notice
+										<span>
+											▶
+										</span>
+								</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="index13.html">
+										FAQ
+										<span>
+											▶
+										</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+
+					<li>
+						<h2>ABOUT ME</h2>
+						Call Center : 000.0000.0000
+
+					</li>
+
+				</ul>
+			</section>
+			<img src="./images/clear.png" alt="clear">
+		</div>
+	</article>
+
+<!-- 팝업창 배경 -->
+	<article class="cover">
+	</article>
+
+<!-- 수량변경 완료 버튼 클릭시 팝업 -->
+	<article class="popup">
+		<h2>
+		    *Notice*
+			<span>
+				Are you sure you want to complete the change?
+			</span>
+		</h2>
+
+		<div class="popup_btn">
+			<button>Yes</button>
+			<button>No</button>
+		</div>
+	</article>
+
+<!-- 휴지통 버튼 클릭시 팝업 -->
+	<article class="popup02">
+		<h2>
+		    *Notice*
+			<span>
+				Are you sure you want to delete?
+			</span>
+		</h2>
+
+		<div class="popup_btn">
+			<button>Yes</button>
+			<button>No</button>
+		</div>
+	</article>
+
+<!-- header  -->
+	<header>
+		<h1>
+			<a href="index.html">
+				<img src="./images/logo.png" alt="logo">
+			</a>
+		</h1>
+				
+		<span><img src="./images/ham.png" alt="ham"></span>
+		<span><a href="index02.html"><img src="./images/cart.png" alt="cart"></a></span>
+	</header>
+
+<!-- content -->
+	<article class="content02">
+		<!-- 장바구니 리스트 , total order amount -->
+			<section class="shopping_basket">
+				<!-- 타이틀 -->
+					<h2>
+						SHOPPING BASKET
+					</h2>
+
+				<!--장바구니 상품 리스트 -->
+					<ul>
+						<li>
+							<input type="checkbox">
+							<label>All Select</label>
+						</li>
+
+						<li>
+							<input type="checkbox" name="check">
+							<img src="./images/trashcan.png" alt="trashcan">
+
+							<figure>
+								<img src="./images/thum01.png" alt="thum01">
+								<figcaption>
+									<h3>
+										[Raydear] Raydear Point Care
+									</h3>
+									<p>
+										Light of Time Against Time LED
+										Beauty Light Therapy
+									</p>
+									<b>
+										\12,000 PHP
+									</b>
+								</figcaption>
+							</figure>
+
+							<div class="change_btn">
+								<h3>
+									1ITEM
+								</h3>
+
+								<button>
+									Change quantity
+								</button>
+							</div>
+
+							<div class="change_quantity">
+								<h3>
+									Change quantity
+									<span>
+										<img src="./images/clear.png" alt="clear">
+									</span>
+								</h3>
+
+								<div class="quantity">
+									<span>-</span>
+									<p>1</p>
+									<span>+</span>
+								</div>
+
+								<button>
+									Change Completed
+								</button>
+							</div>
+						</li>
+
+						<li>
+							<input type="checkbox" name="check">
+							<img src="./images/trashcan.png" alt="trashcan">
+
+							<figure>
+								<img src="./images/thum02.png" alt="thum02">
+								<figcaption>
+									<h3>
+										[Second list] Fragrant lip balm
+									</h3>
+									<p>
+										Contains natural moisturizing
+										ingredients!
+									</p>
+									<b>
+										\12,000 PHP
+									</b>
+								</figcaption>
+							</figure>
+
+							<div class="change_btn">
+								<h3>
+									1ITEM
+								</h3>
+
+								<button>
+									Change quantity
+								</button>
+							</div>
+
+							<div class="change_quantity">
+								<h3>
+									Change quantity
+									<span>
+										<img src="./images/clear.png" alt="clear">
+									</span>
+								</h3>
+
+								<div class="quantity">
+									<span>-</span>
+									<p>1</p>
+									<span>+</span>
+								</div>
+
+								<button>
+									Change Completed
+								</button>
+							</div>
+						</li>
+					</ul>
+
+				<!-- Total Order Amount -->
+					<div class="total_order">
+						<h3>
+							Total Order Amount
+						</h3>
+						<b>24,000 PHP</b>
+
+						<button onclick="location.href='index05.html'">
+							Order optional items
+						</button>
+					</div>
+			</section>
+
+		<!-- 하단 광고 -->
+			<section class="ad">
+				<img src="./images/bottom_banner.png" alt="bottom_banner">
+			</section>
+	</article>
+
+<!-- footer -->
+	<footer>
+		<h2>
+			ABOUT ME
+			<span>Call Center:000.0000.0000</span>
+		</h2>
+
+		<ul>
+			<li>
+					Confirm Terms of Use ▼
+			</li>
+			<li>
+					Chapter 1: General Provisions
+					Article 1 [Purpose)
+					The purpose of these Terms and Conditions
+					is to provide the terms and conditions
+					of use of all services provided by About
+					Me (hereinafter referred to as "Company")
+					at aboutmeshop.com (hereinafter referred to as "Service").
+
+					Article 2 (Definitions)
+					The terms used in these Terms and Conditions are as follows.
+					1. User: Member and non-member who receive services provided
+					by the Company in accordance with these Terms and Conditions.
+					2. Use Contract: Agreement between the Company and the User
+					regarding the use of the Service
+					3. Enrollment: Completing the service usage contract by filling
+					in the information on the application form provided by the company
+					and agreeing to these terms and conditions.
+					4. Member: Anyone who has registered for membership by providing
+					personal information necessary for membership on this site
+					5. User ID (ID): A combination of alphabetic and numeric
+					characters selected by the user and approved by the company
+					for member identification and member service use
+			</li>
+		</ul>
+
+		<p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+	</footer>
+</body>
+</html>

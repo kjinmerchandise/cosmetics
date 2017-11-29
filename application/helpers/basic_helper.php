@@ -363,11 +363,11 @@ if ( ! function_exists('required_user_login')) {
         $CI =& get_instance();
         if ($CI->member->is_member() === false) {
             if ($type === 'alert') {
-                alert_close('로그인 후 이용이 가능합니다');
+                alert_close('Available after login');
             } else {
                 $CI->session->set_flashdata(
                     'message',
-                    '로그인 후 이용이 가능합니다'
+                    'Available after login'
                 );
                 redirect('login?url=' . urlencode(current_full_url()));
             }

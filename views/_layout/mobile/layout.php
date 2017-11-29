@@ -10,11 +10,13 @@
 <?php if (element('meta_author', $layout)) { ?><meta name="author" content="<?php echo html_escape(element('meta_author', $layout)); ?>"><?php } ?>
 <?php if (element('favicon', $layout)) { ?><link rel="shortcut icon" type="image/x-icon" href="<?php echo element('favicon', $layout); ?>" /><?php } ?>
 <?php if (element('canonical', $view)) { ?><link rel="canonical" href="<?php echo element('canonical', $view); ?>" /><?php } ?>
+
 <link rel="stylesheet" type="text/css" href="<?php echo element('layout_skin_url', $layout); ?>/css/style.css" />
 <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/earlyaccess/nanumgothic.css" />
 <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" />
 <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css" />
 <?php echo $this->managelayout->display_css(); ?>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/import.css?'.$this->cbconfig->item('browser_cache_version')) ?>" />
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script type="text/javascript">
@@ -47,128 +49,119 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
 <?php echo $this->managelayout->display_js(); ?>
 </head>
 <body <?php echo isset($view) ? element('body_script', $view) : ''; ?>>
-<div class="wrapper">
-    <!-- header start -->
 
-    <div class="header_line"></div>
-    <!-- nav start -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo pull-left">
-                <a href="<?php echo site_url(); ?>" title="<?php echo html_escape($this->cbconfig->item('site_title'));?>"><?php echo $this->cbconfig->item('site_logo'); ?></a>
-            </div>
-            <div class="m_nav pull-right" >
-                <a href="javascript:;" id="btn_side"><img src="<?php echo element('layout_skin_url', $layout); ?>/images/m_menu.jpg" alt="menu" title="menu" /></a>
-            </div>
-        </div>
-    </nav>
-    <!-- nav end -->
-    <!-- header end -->
+<!-- ham 클릭시 화면 -->
+<article class="top">
+    <div class="ham">
+        <section class="ham_menu">
+            <ul>
+                <li>
+                    <?php 
+                    if ($this->member->is_member()) {
+                        echo ' <button onclick="location.href=\''.site_url('login/logout?url=' . urlencode(current_full_url())).'\'">
+                            hi '.$this->member->item('mem_userid') .' [LOGOUT]
+                        </button>';
+                    } else {
+                        echo '<button onclick="location.href=\''.site_url('login?url=' . urlencode(current_full_url())).'\'">
+                            LOGIN
+                        </button>';
+                    }    
+                     ?>
+                    
+                    <a href="<?php echo site_url('/cmall/cart'); ?>">
+                        <img src="<?php echo base_url('assets/images/cart.png'); ?>" alt="cart">
+                    </a>
+                </li>
+
+                <li>
+                    <h2>
+                        <a href="<?php echo site_url('mypage'); ?>" title="mypage">
+                            My Page
+                        </a>
+                    </h2>
+                </li>
+
+                <li>
+                    <h2>
+                        <a href="<?php echo site_url('cmall/orderlist'); ?>" title="Order Inquiry">
+                            Order Inquiry
+                        </a>
+                    </h2>
+                </li>
+
+                <li>
+                    <h2>SERVICE</h2>
+                    <table>
+                        <tr>
+                            <td>
+                            <a href="<?php echo site_url('faq/notice'); ?>" title="Notice">
+                                Notice
+                                    <span>
+                                        ▶
+                                    </span>
+                            </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="<?php echo site_url('faq/faq'); ?>" title="FAQ">
+                                    FAQ
+                                    <span>
+                                        ▶
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+
+                <li>
+                    <h2>ABOUT ME</h2>
+                    Call Center : 000.0000.0000
+
+                </li>
+            </ul>
+        </section>
+        <img src="<?php echo base_url('assets/images/clear.png'); ?>" alt="clear">
+    </div>
+</article>
+
+<!-- 팝업창 배경 -->
+<article class="cover">
+</article>
+
+
+
+<!-- header  -->
+<header>
+    <h1>
+        <a href="<?php echo site_url(); ?>"  title="<?php echo html_escape($this->cbconfig->item('site_title'));?>"><?php echo $this->cbconfig->item('site_logo'); ?></a>
+    </h1>
+            
+    <span><img src="<?php echo base_url('assets/images/ham.png'); ?>" alt="ham"></span>
+    <span><a href="<?php echo base_url('cmall/cart') ?>"><img src="<?php echo base_url('assets/images/cart.png'); ?>" alt="cart"></a></span>
+</header>
+
+<!-- content -->
+<?php $this->member->get_cart_num_in(); ?>
+<div class="wrapper">
+   
 
     <!-- main start -->
-    <div class="main">
-        <div class="container">
+    <div>
+        <!-- 본문 시작 -->
+        <?php if (isset($yield))echo $yield; ?>
+        <!-- 본문 끝 -->
 
-                <!-- 본문 시작 -->
-                <?php if (isset($yield))echo $yield; ?>
-                <!-- 본문 끝 -->
-
-        </div>
+        
     </div>
     <!-- main end -->
 
     <!-- footer start -->
-    <footer>
-        <div class="container">
-            <ul class="company pull-left">
-            <li><a href="<?php echo document_url('aboutus'); ?>" title="회사소개">회사소개</a></li>
-            <li><a href="<?php echo document_url('provision'); ?>" title="이용약관">이용약관</a></li>
-            <li><a href="<?php echo document_url('privacy'); ?>" title="개인정보 취급방침">개인정보 취급방침</a></li>
-            <li><a href="<?php echo site_url('pointranking'); ?>" title="포인트 전체랭킹">포인트 전체랭킹</a></li>
-            <li><a href="<?php echo site_url('pointranking/month'); ?>" title="포인트 월별랭킹">포인트 월별랭킹</a></li>
-            <li><a href="<?php echo site_url('levelup'); ?>" title="레벨업">레벨업</a></li>
-            </ul>
-            <div class="see_mobile"><a href="<?php echo current_full_url(); ?>" class="btn btn-primary btn-xs viewpcversion">PC 버전으로 보기</a></div>
-        </div>
-    </footer>
+    <!-- footer start -->
+    <?php echo $this->managelayout->display_footer(); ?>
     <!-- footer end -->
-</div>
-
-<div class="menu" id="side_menu">
-    <div class="side_wr add_side_wr">
-        <div id="isroll_wrap" class="side_inner_rel">
-            <div class="side_inner_abs">
-                <div class="m_search">
-                    <form name="mobile_header_search" id="mobile_header_search" action="<?php echo site_url('search'); ?>" onSubmit="return headerSearch(this);">
-                        <input type="text" placeholder="Search" class="input" name="skeyword" accesskey="s" />
-                    </form>
-                </div>
-                <div class="m_login">
-                    <?php if ($this->member->is_member()) { ?>
-                        <span><a href="<?php echo site_url('login/logout?url=' . urlencode(current_full_url())); ?>" class="btn btn-primary" title="로그아웃"><i class="fa fa-sign-out"></i> 로그아웃</a></span>
-                        <span><a href="<?php echo site_url('mypage'); ?>" class="btn btn-primary" title="로그아웃"><i class="fa fa-user"></i> 마이페이지</a></span>
-                    <?php } else { ?>
-                        <span><a href="<?php echo site_url('login?url=' . urlencode(current_full_url())); ?>" class="btn btn-primary" title="로그인"><i class="fa fa-sign-in"></i> 로그인</a></span>
-                        <span><a href="<?php echo site_url('register'); ?>" class="btn btn-primary" title="회원가입"><i class="fa fa-user"></i> 회원가입</a></span>
-                    <?php } ?>
-                </div>
-                <ul class="m_board">
-                    <?php if ($this->cbconfig->item('open_currentvisitor')) { ?>
-                        <li><a href="<?php echo site_url('currentvisitor'); ?>" title="현재 접속자"><span class="fa fa-link"></span> 현재 접속자</a></li>
-                    <?php } ?>
-                    <?php if ($this->member->is_member()) { ?>
-                        <li><a href="<?php echo site_url('notification'); ?>" title="나의 알림"><span class="fa fa-bell-o"></span>알림 : <?php echo number_format(element('notification_num', $layout) + 0); ?> 개</a></li>
-                        <?php if ($this->cbconfig->item('use_note') && $this->member->item('mem_use_note')) { ?>
-                            <li><a href="javascript:;" onClick="note_list();" title="나의 쪽지"><span class="fa fa-envelope"></span> 쪽지 : <?php echo number_format($this->member->item('meta_unread_note_num') + 0); ?> 개</a></li>
-                        <?php } ?>
-                        <?php if ($this->cbconfig->item('use_point')) { ?>
-                            <li><a href="<?php echo site_url('mypage/point'); ?>" title="나의 포인트"><span class="fa fa-gift"></span> 포인트 : <?php echo number_format($this->member->item('mem_point') + 0); ?> 점</a></li>
-                        <?php } ?>
-                    <?php } ?>
-                </ul>
-                <ul class="m_menu">
-                    <?php
-                    $menuhtml = '';
-                    if (element('menu', $layout)) {
-                        $menu = element('menu', $layout);
-                        if (element(0, $menu)) {
-                            foreach (element(0, $menu) as $mkey => $mval) {
-                                if (element(element('men_id', $mval), $menu)) {
-                                    $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
-                                    $menuhtml .= '<li class="dropdown">
-                                    <a href="' . $mlink . '" ' . element('men_custom', $mval);
-                                    if (element('men_target', $mval)) {
-                                        $menuhtml .= ' target="' . element('men_target', $mval) . '"';
-                                    }
-                                    $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a><a href="#" style="width:25px;float:right;" class="subopen" data-menu-order="' . $mkey . '"><i class="fa fa-chevron-down"></i></a>
-                                    <ul class="dropdown-menu drop-downorder-' . $mkey . '">';
-
-                                    foreach (element(element('men_id', $mval), $menu) as $skey => $sval) {
-                                        $menuhtml .= '<li><a href="' . element('men_link', $sval) . '" ' . element('men_custom', $sval);
-                                        if (element('men_target', $sval)) {
-                                            $menuhtml .= ' target="' . element('men_target', $sval) . '"';
-                                        }
-                                        $menuhtml .= ' title="' . html_escape(element('men_name', $sval)) . '">' . html_escape(element('men_name', $sval)) . '</a></li>';
-                                    }
-                                    $menuhtml .= '</ul></li>';
-
-                                } else {
-                                    $mlink = element('men_link', $mval) ? element('men_link', $mval) : 'javascript:;';
-                                    $menuhtml .= '<li><a href="' . $mlink . '" ' . element('men_custom', $mval);
-                                    if (element('men_target', $mval)) {
-                                        $menuhtml .= ' target="' . element('men_target', $mval) . '"';
-                                    }
-                                    $menuhtml .= ' title="' . html_escape(element('men_name', $mval)) . '">' . html_escape(element('men_name', $mval)) . '</a></li>';
-                                }
-                            }
-                        }
-                    }
-                    echo $menuhtml;
-                    ?>
-                </ul>
-            </div>
-        </div>
-    </div>
+    
 </div>
 
 <script type="text/javascript">
@@ -191,3 +184,52 @@ Skin URL : <?php echo element('view_skin_url', $layout); ?>,
 
 </body>
 </html>
+<script>
+$(document).ready(function(){
+
+/*로딩시 항상 맨 위로 이동*/
+    $('html,body').animate({'scrollTop' : '0'}, 500);
+
+/*header의 ham 클릭시 이동*/
+    $('header span:nth-child(2)').click(function(){
+        $('.top').css('z-index' , '300');
+        $('.top').css('display' , 'block');
+        $('.ham').animate({'left' : 0} , 500);
+        $('header').css('z-index' , '50');
+        $('.cover').fadeIn(500);
+    });
+
+/*ham 의 X 버튼 클릭시 이동*/
+    $('.ham > img').click(function(){
+        var ham_width = $('.ham').width();
+        $('.ham').animate({'left' : -ham_width} , 500)
+        
+
+        setTimeout(function(){
+            $('header').css('z-index' , '50');
+            $('.top').css('z-index' , '0');
+            $('.top').css('display' , 'none');
+            $('.cover').fadeOut(200);
+        },500);
+    });
+
+    $('.cover').css('height' , $('body').height());
+
+    
+
+/*하단 footer 영역 confirm terms of use 내용 펼치기*/
+    $('footer ul li:nth-child(1)').click(function(){
+            if($('footer ul li:nth-child(2)').css('display') == 'none'){
+                $('footer ul li:nth-child(2)').slideDown();
+                $('footer ul li:nth-child(2)').css('border-top' , '0');
+            }else{
+                $('footer ul li:nth-child(2)').slideUp();
+            }
+
+            $('html,body').animate({'scrollTop' : $(document).height()} , 1000);
+
+        });
+});
+
+
+</script>

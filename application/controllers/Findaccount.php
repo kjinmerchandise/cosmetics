@@ -71,29 +71,29 @@ class Findaccount extends CB_Controller
         if ($this->input->post('findtype') === 'findidpw') {
             $config[] = array(
                 'field' => 'idpw_email',
-                'label' => '이메일',
+                'label' => 'email',
                 'rules' => 'trim|required|valid_email|callback__existemail',
             );
         } elseif ($this->input->post('findtype') === 'verifyemail') {
             $config[] = array(
                 'field' => 'verify_email',
-                'label' => '이메일',
+                'label' => 'email',
                 'rules' => 'trim|required|valid_email|callback__verifyemail',
             );
         } elseif ($this->input->post('findtype') === 'changeemail') {
             $config[] = array(
                 'field' => 'change_userid',
-                'label' => '아이디',
+                'label' => 'id',
                 'rules' => 'trim|required|alphanumunder|min_length[3]|max_length[20]',
             );
             $config[] = array(
                 'field' => 'change_password',
-                'label' => '패스워드',
+                'label' => 'password',
                 'rules' => 'trim|required|callback__check_id_pw[' . $this->input->post('change_userid') . ']',
             );
             $config[] = array(
                 'field' => 'change_email',
-                'label' => '이메일',
+                'label' => 'email',
                 'rules' => 'trim|required|valid_email|callback__change_email',
             );
         }
@@ -479,7 +479,7 @@ class Findaccount extends CB_Controller
         if ( ! element('mem_id', $userinfo)) {
             $this->form_validation->set_message(
                 '_existemail',
-                '존재하지 않는 이메일주소입니다'
+                'This email address does not exist'
             );
             return false;
         }
@@ -524,7 +524,7 @@ class Findaccount extends CB_Controller
         if ( ! element('mem_id', $userinfo)) {
             $this->form_validation->set_message(
                 '_verifyemail',
-                '존재하지 않는 이메일주소입니다'
+                'This email address does not exist'
             );
             return false;
         }
@@ -570,7 +570,7 @@ class Findaccount extends CB_Controller
         if (element('mem_id', $userinfo)) {
             $this->form_validation->set_message(
                 '_change_email',
-                '이 이메일은 이미 다른 회원에 의해 사용되어지고 있는 이메일입니다'
+                'This email is already being used by another member'
             );
             return false;
         }
@@ -645,14 +645,14 @@ class Findaccount extends CB_Controller
                 if ($next_login > 0) {
                     $this->form_validation->set_message(
                         '_check_id_pw',
-                        '회원님은 패스워드를 연속으로 ' . $loginfailnum . '회 잘못 입력하셨기 때문에 '
-                        . $next_login . '초 후에 다시 시도가 가능합니다'
+                        'You entered the wrong password ' . $loginfailnum . ' in a row ,so you can try again in '
+                        . $next_login . ' second'
                     );
                     return false;
                 }
             }
-            $loginfailmessage = '<br />회원님은 ' . ($loginfailnum + 1)
-                . '회 연속으로 패스워드를 잘못입력하셨습니다. ';
+            $loginfailmessage = '<br />You have entered the wrong password ' . ($loginfailnum + 1)
+                . ' in a row ';
         }
 
         $userselect = 'mem_id, mem_password, mem_denied';
@@ -668,18 +668,18 @@ class Findaccount extends CB_Controller
 
             $this->form_validation->set_message(
                 '_check_id_pw',
-                '회원 아이디와 패스워드가 서로 맞지 않습니다' . $loginfailmessage
+                'Member ID and password do not match' . $loginfailmessage
             );
-            $this->member->update_login_log(0, $userid, 0, '회원아이디가 존재하지 않습니다');
+            $this->member->update_login_log(0, $userid, 0, 'Member ID does not exist');
 
             return false;
 
         } elseif ( ! password_verify($password, element('mem_password', $userinfo))) {
             $this->form_validation->set_message(
                 '_check_id_pw',
-                '회원 아이디와 패스워드가 서로 맞지 않습니다' . $loginfailmessage
+                'Member ID and password do not match' . $loginfailmessage
             );
-            $this->member->update_login_log(element('mem_id', $userinfo), $userid, 0, '패스워드가 올바르지 않습니다');
+            $this->member->update_login_log(element('mem_id', $userinfo), $userid, 0, 'The password is incorrect');
 
             return false;
 

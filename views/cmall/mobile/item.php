@@ -1,7 +1,137 @@
 <?php $this->managelayout->add_css(element('view_skin_url', $layout) . '/css/style.css'); ?>
 <?php $this->managelayout->add_js(base_url('assets/js/cmallitem.js')); ?>
+<article class="content02">
+<!-- 상품설명 -->
+    <section class="product_details">
+        <!-- 타이틀 -->
+        <h2>
+            PRODUCT DETAILS
+        </h2>
+        <?php if ($this->member->is_admin()) { ?>
+            <a href="<?php echo admin_url('cmall/cmallitem/write/' . element('cit_id', element('data', $view))); ?>" target="_blank" class="btn-sm btn btn-danger pull-right">상품내용수정</a>
+        <?php } ?>
+        <?php if (element('header_content', element('data', $view))) { ?>
+            <div class="product-detail"><?php echo element('header_content', element('data', $view)); ?></div>
+        <?php } ?>
+        <div class="product-box mb20">
+            <div class="product-left mt10">
+                <div class="item_slider">
+                    <?php
+                    for ($i =1; $i <=10; $i++) {
+                        if ( ! element('cit_file_' . $i, element('data', $view))) {
+                            continue;
+                        }
+                    ?>
+                        <div><img src="<?php echo thumb_url('cmallitem', element('cit_file_' . $i, element('data', $view))); ?>" alt="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" title="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" style="width:100%;" onClick="window.open('<?php echo site_url('cmall/itemimage/' . html_escape(element('cit_key', element('data', $view)))); ?>', 'win_image', 'left=100,top=100,width=730,height=700,scrollbars=1');" /></div>
+                    <?php } ?>
+                </div>
+                <span class="prev" id="slider-prev"></span>
+                <span class="next" id="slider-next"></span>
+            </div>
+        </div>
+        <?php
+        if (element('detail', element('data', $view))) {
+            $attributes = array('class' => 'form-horizontal', 'name' => 'fitem', 'id' => 'fitem', 'onSubmit' => 'return fitem_submit(this)');
+            echo form_open(current_full_url(), $attributes);
+        ?>
+        <input type="hidden" name="stype" id="stype" value="" />
+        <input type="hidden" name="chk_referer" id="chk_referer" value="" />
+        <input type="hidden" name="cit_id" value="<?php echo element('cit_id', element('data', $view)); ?>" />
+        <input type="hidden" name="cit_price" value="<?php echo element('cit_price', element('data', $view)); ?>" />
+        <div class="product-right">
+            
+            <table class="product-no table table-bordered">
+                <tbody>
+                    <tr>
+                        <td colspan=2>
+                         <div class="product-title"><?php echo html_escape(element('cit_name', element('data', $view))); ?></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>
+                                Price
+                            </p>
+                        </td>
+                        <td>
+                            <div class="price_cancel">
+                                <del>₱ <?php echo number_format(element('display_price', element('data', $view)) + 0); ?> PHP</del>
+                                <b>₱ <?php echo number_format(element('cit_price', element('data', $view)) + 0); ?> PHP</b>
+                                
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                    foreach (element('detail', element('data', $view)) as $detail) {
+                        $price = element('cit_price', element('data', $view));
+                    ?>
+                    <input type="hidden" name="chk_detail[]" value="<?php echo element('cde_id', $detail); ?>" />
+                        <tr>
+                            <td><p style="height: 30px; line-height: 30px;"><?php echo html_escape(element('cde_title', $detail)); ?></p></td>
+                            <td class="text-right">
+                                <div class="quantity">
+                                    <span class="btn-change-qty" data-change-type="minus">-</span>
+                                    <input type="text" name="detail_qty[<?php echo element('cde_id', $detail); ?>]"  style="border:0px;" value="1" />
+                                    <span class="btn-change-qty" data-change-type="plus">+</span>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php } ?>
+                       
+                    <tr class="success">
+                        <td>Total Amount</td>
+                        <td class="text-right">₱ 
+                        <span id="total_order_price"><?php echo number_format(element('cit_price', element('data', $view)) + 0); ?></span> PHP</td>
+                    </tr>
+                    <tr>
+                        <td class="per50">
 
-<div class="market">
+                                        
+                                        
+                                
+                            <button type="submit" onClick="$('#stype').val('order');" style="width:100%">
+                                Buy Now
+                            </button>
+                        </td>
+                        <td>
+                            <button id="cart" type="button"  style="width:100%">
+                                Shopping Basket
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <?php
+            echo form_close();
+        }
+        ?>
+    <div class="product-info mb10">
+            
+            <div class="product-detail"><?php echo element('content', element('data', $view)); ?></div>
+    </div>
+    </section>
+    <section class="ad">
+        <?php echo banner("product_details_banner") ?>
+    </section>
+</article>
+
+
+
+<!-- 장바구니 카트 확인 팝업 -->
+<article class="popup">
+    <h2>
+        *Notice*
+        <span>Are you sure you want to go to the shopping cart item?</span>
+    </h2>
+
+    <div class="popup_btn">
+        <button>Yes</button>
+        <button>No</button>
+    </div>
+</article>
+
+<!-- <div class="market">
     <h3>상품안내</h3>
     <?php if ($this->member->is_admin()) { ?>
         <a href="<?php echo admin_url('cmall/cmallitem/write/' . element('cit_id', element('data', $view))); ?>" target="_blank" class="btn-sm btn btn-danger pull-right">상품내용수정</a>
@@ -10,62 +140,7 @@
         <div class="product-detail"><?php echo element('header_content', element('data', $view)); ?></div>
     <?php } ?>
     <div class="market">
-        <div class="product-box mb20">
-            <div class="product-left">
-                <div class="item_slider">
-                    <?php
-                    for ($i =1; $i <=10; $i++) {
-                    if ( ! element('cit_file_' . $i, element('data', $view))) {
-                        continue;
-                    }
-                    ?>
-                        <div><img src="<?php echo thumb_url('cmallitem', element('cit_file_' . $i, element('data', $view)), 350, 350); ?>" alt="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" title="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" style="width:350px;height:350px;" onClick="window.open('<?php echo site_url('cmall/itemimage/' . html_escape(element('cit_key', element('data', $view)))); ?>', 'win_image', 'left=100,top=100,width=730,height=700,scrollbars=1');" /></div>
-                    <?php } ?>
-                </div>
-                <span class="prev" id="slider-prev"></span>
-                <span class="next" id="slider-next"></span>
-            </div>
-            <div class="product-right">
-                <div class="product-title"><?php echo html_escape(element('cit_name', element('data', $view))); ?></div>
-                <table class="product-no table table-bordered">
-                    <tbody>
-                        <tr>
-                            <td>상품코드</td>
-                            <td><?php echo html_escape(element('cit_key', element('data', $view))); ?></td>
-                        </tr>
-                        <?php
-                        for ($k=1; $k<=10; $k++) {
-                            if (element('info_title_' . $k, element('meta', element('data', $view)))) {
-                        ?>
-                            <tr>
-                                <td><?php echo html_escape(element('info_title_' . $k, element('meta', element('data', $view)))); ?></td>
-                                <td><?php echo html_escape(element('info_content_' . $k, element('meta', element('data', $view)))); ?></td>
-                            </tr>
-                        <?php
-                                }
-                            }
-                        ?>
-                        <?php if (element('demo_user_link', element('meta', element('data', $view))) OR element('demo_admin_link', element('meta', element('data', $view)))) { ?>
-                            <tr>
-                                <td>샘플보기</td>
-                                <td>
-                                <?php if (element('demo_user_link', element('meta', element('data', $view)))) { ?>
-                                    <a href="<?php echo site_url('cmallact/link/user/' . element('cit_id', element('data', $view))); ?>" target="_blank"><span class="label label-primary">샘플사이트</span></a>
-                                <?php } ?>
-                                <?php if (element('demo_admin_link', element('meta', element('data', $view)))) { ?>
-                                    <a href="<?php echo site_url('cmallact/link/admin/' . element('cit_id', element('data', $view))); ?>" target="_blank"><span class="label label-success">관리자사이트</span></a>
-                                <?php } ?>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        <tr>
-                            <td>다운로드 가능기간</td>
-                            <td><?php echo (element('cit_download_days', element('data', $view))) ? '구매후 ' . element('cit_download_days', element('data', $view)) . '일 동안 언제든지 다운로드 가능' : '구매후 기간제한없이 언제나 가능'; ?></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+       
 
         <?php
         if (element('detail', element('data', $view))) {
@@ -109,6 +184,7 @@
                             <td></td>
                             <td class="cart_total_price"><span id="total_order_price">0</span>원</td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -153,7 +229,7 @@
         </div>
         <?php if (element('footer_content', element('data', $view))) { ?><div class="product-detail"><?php echo element('footer_content', element('data', $view)); ?></div><?php } ?>
     </div>
-</div>
+</div> -->
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/bxslider/jquery.bxslider.min.js'); ?>"></script>
 <script type="text/javascript">
@@ -169,5 +245,32 @@ $(document).ready(function($) {
     view_cmall_review('viewitemreview', '<?php echo element('cit_id', element('data', $view)); ?>', '', '');
     view_cmall_qna('viewitemqna', '<?php echo element('cit_id', element('data', $view)); ?>', '', '');
 });
+
+
+$('#cart').click(function(){
+    $('.cover').css('display' , 'block');
+    $('.cover').css('z-index' , '100');
+    $('.cover').animate({'opacity' : '1'} , 1000);
+    $('.popup').css('display' , 'block');
+});
+
+/*팝업창 no 클릭시 팝업창 사라짐*/
+$('.popup_btn button:nth-child(2)').click(function(){
+    $('.cover').css('display' , 'none');
+    $('.popup').css('display' , 'none');
+    $('.cover').css('opacity' , '0');
+    $('#stype').val('cart');
+    var f = document.fitem;
+    f.submit();
+});
+
+/*팝업창 yes 클릭시 팝업창 사라짐 */
+$('.popup_btn button:nth-child(1)').click(function(){
+    $('#stype').val('cart');
+    $('#chk_referer').val('cart');
+    var f = document.fitem;
+    f.submit();
+});
+
 //]]>
 </script>

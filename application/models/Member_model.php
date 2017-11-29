@@ -60,6 +60,15 @@ class Member_model extends CB_Model
         return $this->get_one('', $select, $where);
     }
 
+    public function get_by_phone($phone = '', $select = '')
+    {
+        if (empty($phone)) {
+            return false;
+        }
+        $where = array('mem_phone' => $phone);
+        return $this->get_one('', $select, $where);
+    }
+
 
     public function get_by_both($str = '', $select = '')
     {

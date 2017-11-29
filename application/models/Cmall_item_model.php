@@ -55,7 +55,10 @@ class Cmall_item_model extends CB_Model
         }
         $limit = element('limit', $config) ? element('limit', $config) : 4;
 
-        $this->db->select('cmall_item.*');
+        $this->db->select('cmall_item.*,cmall_category.cca_value,cmall_item_detail.cde_id');
+        $this->db->join('cmall_category_rel', 'cmall_item.cit_id = cmall_category_rel.cit_id', 'inner');
+        $this->db->join('cmall_item_detail', 'cmall_item.cit_id = cmall_item_detail.cit_id', 'inner');
+        $this->db->join('cmall_category', 'cmall_category_rel.cca_id = cmall_category.cca_id', 'inner');
         $this->db->where($where);
         $this->db->limit($limit);
         $this->db->order_by('cit_order', 'asc');

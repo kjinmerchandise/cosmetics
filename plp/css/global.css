@@ -1,0 +1,444 @@
+@charset "utf-8";
+/* global */
+
+html,body{
+		width:100%;
+		max-width: 420px;
+		min-width: 320px;
+		margin: 0 auto;
+		font-size: 14px;
+		font-family: 'Nanum Gothic', sans-serif;
+	}
+
+button{
+	padding:2.5% 0 3%;
+	box-sizing: border-box;
+	background-color: #000;
+	color: #fff;
+}
+
+.ad img{
+	width: 100%;
+}
+
+h2{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 16px;
+
+}
+
+h3{
+	font-family: 'Jeju Gothic', sans-serif;
+	font-size: 16px;
+}
+
+label{
+	font-size: 14px;
+	font-family: 'Jeju Gothic', sans-serif;
+}
+
+p{
+    font-size: 14px;
+    line-height: 17px;
+    word-break: break-all;
+}
+
+span{
+	font-size: 12px;
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
+
+b{
+	font-family: 'Jeju Gothic', sans-serif;
+	color:#db2128;
+	font-size: 14px;
+}
+
+
+@media screen and (min-width:420px){
+	header{
+		border:1px solid #ededed;
+		border-top: 0;
+		box-sizing: border-box;
+	}
+
+	.content01,.content02{
+		border:1px solid #ededed;
+		border-bottom:0;
+		box-sizing: border-box;
+		z-index: 6666;
+	}
+}
+
+
+/*top 영역*/
+		.top{
+			width: 100%;
+			max-width: 420px;
+			min-width: 320px;
+			margin: 0 auto;
+			overflow: hidden;
+			position: fixed;
+			z-index:-10;
+		}
+
+		/*ham 영역*/
+			.ham{
+				width: 85%;
+				display: inline-block;
+				position: relative;
+				top: 0;
+				left:-85%;
+			}
+
+			.ham > img{
+				width: 8%;
+				margin-top: 3%;
+			}
+
+		/*ham_menu 영역*/
+			.ham_menu{
+				width: 88%;
+				margin-right: 3%;
+				float: left;
+				background-color: #fff;
+			}
+
+			.ham_menu ul li{
+				width: 100%;
+				border-bottom:1px solid #000;
+				padding:4%;
+				box-sizing: border-box;
+				text-align:left;
+				float: left;
+			}
+
+			.ham_menu ul li:first-child{
+				border-bottom:2px solid #000;
+			}
+
+			.ham_menu ul li:first-child button{
+				width: 86.5%;
+				margin-right: 3.5%;
+			}
+
+			.ham_menu ul li:first-child a{
+				width: 10%;
+				float: right;
+				margin-top: 1.5%;
+			}
+
+			.ham_menu ul li:first-child img{
+				width: 100%;
+				float: right;
+				margin-top: 2.5%;
+			}
+
+			.ham_menu ul li:nth-child(2){
+				border-right: 1px solid #000;
+			}
+
+			.ham_menu ul li:nth-child(2),
+			.ham_menu ul li:nth-child(3){
+				width: 50%;
+			}
+
+			.ham_menu ul li:nth-child(2) a,
+			.ham_menu ul li:nth-child(3) a{
+				text-align: center;
+			}
+
+			.ham_menu ul li h2{
+				text-align: left;
+				font-family: 'Jeju Gothic', sans-serif;
+				font-size: 16px;
+			}
+
+			.ham_menu ul li:nth-child(4) table{
+				width: 100%;
+			}
+
+			.ham_menu ul li:nth-child(4) td{
+				border:1px solid #000;
+				padding:4%;
+				box-sizing: border-box;
+				font-family: 'Nanum Gothic', sans-serif;
+			}
+
+			.ham_menu ul li:nth-child(4) td span{
+				float: right;
+			}
+
+			.ham_menu ul li:last-child{
+				border-bottom:0;
+			}
+
+			.ham_menu ul li:nth-child(4) h2,
+			.ham_menu ul li:last-child h2{
+				margin-bottom: 4%;
+			}
+
+/*cover 영역*/
+			.cover{
+				max-width: 420px;
+				min-width: 320px;
+				width: 100%;
+				position: fixed;
+				background-color: rgba(0,0,0,0.5);
+				opacity: 0;
+				z-index: 0;
+				display: none;
+			}
+
+/*header 영역*/
+			header{
+				max-width: 420px;
+				min-width: 320px;
+				width: 100%;
+				background-color: #fff;
+				position:fixed;
+				top: 0;
+				border-bottom: 1px solid #ededed;
+				z-index: 1;
+
+			}
+
+			header h1{
+				width:50%;
+				margin: 0 auto;
+				padding-top: 1.5%;
+
+			}
+
+			header h1 img{
+				width: 100%;
+			}
+
+			header span{
+				width:6%;
+				display: inline-block;
+				position: absolute;
+				bottom: 4%;
+			}
+
+			header span:nth-child(2){
+				left: 4%;
+			}
+
+			header span:last-child{
+				right: 4%;
+			}
+
+			header span img{
+				width: 100%;
+			}
+
+/*footer 영역*/
+		footer{
+			background-color: #000;
+			color: #fff;
+			padding:4%;
+			box-sizing: border-box;
+			font-size: 16px;
+			font-family: 'Jeju Gothic', sans-serif;
+			text-align: left;
+		}
+
+		footer h2{
+			margin-bottom:5%;
+		}
+
+		footer span{
+			margin-top:1%;
+			display: inline-block;
+			width: 100%;
+		}
+
+		footer ul{
+			width: 100%;
+			margin-bottom: 6%;
+			display: inline-block;
+		}
+
+		footer ul li {
+			font-size: 16px;
+			font-family: 'Jeju Gothic', sans-serif;
+			color: #fff;
+			padding:3.5% 3% 3%;
+			box-sizing: border-box;
+			border:1px solid #fff;
+			width: 100%;
+			text-align: center
+		}
+
+		footer ul li:nth-child(2){
+			font-size: 12px;
+			line-height: 18px;
+			font-family: 'Nanum Gothic', sans-serif;
+			display: none;
+		}
+
+		footer p{
+			font-size: 10px;
+			text-align: center;
+			font-family: 'Nanum Gothic', sans-serif;
+			color: #fff;
+		}
+
+/*팝업창 영역*/
+			.popup,
+			.popup02,
+			.popup03,
+			.popup04,
+			.popup05{
+				width: 280px;
+				background-color: #fff;
+				padding:10px;
+				border:3px solid #000;
+				box-sizing: border-box;
+				z-index: 200;
+				position:absolute;
+				top:100px;
+				left:0;
+				right: 0;
+				margin: 0 auto; 
+				display: none;
+			}
+
+			.popup h2 ,
+			.popup02 h2,
+			.popup03 h2,
+			.popup04 h2,
+			.popup05 h2{
+				text-align: center;
+				color: #db2128;
+				background:url(../images/notice.png) no-repeat top center;
+				background-size: 95px;
+				padding-top: 105px;
+				margin-bottom:4%;
+			}
+
+			.popup span ,
+			.popup02 span,
+			.popup03 span,
+			.popup04 span,
+			.popup05 span{
+				display: inline-block;
+				width: 100%;
+				line-height: 16px;
+				margin-top: 3%;
+				color: #000;
+				font-family: 'Nanum Gothic', sans-serif;
+			}
+
+			.popup .popup_btn,
+		    .popup02 .popup_btn,
+			.popup03 .popup_btn,
+			.popup04 .popup_btn,
+			.popup05 .popup_btn{
+				text-align:right;
+			}
+
+			.popup button ,
+			.popup02 button,
+			.popup03 button,
+			.popup04 button,
+			.popup05 button{
+				width: 20%;
+				height: 20px;
+				line-height: 21px;
+				padding:0;
+			}
+
+		/*.popup03 , .popup04 별도 css*/
+			.popup03 span:nth-child(3),
+			.popup04 span:nth-child(3){
+				font-size: 13px;
+				text-align: right;
+				display: inline-block;
+				width: 100%;
+				margin-bottom:4%;
+			}
+			.popup03 input,
+			.popup04 input{
+				width: 100%;
+				margin-bottom:4%;
+			}
+
+			.popup03 p,
+			.popup04 p{
+				font-size: 13px;
+				margin-bottom:4%;
+				font-family: 'Nanum Gothic', sans-serif;
+				text-align:center;
+				display: none;
+				color: #db2128;
+			}
+			.popup03 > span,
+			.popup04 > span{
+				text-align: right;
+				margin-top: 0;
+				margin-bottom:4%;
+				font-size: 12px;
+			}
+/*수량 증감 조절 영역*/
+	div.quantity{
+		position: relative;
+		height: 30px;
+		display: inline-block;
+	}
+
+	div.quantity p{
+		height: 30px;
+		line-height: 30px;
+		background-color: #fff;
+		color: #000;
+		font-size:16px;
+		text-align: center;
+		font-family: 'Jeju Gothic', sans-serif;
+	}
+
+	div.quantity span{
+		width: 30px;
+		height: 30px;
+		display: inline-block;
+		background-color: #000;
+		color: #fff;
+		text-align: center;
+		line-height: 30px;
+		font-size: 40px;
+		position: absolute;
+		top:0;
+	}
+
+	div.quantity span:nth-child(1){
+		left: 0;
+	}
+
+	div.quantity span:nth-child(3){
+		right: 0;
+		font-size: 25px;
+	}
+
+/*가격 , 가격 취소선 영역*/
+	.price_cancel{
+		display: inline-block;
+		width: 100%;
+	}
+
+	.price_cancel del{
+		float: left;
+		margin-right: 4%;
+		font-size: 12px;
+	}
+
+	.price_cancel > img{
+		width: 30px;
+		float: right;
+		margin-bottom:1.5%;
+		border:0;
+	}
+
+			
+
