@@ -134,9 +134,10 @@ foreach (element('type1', $view) as $item) {
                             </h3>
                         </figcaption>
                     </a>
-
-                    <del>₱ <?php echo number_format(element('display_price', $item) + 0); ?> PHP</del>
-                    <b>₱ <?php echo number_format(element('cit_price', $item) + 0); ?> PHP</b>
+                    <div class="price_cancel">
+                        <del>₱ <?php echo number_format(element('display_price', $item) + 0); ?> PHP</del>
+                        <span>₱ </span><b><?php echo number_format(element('cit_price', $item) + 0); ?></b> <span> PHP</span>
+                    </div>
                     <img src="<?php echo base_url('assets/images/cart.png'); ?>" alt="cart" data-url="<?php echo cmall_item_url(element('cit_key', $item)); ?>" data-cit_id="<?php echo element('cit_id', $item); ?>" data-cde_id="<?php echo element('cde_id', $item); ?>">
                 </figure>
             </li>

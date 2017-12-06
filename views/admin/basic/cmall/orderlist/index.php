@@ -72,12 +72,12 @@
                                             <tr class="success">
                                                 <th>이미지</th>
                                                 <th>상품명</th>
-                                                <th class="text-right">다운로드</th>
+                                                <th class="text-right"></th>
                                                 <th class="text-center">총수량</th>
                                                 <th>판매가</th>
                                                 <th>소계</th>
                                                 <th>다운로드기간</th>
-                                                <th>기간변경</th>
+                                                <!-- <th>기간변경</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -99,7 +99,7 @@
                                                             if (element('cor_status', $result) === '1') {
                                                                 if (element('possible_download', element('item', $row))) {
                                                         ?>
-                                                                    <button type="button" class="btn btn-xs btn-success pull-right">다운로드가능</button>
+                                                                    <button type="button" class="btn btn-xs btn-success pull-right">입금완료</button>
                                                         <?php } else { ?>
                                                                     <button type="button" class="btn btn-xs btn-danger pull-right">다운로드 기간 완료</button>
                                                         <?php } } else { ?>
@@ -140,7 +140,7 @@
                                                         <?php echo form_close(); ?>
                                                     </div>
                                                 </td>
-                                                <td><button class="btn btn-xs btn-primary btn-download-days-modify" data-cor-id-cit-id="<?php echo element('cor_id', $result); ?>-<?php echo element('cit_id', element('item', $row)); ?>">다운로드 기간변경</button></td>
+                                                <!-- <td><button class="btn btn-xs btn-primary btn-download-days-modify" data-cor-id-cit-id="<?php echo element('cor_id', $result); ?>-<?php echo element('cit_id', element('item', $row)); ?>">다운로드 기간변경</button></td> -->
                                             </tr>
                                         <?php
                                         }

@@ -24,24 +24,23 @@
                         $total_price_sum +=$total_price;
                 ?>
                     <tr>
-                        <td>
+                        <td style="padding:6% 4% 3%; background-color: #fff;">
+                            
                             <figure>
-                                <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>"><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" class="" style="margin:0;" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" /></a>
-
-                                
+                                <h3>
+                                    <?php if(element('cca_value', $result)) echo '['.html_escape(element('cca_value',$result)).']';?> <?php echo html_escape(element('cit_name', $result)); ?>
+                                </h3>
+                                <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>"><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" class="" style="margin:0;" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" /></a>                                
                                 </a>
                                 <figcaption>
-                                    <h3>
-                                        <?php if(element('cca_value', $result)) echo '['.html_escape(element('cca_value',$result)).']';?> <?php echo html_escape(element('cit_name', $result)); ?>
-                                        
-                                    </h3>
+                                    
                                     <p>
                                         <?php echo element('cit_summary', $result) ?>
                                     </p>
 
                                     <div class="price_cancel">
                                         <del>₱ <?php echo number_format(element('display_price', $result) + 0); ?> PHP</del>
-                                        <b>₱ <?php echo number_format(element('cit_price', $result) + 0); ?> PHP</b>
+                                        <span>₱</span><b> <?php echo number_format(element('cit_price', $result) + 0); ?></b><span> PHP</span>
                                         
                                     </div>
                                 </figcaption>
@@ -50,14 +49,14 @@
                     </tr>
                     <tr>
                         <td>
-                            <h3>Purchase quantity</h3>
-                            <b><?php echo number_format($total_num) ?> set</b>
+                            <p>Purchase quantity</p>
+                            <strong><?php echo number_format($total_num) ?> Set</strong>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h3>payment amount</h3>
-                            <b>₱ <?php echo number_format($total_price) ?> PHP</b>
+                            <p>Payment Amount</p>
+                            <Strong>₱ <?php echo number_format($total_price) ?> PHP</strong>
                         </td>
                     </tr>
                     
@@ -78,8 +77,10 @@
                 <?php
                 if (element('data', $view)) {
                 ?>
-                <div class="well well-sm mt20">
-                        Amount due <div class="total_price"><span class="checked_price">₱ <?php echo number_format($total_price_sum); ?></span> PHP</div>
+                <div class="well well-sm">
+                        <h3>Amount Due</h3>
+                        <div class="total_price price_cancel">
+                        <span class="checked_price">₱ </span><b><?php echo number_format($total_price_sum); ?></b> <span> PHP</span></div>
                     </div>
                     <?php
                     $sform['view'] = $view;
@@ -97,7 +98,7 @@
                         <input type="hidden" name="good_mny" value="0" />
                         <input type="hidden" name="pay_type" value="bank" id="pay_type_bank" />
                         <div class="market-order-person">
-                            <p class="market-title mt20">Purchase Information</p>
+                            <h3 class="market-title">Purchase Information</h3>
                             <table class="sign_up sign_up02">
                                 <tr>
                                     <td><label class="control-label">Your name</label>
@@ -142,38 +143,40 @@
                             <td>
 
                             
-                                <label class="col-lg-2 control-label">Total Order Amount</label>
-                                <div class="col-lg-9">
-                                    <strong>₱ <?php echo number_format($total_price_sum); ?> PHP</strong>
+                                <h3 class="col-lg-2 control-label">Total Order Amount</h3>
+                                <div class="col-lg-9 price_cancel">
+                                    <span>₱ <span> <b><?php echo number_format($total_price_sum); ?></b> <span> PHP<span></strong>
                                         <input type="hidden" name="order_deposit" id="order_deposit" class="input" value="0" />
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                            <label class="control-label">Account information</label>
-                            <div><?php echo nl2br($this->cbconfig->item('payment_bank_info')); ?> </div>
-                            </td>
-                        </tr>
-                        </table>
-                    </div>
+                            <h3 class="control-label">Account information</h3>
+                            <strong><?php echo nl2br($this->cbconfig->item('payment_bank_info')); ?> </strong>
 
-            <!-- 결제 정보 이미지 -->
-                <figure class="account_information">
-                    <img src="<?php echo base_url('assets/images/account_information.png') ?>" alt="account_information.png">
-                </figure>
+                             <!-- 결제 정보 이미지 -->
+                                <figure class="account_information">
+                                     <img src="<?php echo base_url('assets/images/account_information.png') ?>" alt="account_information.png">
+                                 </figure>
 
-            <!-- confirm 버튼 -->
+                    <!-- confirm 버튼 -->
 
-                <?php
+                                 <?php
 
-                if ($this->cbconfig->item('use_payment_pg')) {
-                    $this->load->view('paymentlib/' . $this->cbconfig->item('use_payment_pg') . '/' . element('form3name', $view), $sform);
-                }
-                echo form_close();
-                ?>
-                
-                <?php }?>
+                                 if ($this->cbconfig->item('use_payment_pg')) {
+                                        $this->load->view('paymentlib/' . $this->cbconfig->item('use_payment_pg') . '/' . element('form3name', $view), $sform);
+                                 }
+                                 echo form_close();
+                                 ?>
+                    
+                                 <?php }?>
+                                        </td>
+                                    </tr>
+                                        </table>
+                                    </div>
+
+           
         </section>
 
     <!-- 하단 광고 -->

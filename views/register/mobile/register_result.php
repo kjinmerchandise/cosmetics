@@ -42,9 +42,9 @@
                         <li>
                             <a href="">
                                 <figure>
-                                    <img src="<?php echo base_url('assets/images/signup03.png');?>" alt="signup03">
+                                    <img src="<?php echo base_url('assets/images/signup03.png');?>" alt="signup03" style="border:2px solid #db2128;">
                                     <figcaption>
-                                        <h3>
+                                        <h3 style="color:#db2128;">
                                             03<br>
                                             Signed<br>
                                             Up
@@ -59,21 +59,21 @@
                         <tr>
                             <td>
                                 <h3>ID</h3>
-                                <p><?php echo html_escape($this->session->flashdata('userid')); ?></p>
+                                <strong><?php echo html_escape($this->session->flashdata('userid')); ?></strong>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
                                 <h3>E-mail</h3>
-                                <p><?php echo html_escape($this->session->flashdata('email')); ?></p>
+                                <strong><?php echo html_escape($this->session->flashdata('email')); ?></strong>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <h3>phone</h3>
-                                <p><?php echo html_escape($this->session->flashdata('phone')); ?></p>
+                                <h3>Phone</h3>
+                                <strong><?php echo html_escape($this->session->flashdata('phone')); ?></strong>
                             </td>
                         </tr>
                         <!-- <tr>
@@ -86,7 +86,7 @@
                         <tr>
                             <td>
                                 <h3>Adress</h3>
-                                <p><?php echo html_escape($this->session->flashdata('address')); ?></p>
+                                <strong><?php echo html_escape($this->session->flashdata('address')); ?></strong>
                             </td>
                         </tr>
                     </table>

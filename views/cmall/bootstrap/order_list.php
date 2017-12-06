@@ -45,7 +45,7 @@
             if ( ! element('list', element('data', $view))) {
             ?>
                 <tr>
-                    <td colspan="6" class="nopost">회원님이 주문 내역이 없습니다</td>
+                    <td colspan="6" class="nopost">You have no order history</td>
                 </tr>
             <?php
             }

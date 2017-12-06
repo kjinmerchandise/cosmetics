@@ -1,0 +1,437 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="css/import.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script src="js/jquery.bxslider.min.js"></script>
+<script src="plugins/jquery.easing.1.3.js"></script>
+<script src="plugins/jquery.fitvids.js"></script>
+<script src="js/js_com.js"></script>
+
+<script>
+	$(document).ready(function(){
+		/*메인화면의 상품의 cart 이미지 클릭시*/
+			/*cover 씌우기 , 팝업창 보여주기*/
+				$('.best_of_best li figure > img').click(function(){
+					$('.cover').css('display' , 'block');
+					$('.cover').css('z-index' , '100');
+					$('.cover').animate({'opacity' : '1'} , 1000);
+					$('.popup').css('display' , 'block');
+				});
+
+			/*팝업창  스크롤바 따라다니기 */
+				var currentPosition = parseInt($(".popup").css("top"));
+
+				$(window).scroll(function() {
+					var position = $(window).scrollTop();
+					$(".popup").stop().animate({"top":position+currentPosition+"px"},1000);
+				});
+
+			/*팝업창 no 클릭시 팝업창 사라짐*/
+				$('.popup_btn button:nth-child(2)').click(function(){
+					$('.cover').css('display' , 'none');
+					$('.popup').css('display' , 'none');
+				});
+
+            /*팝업창 Yes 클릭시 팝업창 사라짐*/
+				$('.popup_btn button:nth-child(1)').click(function(){
+					location.href="index02.html"
+				});
+
+		/*메인 이미지 슬라이드*/
+		 	var slider = $('.bxslider').bxSlider({
+					speed: 500, // m/s ex > 1000 = 1s
+					easing: 'ease-in-out', // 동작 가속도 css와 동일
+					sliderMargin: 10, // img 와 img 사이 간격
+			        startSlide: 0, // 시작시 로드될 이미지 (0부터 시작)
+			        preloadImages: 'visible', // 'visible'은 보여질때 이미지를 로드,'all'로 설정 하게 되면 모든 이미지가 로드되어야만 slide가 작동
+			        sliderMargin: 10, // img 와 img 사이 간격
+			        startSlide: 0, // 시작시 로드될 이미지 (0부터 시작)
+			        randomStart: false, // 시작시 랜덤으로 이미지 로드 여부 (boolean)
+			        adaptiveHeight: true, //각 이미지의 높이에 따라 슬라이더 높이의 유동적 조절 여부
+			        adaptiveHeightSpeed: 500, //adaptiveHeight 동작속도,
+			        video: false,// slider에 video 사용여부, 사용할 시에 plugins/jquery.fitvids.js 파일 include 필요
+			        captions: false, // img 태그에 title속성값을 출력여부, 단 css .bx-wrapper .bx-caption 수정필요
+
+			//responsive method
+			        responsive: true, // 반응형 지원 여부
+			        touchEnabled: true,// 터치스와이프 기능 사용여부
+			        swipeThreshold: 50, // 터치하여 스와이프 할때 변환 효과에 소모되는 시간 설정
+			        onoToOneTouch: true, // fade효과가 아닌 슬라이드는 손가락의 접지상태에 따라 슬라이드를 움직일수있다.
+			        preventDefaultSwipeX: true, //onoToOneTouch 에서 true일 경우, 손가락을따라 x축으로 움직일지에 대한 여부
+			        preventDefaultSwipeY: false, //onoToOneTouch 에서 true일 경우, 손가락을따라 y축으로 움직일지에 대한 여부
+
+			//control method
+			        controls: false, //좌, 우 컨트롤 버튼 출력  여부
+			        auto: true, // 자동 재생 활성화.
+			        autoControls: false, //자동재생 제어버튼 활성화 단, auto모드 활성화필요
+			        autoControlsCombine: false, // 재생시 중지버튼 활성화(toggle)
+			        pause: 4000, // 자동 재생 시 각 슬라이드 별 노출 시간
+			        autoStart: true, // 페이지 로드가 되면, 슬라이드의 자동시작 여부
+			        autoDirection: 'next', // 자동 재생시에 정순, 역순(prev) 방식 설정
+			        autoHover: true, // 슬라이드 오버시 재생 중단 여부 (false : 오버무시)
+			        autoDelay: 0, // 자동 재생 전 대기 시간 설정.
+			        infiniteLoop: true, //마지막에 도달 했을시, 첫페이지로 갈 것인가 멈출것인가
+			        //pagerCustom: '#bx-pager' // pager
+				});
+				
+			// 클릭시 멈춤 현상 해결 //
+					$(document).on('click','.bx-next, .bx-prev',function() {
+						slider.stopAuto();
+						slider.startAuto();
+					});
+					$(document).on('click','.bx-pager, #bx-pager1',function() {
+						slider.stopAuto();
+						slider.startAuto();
+					});
+		});
+</script>
+</head>
+
+<body>
+<!-- ham 클릭시 화면 -->
+	<article class="top">
+		<div class="ham">
+			<section class="ham_menu">
+				<ul>
+					<li>
+						<button onclick="location.href='index04.html'">
+							LOGIN
+						</button>
+						<a href="index02.html">
+							<img src="./images/cart.png" alt="cart">
+						</a>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index09.html">
+								My Page
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index11.html">
+								Order Inquiry
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>SERVICE</h2>
+						<table>
+							<tr>
+								<td>
+								<a href="index12.html">
+									Notice
+										<span>
+											▶
+										</span>
+								</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="index13.html">
+										FAQ
+										<span>
+											▶
+										</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+
+					<li>
+						<h2>ABOUT ME</h2>
+						Call Center : 000.0000.0000
+
+					</li>
+				</ul>
+			</section>
+			<img src="./images/clear.png" alt="clear">
+		</div>
+	</article>
+
+<!-- 팝업창 배경 -->
+	<article class="cover">
+	</article>
+
+<!-- 장바구니 카트 확인 팝업 -->
+	<article class="popup">
+		<h2>
+		    *Notice*
+			<span>Are you sure you want to go to the shopping cart item?</span>
+		</h2>
+
+		<div class="popup_btn">
+			<button>Yes</button>
+			<button>No</button>
+		</div>
+	</article>
+
+<!-- header  -->
+	<header>
+		<h1>
+			<a href="index.html">
+				<img src="./images/logo.png" alt="logo">
+			</a>
+		</h1>
+				
+		<span><img src="./images/ham.png" alt="ham"></span>
+		<span><a href="index02.html"><img src="./images/cart.png" alt="cart"></a></span>
+	</header>
+
+<!-- content -->
+	<article class="content01">
+		<!-- 이미지 슬라이드 -->
+			<section class="slide">
+				<ul class="bxslider">
+				    <li><a href="http://www.naver.com"><img src="./images/slide01.png"></a></li>
+				    <li><a href=""><img src="./images/slide02.png"></a></li>
+				    <li><a href=""><img src="./images/slide03.png"></a></li>
+			</section>
+
+		<!-- best of best -->
+			<section class="best_of_best">
+				<h2>
+					BEST OF BEST	
+				</h2>
+
+				<ul>
+					<li>
+						<figure>
+							<a href="index03.html">
+								<img src="./images/prod_list05.png" alt="prod_list05">
+								<figcaption>
+									<p>LED Beauty Light Therapy</p>
+									<h3>
+										[Raydear] Raydear Point Care
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list06.png" alt="prod_list06">
+								<figcaption>
+									<p>Volumizing Function Nourish hair!</p>
+									<h3>
+										[Annasui] Hair essence curl spray!
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list04.png" alt="prod_list06">
+								<figcaption>
+									<p>Mask pack to moisturize my skin</p>
+									<h3>
+										[Bouquet garni] Face Mask Pack 3
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list07.png" alt="prod_list07">
+								
+								<figcaption>
+									<p>Refreshing and sweet fragrance</p>
+									<h3>
+										[Meblick] Soap perfume 50ml
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list09.png" alt="prod_list09">
+								<figcaption>
+									<p>Contains natural moisturizing ingredients!</p>
+									<h3>
+										[Second list] Fragrant lip balm
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list12.png" alt="prod_list12">
+								<figcaption>
+									<p>Eye cream that gives a glimmer eye</p>
+									<h3>
+										[NUCA] Hyper Stella Lotus Eye Cream
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list13.png" alt="prod_list12">
+								<figcaption>
+									<p>Naturally derived products blended</p>
+									<h3>
+										[DEWY] Aromatherapy Essential Oils
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list11.png" alt="prod_list11">
+								<figcaption>
+									<p>Ultraviolet rays, Mishan dust perfectly blocked</p>
+									<h3>
+										[OU] Creamy body lotion
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list10.png" alt="prod_list10">
+								<figcaption>
+									<p>Naturally derived products blended</p>
+									<h3>
+										[DEWY] Aromatherapy Essential Oils
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+
+					<li>
+						<figure>
+							<a href="http://www.google.com">
+								<img src="./images/prod_list14.png" alt="prod_list10">
+								<figcaption>
+									<p>A fragrant gray soap containing coconut oil</p>
+									<h3>
+										
+										[BANDATYI] Intermission Marble Soap
+									</h3>
+								</figcaption>
+							</a>
+
+							<del>16,000 PHP</del>
+							<b>\8,000 PHP</b>
+							<img src="./images/cart.png" alt="cart">
+						</figure>
+					</li>
+				</ul>
+			</section>
+	</article>
+	
+<!-- footer -->
+	<footer>
+		<h2>
+			ABOUT ME
+			<span>Call Center:000.0000.0000</span>
+		</h2>
+
+		<ul>
+			<li>
+					Confirm Terms of Use ▼
+			</li>
+			<li>
+					Chapter 1: General Provisions
+					Article 1 [Purpose)
+					The purpose of these Terms and Conditions
+					is to provide the terms and conditions
+					of use of all services provided by About
+					Me (hereinafter referred to as "Company")
+					at aboutmeshop.com (hereinafter referred to as "Service").
+
+					Article 2 (Definitions)
+					The terms used in these Terms and Conditions are as follows.
+					1. User: Member and non-member who receive services provided
+					by the Company in accordance with these Terms and Conditions.
+					2. Use Contract: Agreement between the Company and the User
+					regarding the use of the Service
+					3. Enrollment: Completing the service usage contract by filling
+					in the information on the application form provided by the company
+					and agreeing to these terms and conditions.
+					4. Member: Anyone who has registered for membership by providing
+					personal information necessary for membership on this site
+					5. User ID (ID): A combination of alphabetic and numeric
+					characters selected by the user and approved by the company
+					for member identification and member service use
+			</li>
+		</ul>
+
+		<p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+	</footer>
+</body>
+</html>

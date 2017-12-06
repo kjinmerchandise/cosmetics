@@ -1400,7 +1400,7 @@ class Cmall extends CB_Controller
             $cwhere = array(
                 'mem_id' => $mem_id,
                 'cct_order' => 1,
-                'ssesion_id' => $session_id,
+                'session_id' => $session_id,
             );
             $cartorder = $this->Cmall_cart_model->get('', '', $cwhere);
             if ($cartorder) {

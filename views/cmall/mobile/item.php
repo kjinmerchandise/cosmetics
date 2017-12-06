@@ -13,8 +13,8 @@
         <?php if (element('header_content', element('data', $view))) { ?>
             <div class="product-detail"><?php echo element('header_content', element('data', $view)); ?></div>
         <?php } ?>
-        <div class="product-box mb20">
-            <div class="product-left mt10">
+        <div class="product-box">
+            <div class="product-left">
                 <div class="item_slider">
                     <?php
                     for ($i =1; $i <=10; $i++) {
@@ -44,7 +44,7 @@
                 <tbody>
                     <tr>
                         <td colspan=2>
-                         <div class="product-title"><?php echo html_escape(element('cit_name', element('data', $view))); ?></div>
+                         <h3 class="product-title"><?php echo html_escape(element('cit_name', element('data', $view))); ?></h3>
                         </td>
                     </tr>
                     <tr>
@@ -52,12 +52,10 @@
                             <p>
                                 Price
                             </p>
-                        </td>
-                        <td>
+
                             <div class="price_cancel">
                                 <del>₱ <?php echo number_format(element('display_price', element('data', $view)) + 0); ?> PHP</del>
-                                <b>₱ <?php echo number_format(element('cit_price', element('data', $view)) + 0); ?> PHP</b>
-                                
+                               <span>₱ </span> <b><?php echo number_format(element('cit_price', element('data', $view)) + 0); ?></b> <span> PHP</span>
                             </div>
                         </td>
                     </tr>
@@ -67,7 +65,15 @@
                     ?>
                     <input type="hidden" name="chk_detail[]" value="<?php echo element('cde_id', $detail); ?>" />
                         <tr>
-                            <td><p style="height: 30px; line-height: 30px;"><?php echo html_escape(element('cde_title', $detail)); ?></p></td>
+                            <td>
+                                <p style="height: 30px; line-height: 30px;"><?php echo html_escape(element('cde_title', $detail)); ?></p>
+                                <div class="quantity">
+                                    <span class="btn-change-qty" data-change-type="minus">-</span>
+                                    <input type="text" name="detail_qty[<?php echo element('cde_id', $detail); ?>]"  style="border:0px;" value="1" />
+                                    <span class="btn-change-qty" data-change-type="plus">+</span>
+                                </div>
+                            </td>
+                        <!--
                             <td class="text-right">
                                 <div class="quantity">
                                     <span class="btn-change-qty" data-change-type="minus">-</span>
@@ -75,29 +81,24 @@
                                     <span class="btn-change-qty" data-change-type="plus">+</span>
                                 </div>
                             </td>
+                        -->
                         </tr>
                     <?php } ?>
                        
                     <tr class="success">
-                        <td>Total Amount</td>
-                        <td class="text-right">₱ 
-                        <span id="total_order_price"><?php echo number_format(element('cit_price', element('data', $view)) + 0); ?></span> PHP</td>
-                    </tr>
-                    <tr>
-                        <td class="per50">
-
-                                        
-                                        
-                                
+                        <td>
+                            <h3>Total Amount</h3>
+                            <div class="text-right">
+                                ₱ <span id="total_order_price"><?php echo number_format(element('cit_price', element('data', $view)) + 0); ?></span> PHP
+                            </div>
                             <button type="submit" onClick="$('#stype').val('order');" style="width:100%">
                                 Buy Now
                             </button>
-                        </td>
-                        <td>
-                            <button id="cart" type="button"  style="width:100%">
+
+                             <button id="cart" type="button"  style="width:100%">
                                 Shopping Basket
                             </button>
-                        </td>
+                        </td>                        
                     </tr>
                 </tbody>
             </table>

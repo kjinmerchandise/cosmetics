@@ -2,7 +2,7 @@
 
 <article class="content02">
     <!-- 결제정보 -->
-        <section class="billing_information">
+        <section class="billing_information billing_information02">
             <!-- 타이틀 -->
                 <h2>
                     Billing Information
@@ -19,23 +19,22 @@
                         $total_price_sum+=$total_price;
                 ?>
                     <tr>
-                        <td>
+                        <td  style="padding:6% 4% 3%; background-color: #fff;">
                             <figure>
+                                <h3>
+                                    <?php if(element('cca_value', element(0,element('itemdetail', $result)))) echo '['.html_escape(element('cca_value',element(0, element('itemdetail', $result)))).']';?> <?php echo html_escape(element('cit_name', element('item', $result))); ?>
+                                </h3>
                                 <a href="<?php echo cmall_item_url(element('cit_key', element('item', $result))); ?>" title="<?php echo html_escape(element('cit_name', element('item', $result))); ?>">
                                     <img src="<?php echo thumb_url('cmallitem', element('cit_file_1', element('item', $result))); ?>" class="" style="margin:0;" alt="<?php echo html_escape(element('cit_name', element('item', $result))); ?>" title="<?php echo html_escape(element('cit_name', element('item', $result))); ?>" />
                                 </a>
                                 <figcaption>
-                                    <h3>
-                                        <?php if(element('cca_value', element(0,element('itemdetail', $result)))) echo '['.html_escape(element('cca_value',element(0, element('itemdetail', $result)))).']';?> <?php echo html_escape(element('cit_name', element('item', $result))); ?>
-                                        
-                                    </h3>
                                     <p>
                                         <?php echo element('cit_summary', element('item', $result)) ?>
                                     </p>
 
                                     <div class="price_cancel">
                                         <del>₱ <?php echo number_format(element('display_price', element('item', $result)) + 0); ?> PHP</del>
-                                        <b>₱ <?php echo number_format(element('cit_price', element('item', $result)) + 0); ?> PHP</b>
+                                        <span>₱ </span> <b><?php echo number_format(element('cit_price', element('item', $result)) + 0); ?></b> <span> PHP</span>
                                         
                                     </div>
                                 </figcaption>
@@ -44,32 +43,20 @@
                     </tr>
                     <tr>
                         <td>
-                            <h3>Order Number</h3>
-                            <b><?php echo element('cor_id', element('data', $view)); ?></b>
+                            <p>Order Number</p>
+                            <strong><?php echo element('cor_id', element('data', $view)); ?></strong>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h3>Name of depositor</h3>
-                            <b><?php echo html_escape(element('mem_realname', element('data', $view))); ?></b>
+                            <p>Name of depositor</p>
+                            <strong><?php echo html_escape(element('mem_realname', element('data', $view))); ?></strong>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h3>Deposit account</h3>
-                            <b><?php echo nl2br(html_escape($this->cbconfig->item('payment_bank_info'))); ?></b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Total payment amount</h3>
-                            <b>₱ <?php echo number_format($total_price_sum) ?> PHP</b>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3>Payment status</h3>
-                            <b>
+                            <p>Payment status</p>
+                            <strong style="color:#db2128;">
                             <?php
                             if (element('cor_status', $result) === '1') {
                                 echo 'Payment completed';
@@ -79,9 +66,38 @@
                                 echo 'Waiting for Payment';
                             }
                             ?> 
-                            </b>
+                            </strong>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td>
+                            <h3>Total payment amount</h3>
+                            <div class="price_cancel">
+                            <span>₱ </span> <b><?php echo number_format($total_price_sum) ?></b> <span> PHP</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <h3>Deposit account</h3>
+                            <strong><?php echo nl2br(html_escape($this->cbconfig->item('payment_bank_info'))); ?></strong>
+
+                            <!-- 결제 정보 이미지 -->
+                                <figure class="account_information">
+                                    <img src="<?php echo base_url('assets/images/account_information.png') ?>" alt="account_information.png">
+                                </figure>
+
+                            <!-- confirm 버튼 -->
+                                <button onClick='location.href="<?php echo site_url('cmall/orderlist'); ?>"'>
+                                    Confirm
+                                </button>
+                        </td>
+                    </tr>
+                        </section>
+                        
+                    
                     
                     <?php if (element('cor_approve_datetime', element('data', $view)) > '0000-00-00 00:00:00') { ?>
                         <tr>
@@ -95,17 +111,7 @@
                     ?>
                 </table>
 
-            <!-- 결제 정보 이미지 -->
-                <figure class="account_information">
-                    <img src="<?php echo base_url('assets/images/account_information.png') ?>" alt="account_information.png">
-                </figure>
-
-            <!-- confirm 버튼 -->
-                <button onClick='location.href="<?php echo site_url('cmall/orderlist'); ?>"'>
-                    
-                    Confirm
-                </button>
-        </section>
+            
 
     <!-- 하단 광고 -->
         <section class="ad">

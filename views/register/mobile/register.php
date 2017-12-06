@@ -16,9 +16,9 @@
                         <li>
                             <a href="">
                                 <figure>
-                                    <img src="<?php echo base_url('assets/images/signup01.png');?>" alt="signup04">
+                                    <img src="<?php echo base_url('assets/images/signup01.png');?>" alt="signup04"  style="border:2px solid #db2128;">
                                     <figcaption>
-                                        <h3>
+                                        <h3 style="color:#db2128;">
                                             01<br>
                                             Accept<br>
                                             Terms
@@ -67,9 +67,10 @@
                         <input type="hidden" name="register" value="1" />
                 <!-- 약관내용 -->
                     <div class="terms">
-                        <input type="checkbox" name="agree" id="agree" value="1" checked="checked"/> 
-                        <label>Accept terms and conditions(necessary)</label>
-
+                        <div>
+                            <input type="checkbox" name="agree" id="agree" value="1" checked="checked"/> 
+                            <label>Accept terms and conditions(necessary)</label>
+                        </div>
                         <p>
                             <?php echo element('member_register_policy1', $view); ?>
                         </p>

@@ -42,30 +42,44 @@
                 
                 <img src="<?php echo base_url('assets/images/trashcan.png') ?>" onclick="location.href='<?php echo element('list_delete_url', $result) ?>';" alt="trashcan">
                 <figure>
-                <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" ><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" class="" style="margin:0;" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" /></a>
-                    <figcaption>
-                        <h3>
+                    <h3>
                             <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" ><?php if(element('cca_value', $result)) echo '['.html_escape(element('cca_value', $result)).']';?> <?php echo html_escape(element('cit_name', $result)); ?></a>
                         </h3>
+                <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" ><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" class="" style="margin:0;" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" /></a>
+                    <figcaption>
+                        
                         <p>
                            <?php echo element('cit_summary', $result) ?>
                         </p>
-                        <b>
-                            <b>₱ <?php echo number_format(element('cit_price', $result) + 0); ?> PHP</b>
-                        </b>
+                        <div class="price_cancel">
+                           <span>₱ </span> <b><?php echo number_format(element('cit_price', $result) + 0); ?></b> <span> PHP</span>
+                        </div>
                     </figcaption>
                 </figure>
 
-                <div class="change_btn">
+                <!-- 수정 입니다. -->
+                <div>
+                    <p>Change Quantity</p>
+                    <div class="quantity">
+                        <span>-</span>
+                        <input value="1" style="border:0">
+                        <span>+</span>
+                    </div>
+                </div>
+
+
+
+
+<!--
+                <div class="change_btn">    
                     <h3>
                         <td><?php echo number_format($total_num); ?></td> ITEM
                     </h3>
-
                     <button class="change_option" type="button" data-cit-id="<?php echo element('cit_id', $result); ?>">
                         Change quantity
                     </button>
                 </div>
-
+-->
                
             </li>
         </ul>
@@ -73,20 +87,21 @@
             }
 
         echo '<div class="total_order">
-                <h3>
-                    Total Order Amount
-                </h3>
-                <b>₱ '.number_format($total_price_sum).' PHP</b>
-
-                <button type="submit">
-                    Order optional items
-                </button>
+            <h3>
+                Total Order Amount
+            </h3>
+            <div class="price_cancel">
+            <span>₱ </span> <b>'.number_format($total_price_sum).'</b> <span>PHP</span>
+            </div>
+            <button type="submit">
+                Order optional items
+            </button>
             </div>';
         }
         if ( ! element('data', $view)) {
         ?>
             <ul>
-                <li>Your shopping cart is empty.</li>
+                <li class="empty">Your shopping cart is empty.</li>
             </ul>
         <?php
         }
@@ -113,7 +128,7 @@ $(document).on('change', '.list-chkbox', function() {
 $(function() {
     var close_btn_idx;
 
-    // 선택사항수정
+    /* 선택사항수정*/
     $(document).on('click', '.change_option', function() {
         var cit_id = $(this).attr('data-cit-id');
         var $this = $(this);

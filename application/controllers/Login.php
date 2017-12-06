@@ -556,7 +556,7 @@ class Login extends CB_Controller
                 $this->email->message($content);
                 $this->email->send();
 
-                $view['view']['message'] = 'I have sent an ID to the email address you entered when you signed up.';
+                $view['view']['message'] = '<p>I have sent an ID to the email address you entered when you signed up.</p>';
 
                 // 이벤트가 존재하면 실행합니다
                 $view['view']['event']['findidpw_after'] = Events::trigger('findidpw_after', $eventname);

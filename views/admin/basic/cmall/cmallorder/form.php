@@ -32,12 +32,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </th>
                         <th>이미지</th>
                         <th>상품명</th>
-                        <th class="text-right">다운로드</th>
+                        <th class="text-right"></th>
                         <th class="text-center">상태</th>
                         <th class="text-center">총수량</th>
                         <th>판매가</th>
                         <th>소계</th>
-                        <th>다운로드기간</th>
+                        <!-- <th>다운로드기간</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         </td>
                         <td><?php echo number_format(element('cit_price', element('item', $row))); ?></td>
                         <td><?php echo number_format($total_price); ?><input type="hidden" name="total_price[<?php echo element('cit_id', element('item', $row)); ?>]" value="<?php echo $total_price; ?>"></td>
-                        <td>
+                        <!-- <td>
                             <?php
                             if (element('cod_download_days', $detail)) {
                                 echo '구매후 ' . element('cod_download_days', $detail) . '일간 ( ~ ' . element('download_end_date', element('item', $row)) . ' 까지)';
@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="cor-id-cit-id-<?php echo element('cor_id', $result); ?>-<?php echo element('cit_id', element('item', $row)); ?>">
                                 <input type="number" name="cod_download_days[<?php echo $i;?>]" class="form-control" value="<?php echo element('cod_download_days', $detail); ?>" />
                             </div>
-                        </td>
+                        </td> -->
                     </tr>
                 <?php
                 $i++;

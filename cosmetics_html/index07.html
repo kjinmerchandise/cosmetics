@@ -1,0 +1,345 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="css/import.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/js_com.js"></script>
+
+<script>
+	$(document).ready(function(){
+		/*overlap 클릭시 팝업창*/
+			$('.sign_up02 td button').click(function(){
+				$('.popup').css('display' , 'block');
+				$('.cover').css('display' , 'block');
+				$('.cover').css('z-index' , '100');
+				$('.cover').animate({'opacity' : '1'} , 1000);
+
+			var re_id = /^[a-z]{4,12}$/;
+				/*id 입력란에 공란일때*/
+					if($(this).siblings('input[type="text"]').val().length === 0){
+						$(this).siblings('p').css('display' , 'none');
+						$('.popup h2 span').text('This is a required input.');
+
+				/*id 입력란의 값이 조건에 안맞을 경우*/
+					}else if(re_id.test($(this).siblings('input[type="text"]').val()) != true){
+						$(this).siblings('p').css('display' , 'none');
+						$('.popup h2 span').text('You can not use this ID.');
+
+				/*id 입력란의 값이 조건에 맞을 경우*/
+					}else{
+						$('.popup span').text('The ID you entered is registered');
+					}
+			});
+
+			/*ok 버튼 클릭시*/
+				$('.popup button').click(function(){
+					$('.cover').css('display' , 'none');
+					$('.popup').css('display' , 'none');
+				});
+
+		/*팝업창 스크롤바 따라다니기*/
+				var currentPosition = parseInt($(".popup").css("top"));
+
+						$(window).scroll(function() {
+							var position = $(window).scrollTop();
+							$(".popup").stop().animate({"top":position+currentPosition+"px"},1000);
+						});
+						
+		/*입력란이 공란일 경우*/
+				$('.sign_up input').blur(function(){
+					if($(this).val().length === 0){
+						$(this).siblings('p').slideDown();
+					}else{
+						$(this).siblings('p').slideUp()
+					}
+				});
+	});
+</script>
+
+</head>
+
+<body>
+<!-- ham 클릭시 화면 -->
+	<article class="top">
+		<div class="ham">
+			<section class="ham_menu">
+				<ul>
+					<li>
+						<button onclick="location.href='index04.html'">
+							LOGIN
+						</button>
+						<a href="index02.html">
+							<img src="./images/cart.png" alt="cart">
+						</a>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index09.html">
+								My Page
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index11.html">
+								Order Inquiry
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>SERVICE</h2>
+						<table>
+							<tr>
+								<td>
+								<a href="index12.html">
+									Notice
+										<span>
+											▶
+										</span>
+								</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="index13.html">
+										FAQ
+										<span>
+											▶
+										</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+
+					<li>
+						<h2>ABOUT ME</h2>
+						Call Center : 000.0000.0000
+
+					</li>
+				</ul>
+			</section>
+			<img src="./images/clear.png" alt="clear">
+		</div>
+	</article>
+
+<!-- 팝업창 배경 -->
+	<article class="cover">
+	</article>
+
+<!-- 아이디 값 조건에 안맞을 경우 팝업창-->
+	<article class="popup">
+		<h2>
+		    *Notice*
+			<span>
+				You can not use this ID.
+			</span>
+		</h2>
+
+		<div class="popup_btn">
+			<button>Ok</button>
+		</div>
+	</article>
+	
+<!-- header -->
+	<header>
+		<h1>
+			<a href="index.html">
+				<img src="./images/logo.png" alt="logo">
+			</a>
+		</h1>
+				
+		<span><img src="./images/ham.png" alt="ham"></span>
+		<span><a href="index02.html"><img src="./images/cart.png" alt="cart"></a></span>
+	</header>
+
+<!-- content -->
+	<article class="content02">
+		<!-- 회원가입 02 -->
+			<section class="sign_up sign_up02">
+				<!-- 타이틀 -->
+					<h2>
+						SIGN UP
+					</h2>
+				<!-- step -->
+					<ol>
+						<li>
+							<a href="">
+								<figure>
+									<img src="./images/signup04.png" alt="signup04">
+									<figcaption>
+										<h3>
+											01<br>
+											Accept<br>
+											Terms
+										</h3>
+									</figcaption>
+								</figure>
+							</a>
+						</li>
+
+						<li>
+							<a href="">
+								<figure>
+									<img src="./images/signup02.png" alt="signup02">
+									<figcaption>
+										<h3>
+											02<br>
+											Enter<br>
+											Information
+										</h3>
+									</figcaption>
+								</figure>
+							</a>
+						</li>
+
+						<li>
+							<a href="">
+								<figure>
+									<img src="./images/signup06.png" alt="signup03">
+									<figcaption>
+										<h3>
+											03<br>
+											Signed<br>
+											Up
+										</h3>
+									</figcaption>
+								</figure>
+							</a>
+						</li>
+					</ol>
+				<!-- 정보 입력란 -->
+					<table>
+							<tr>
+								<td>
+									<label>ID</label>
+									<input type="text">
+									<button>
+										Overlap Check
+									</button>
+									
+									<span>※ Only 4 to 12 digits are allowed in English</span>
+
+									<p>
+										This is a required input.
+									</p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<label>Password</label>
+									<input type="password">
+									<p>
+										This is a required input.
+									</p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<label>Password Confirm</label>
+									<input type="password">
+									<p>
+										This is a required input.
+									</p>
+								</td>
+							</tr>
+
+
+							<tr>
+								<td>
+									<label>E-mail</label>
+									<input type="email">
+									<p>
+										This is a required input.
+									</p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<label>Phone</label>
+									<input type="tel">
+									<p>
+										This is a required input.
+									</p>
+								</td>
+							</tr>
+
+							<tr>
+								<td>
+									<label>Adress</label>
+									<input type="text">
+									<p>
+										This is a required input.
+									</p>
+								</td>
+							</tr>
+					</table>
+				<!-- next, cancel 버튼 -->
+					<div class="sign_up_btn">
+						<button onclick="location.href='index08.html'">
+							Next
+						</button>
+
+						<button>
+							Cancel
+						</button>
+					</div>
+			</section>
+
+		<!-- 하단 광고 -->
+			<section class="ad">
+				<img src="./images/bottom_banner.png" alt="bottom_banner">
+			</section>
+	</article>
+
+<!-- footer -->
+	<footer>
+		<h2>
+			ABOUT ME
+			<span>Call Center:000.0000.0000</span>
+		</h2>
+
+		<ul>
+			<li>
+					Confirm Terms of Use ▼
+			</li>
+			<li>
+					Chapter 1: General Provisions
+					Article 1 [Purpose)
+					The purpose of these Terms and Conditions
+					is to provide the terms and conditions
+					of use of all services provided by About
+					Me (hereinafter referred to as "Company")
+					at aboutmeshop.com (hereinafter referred to as "Service").
+
+					Article 2 (Definitions)
+					The terms used in these Terms and Conditions are as follows.
+					1. User: Member and non-member who receive services provided
+					by the Company in accordance with these Terms and Conditions.
+					2. Use Contract: Agreement between the Company and the User
+					regarding the use of the Service
+					3. Enrollment: Completing the service usage contract by filling
+					in the information on the application form provided by the company
+					and agreeing to these terms and conditions.
+					4. Member: Anyone who has registered for membership by providing
+					personal information necessary for membership on this site
+					5. User ID (ID): A combination of alphabetic and numeric
+					characters selected by the user and approved by the company
+					for member identification and member service use
+			</li>
+		</ul>
+
+		<p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+	</footer>
+</body>
+</html>

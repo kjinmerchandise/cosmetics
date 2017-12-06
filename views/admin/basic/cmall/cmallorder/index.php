@@ -11,6 +11,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <?php
     echo show_alert_message($this->session->flashdata('message'), '<div class="alert alert-auto-close alert-dismissible alert-info"><button type="button" class="close alertclose" >&times;</button>', '</div>');
     echo show_alert_message($this->session->flashdata('dangermessage'), '<div class="alert alert-auto-close alert-dismissible alert-danger"><button type="button" class="close alertclose" >&times;</button>', '</div>');
+    $attributes = array('class' => 'form-inline', 'name' => 'flist', 'id' => 'flist');
+    echo form_open(current_full_url(), $attributes);
     ?>
         <div class="box-table-header">
             <div class="btn-group btn-group-sm" role="group">
@@ -26,6 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ?>
                 <div class="btn-group pull-right" role="group" aria-label="...">
                     <a href="<?php echo element('listall_url', $view); ?>" class="btn btn-outline btn-default btn-sm">전체목록</a>
+                    <button type="button" class="btn btn-outline btn-default btn-sm btn-list-delete btn-list-selected disabled" data-list-delete-url = "<?php echo element('list_delete_url', $view); ?>" >선택삭제</button>
                 </div>
             <?php
             $buttons = ob_get_contents();
@@ -47,6 +50,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <th>입금합계</th>
                         <th>주문취소</th>
                         <th>보기</th>
+                        <th><input type="checkbox" name="chkall" id="chkall" /></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,6 +76,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <td class="text-right"><?php echo number_format(element('cor_cash', $result)) . '원'; ?></td>
                         <td class="text-right"><?php echo number_format(element('cor_refund_price', $result)) . '원'; ?></td>
                         <td><a href="<?php echo element('form_url', $view) .'/'. element('cor_id', $result); ?>">보기</a></td>
+                        <td><?php if ( ! element('cor_status', $result)) { ?><input type="checkbox" name="chk[]" class="list-chkbox" value="<?php echo element(element('primary_key', $view), $result); ?>" /><?php } ?></td>
                     </tr>
                     <?php
                         }
@@ -92,6 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="pull-left ml20"><?php echo admin_listnum_selectbox();?></div>
             <?php echo $buttons; ?>
         </div>
+        <?php echo form_close(); ?>
     </div>
     <form name="fsearch" id="fsearch" action="<?php echo current_full_url(); ?>" method="get">
         <div class="box-search">

@@ -111,11 +111,11 @@ $config['admin_page_menu'] = array(
 			'cmallitem'                     => array('상품관리', ''),
 			'qna'                               => array('상품문의', ''),
 			'review'                          => array('상품사용후기', ''),
-			'wishlist'                         => array('보관함현황', ''),
+			// 'wishlist'                         => array('보관함현황', ''),
 			'cmallcart'                      => array('장바구니현황', ''),
-			'itemdownload'            => array('상품다운로드로그', ''),
-			'itemhistory'                  => array('상품내용변경로그', ''),
-			'linkclick'                        => array('상품데모링크클릭', ''),
+			// 'itemdownload'            => array('상품다운로드로그', ''),
+			// 'itemhistory'                  => array('상품내용변경로그', ''),
+			// 'linkclick'                        => array('상품데모링크클릭', ''),
 			'cmallstat'                      => array('구매통계', ''),
 		),
 	),
@@ -129,13 +129,13 @@ $config['admin_page_menu'] = array(
 	// 		'depositstat'                   => array('예치금통계', ''),
 	// 	),
 	// ),
-	'service'                                  => array(
-		'__config'                          => array('기타기능', 'fa-plug'),
-		'menu'                               => array(
-			'levelupconfig'              => array('레벨업 설정', ''),
-			'pointrankingconfig'    => array('포인트 랭킹', ''),
-			'pollconfig'                   => array('설문조사', ''),
-			'attendanceconfig'       => array('출석체크', ''),
-		),
-	),
+	// 'service'                                  => array(
+	// 	'__config'                          => array('기타기능', 'fa-plug'),
+	// 	'menu'                               => array(
+	// 		'levelupconfig'              => array('레벨업 설정', ''),
+	// 		'pointrankingconfig'    => array('포인트 랭킹', ''),
+	// 		'pollconfig'                   => array('설문조사', ''),
+	// 		'attendanceconfig'       => array('출석체크', ''),
+	// 	),
+	// ),
 );

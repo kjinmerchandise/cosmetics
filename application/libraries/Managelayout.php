@@ -346,7 +346,7 @@ class Managelayout extends CI_Controller
         <footer>
                 <h2>
                     ABOUT ME
-                    <span>Call Center:000.0000.0000</span>
+                    <span>Call Center : +63323843526</span>
                 </h2>
 
                 <ul>
@@ -354,32 +354,14 @@ class Managelayout extends CI_Controller
                             Confirm Terms of Use ▼
                     </li>
                     <li>
-                            Chapter 1: General Provisions
-                            Article 1 [Purpose)
-                            The purpose of these Terms and Conditions
-                            is to provide the terms and conditions
-                            of use of all services provided by About
-                            Me (hereinafter referred to as "Company")
-                            at aboutmeshop.com (hereinafter referred to as "Service").
-
-                            Article 2 (Definitions)
-                            The terms used in these Terms and Conditions are as follows.
-                            1. User: Member and non-member who receive services provided
-                            by the Company in accordance with these Terms and Conditions.
-                            2. Use Contract: Agreement between the Company and the User
-                            regarding the use of the Service
-                            3. Enrollment: Completing the service usage contract by filling
-                            in the information on the application form provided by the company
-                            and agreeing to these terms and conditions.
-                            4. Member: Anyone who has registered for membership by providing
-                            personal information necessary for membership on this site
-                            5. User ID (ID): A combination of alphabetic and numeric
-                            characters selected by the user and approved by the company
-                            for member identification and member service use
+                        We are a Korean cosmetic specialty store.<br>
+                        All content on the site is illegal Use prohibited.<br>
+                        K Cosmetics Store<br>
+                        CEO: Julia Marie V Tamoza<br>
                     </li>
                 </ul>
 
-                <p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+                <p> COPYRIGHT 2017 BY K Cosmetics ALL RIGHT RESERVED</p>
             </footer>
         ';
         return $return;

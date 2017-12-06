@@ -952,7 +952,7 @@ class Membermodify extends CB_Controller
                 $this->session->sess_destroy();
 
             } else {
-                $view['view']['message'] = '회원정보가 변경되었습니다. 감사합니다';
+                $view['view']['message'] = '<p>Your membership information has changed. Thank you.</p>';
             }
 
             $this->session->set_flashdata(

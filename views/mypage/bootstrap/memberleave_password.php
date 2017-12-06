@@ -46,7 +46,7 @@
                     <button type="submit" class="btn btn-primary btn-sm">확인</button>
                     <span class="help-block">
                         <span class="fa fa-exclamation-circle"></span>
-                        외부로부터 회원님의 정보를 안전하게 보호하기 위해 비밀번호를 확인하셔야 합니다.
+                            In order to protect your information from outside, you need to confirm your password.
                     </span>
                 </div>
             </div>

@@ -1070,7 +1070,7 @@ class Payment extends CB_Controller
 
                                 $session_id='';
                                 if(!empty($_COOKIE[config_item('sess_cookie_name')])) $session_id = $_COOKIE[config_item('sess_cookie_name')];
-                                $where = array('mem_id' => $mem_id,'ssesion_id' => $session_id);
+                                $where = array('mem_id' => $mem_id,'session_id' => $session_id);
                                 $where_in = explode('-', $cart_ids);
                                 $cartorder = $this->Cmall_cart_model->get_cart_list_in($where, $where_in);
 

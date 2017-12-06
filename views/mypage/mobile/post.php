@@ -1,6 +1,6 @@
 <?php $this->managelayout->add_css(element('view_skin_url', $layout) . '/css/style.css'); ?>
 
-<div class="mypage">
+<div class="mypage mypage02">
     <ul class="nav nav-tabs">
         <li><a href="<?php echo site_url('mypage'); ?>" title="마이페이지">마이페이지</a></li>
         <li class="active"><a href="<?php echo site_url('mypage/post'); ?>" title="나의 작성글">나의 작성글</a></li>

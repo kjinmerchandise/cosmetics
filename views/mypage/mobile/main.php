@@ -22,7 +22,7 @@
             <tr>
                 <td>
                     <h3>ID</h3>
-                    <p><?php echo html_escape($this->member->item('mem_userid')); ?></p>
+                    <strong><?php echo html_escape($this->member->item('mem_userid')); ?></strong>
                 </td>
             </tr>
 
@@ -34,20 +34,20 @@
             </tr>
             <tr>
                 <td>
-                    <label>탈퇴하기</label>
-                    <button type="button" onclick="location.href='<?php echo site_url('membermodify/memberleave'); ?>'">탈퇴하기</button>
+                    <label>Leave</label>
+                    <button type="button" onclick="location.href='<?php echo site_url('membermodify/memberleave'); ?>'">Leave</button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>E-mail</label>
-                    <span>(Used for password search)</span>
+                    <h3>E-mail<span> (Used for password search)</span></h3>
+                    
                     <input type="email" id="mem_email" name="mem_email" value="<?php echo html_escape($this->member->item('mem_email')); ?>">
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label>Nickname</label>
+                    <h3>Nickname</h3>
                     <span>(please enter your Nickname)</span>
                     <input type="text" id="mem_nickname" name="mem_nickname" value="<?php echo html_escape($this->member->item('mem_nickname')); ?>">
                 </td>
@@ -56,7 +56,7 @@
 
             <tr>
                 <td>
-                    <label>Phone</label>
+                    <h3>Phone</h3>
                     <span>(please enter your mobile number)</span>
                     <input type="text" id="mem_phone" name="mem_phone" value="<?php echo html_escape($this->member->item('mem_phone')); ?>">
                 </td>
@@ -64,8 +64,8 @@
 
             <tr>
                 <td>
-                    <label>Address</label>
-                    <textarea style="width:96%" name="mem_address1" cols=3><?php echo html_escape($this->member->item('mem_address1')); ?></textarea>
+                    <h3>Address</h3>
+                    <textarea name="mem_address1" cols=3><?php echo html_escape($this->member->item('mem_address1')); ?></textarea>
                 </td>
             </tr>
         </table>

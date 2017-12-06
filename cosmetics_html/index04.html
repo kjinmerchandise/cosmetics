@@ -1,0 +1,367 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="css/import.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="js/js_com.js"></script>
+
+<script>
+	$(document).ready(function(){
+		/*팝업창 cover*/
+			$('.login li:first-child ,.login li:nth-child(2)').click(function(){
+				$('.cover').css('display' , 'block');
+				$('.cover').css('z-index' , '100');
+				$('.cover').animate({'opacity' : '1'} , 1000);
+			});
+
+		/*팝업창  스크롤바 따라다니기 */
+			var currentPosition = parseInt($(".popup03 , .popup04 , .popup05").css("top"));
+			$(window).scroll(function() {
+				var position = $(window).scrollTop();
+				$(".popup03 , .popup04 , .popup05").stop().animate({"top":position+currentPosition+"px"},1000);
+			});
+
+		/*아이디 패스워드 입력란이 공란일 경우*/
+			$('#id , #pw').blur(function(){
+				if($(this).val().length === 0){
+					$(this).siblings('p').slideDown();
+				}else{
+					$(this).siblings('p').slideUp();
+				}
+			});
+
+		/*전화번호 입력란이 공란일경우*/
+				$('#telnum , #telnum02').blur(function(){
+					var re_pw = /^[0-9]{3,16}$/;
+
+					if($(this).val().length === 0){
+						$(this).siblings('p').slideDown();
+						$(this).siblings('p').slideDown().text('This is a required field.');
+					}else{
+						if(re_pw.test($(this).val()) != true){
+							$(this).siblings('p').slideDown().text('Invalid phone number.');
+						}else{
+							$(this).siblings('p').slideUp();
+						}
+					}
+				});
+
+		/*find id 버튼 클릭시 */
+			/*팝업창 띄우기*/
+				$('.login li:first-child').click(function(){
+					$('#telnum').val(''); // 기존에 작성되어 있던 val 값 삭제
+					$('.popup03').css('display' , 'block');
+				});
+
+			/*팝업창 Yes 클릭시 팝업창 보여주기*/
+				var re_pw = /^[0-9]{3,16}$/;
+				$('.popup03 button:first-child').click(function(){
+					if($('#telnum').val().length === 0){
+						$('#telnum').siblings('p').slideDown().text('This is a required field.');
+					}else{
+						if(re_pw.test($('#telnum').val()) != true){
+							$('#telnum').siblings('p').slideDown().text('Invalid phone number.');
+						}else{
+							$('#telnum').siblings('p').slideUp();
+							$('.popup03').css('display','none');
+							$('.covere').css('display','none');
+							$('.popup05').css('display','block');
+						}
+					}
+				});
+
+		/*forgot your password 버튼 클릭시*/
+			/*팝업창 띄우기*/
+				$('.login li:nth-child(2)').click(function(){
+					$('#telnum02').val(''); // 기존에 작성되어 있던 val 값 삭제
+					$('.popup04').css('display' , 'block');
+				});
+
+			/*팝업창 Yes 클릭시 팝업창 보여주기*/
+				var re_pw = /^[0-9]{3,16}$/;
+				$('.popup04 button:first-child').click(function(){
+					if($('#telnum02').val().length === 0){
+						$('#telnum02').siblings('p').slideDown().text('This is a required field.');
+					}else{
+						if(re_pw.test($('#telnum02').val()) != true){
+							$('#telnum02').siblings('p').slideDown().text('Invalid phone number.');
+						}else{
+							$('#telnum02').siblings('p').slideUp();
+							$('.popup04').css('display','none');
+							$('.covere').css('display','none');
+							$('.popup05').css('display','block');
+						}
+					}
+				});
+
+		/*팝업창 no , ok 클릭시 팝업창 사라짐*/
+			$('.popup_btn button:nth-child(2) , .popup05 button ').click(function(){
+				$('.cover').css('display' , 'none');
+				$('.popup03').css('display' , 'none');
+				$('.popup04').css('display' , 'none');
+				$('.popup05').css('display' , 'none');
+				$('.popup03 p, .popup04 p').slideUp();
+			});
+	});
+</script>
+</head>
+
+<body>
+<!-- ham 클릭시 화면 -->
+	<article class="top">
+		<div class="ham">
+			<section class="ham_menu">
+				<ul>
+					<li>
+						<button onclick="location.href='index04.html'">
+							LOGIN
+						</button>
+						<a href="index02.html">
+							<img src="./images/cart.png" alt="cart">
+						</a>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index09.html">
+								My Page
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>
+							<a href="index11.html">
+								Order Inquiry
+							</a>
+						</h2>
+					</li>
+
+					<li>
+						<h2>SERVICE</h2>
+						<table>
+							<tr>
+								<td>
+								<a href="index12.html">
+									Notice
+										<span>
+											▶
+										</span>
+								</a>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<a href="index13.html">
+										FAQ
+										<span>
+											▶
+										</span>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</li>
+
+					<li>
+						<h2>ABOUT ME</h2>
+						Call Center : 000.0000.0000
+
+					</li>
+
+				</ul>
+			</section>
+			<img src="./images/clear.png" alt="clear">
+		</div>
+	</article>
+
+<!-- 팝업창 배경 -->
+	<article class="cover">
+	</article>
+
+<!-- 아이디 찾기 팝업창 .popup03 -->
+		<article class="popup03">
+			<h2>
+			    *Notice*
+				<span>
+					Please enter your<br> registered phone number
+				</span>
+			</h2>
+
+			<input type="tel" id="telnum" value="">
+
+			<p>This is a required field.</p>
+
+			<span>
+				Send your ID to your email.
+			</span>
+
+			<div class="popup_btn">
+				<button>Yes</button>
+				<button>No</button>
+			</div>
+		</article>
+
+<!-- 패스워드 찾기 팝업창 .popup04 --> 
+		<article class="popup04">
+			<h2>
+			    *Notice*
+				<span>
+					Please enter your<br>registered phone number
+				</span>
+			</h2>
+
+			<input type="tel" id="telnum02" value="">
+
+			<p>This is a required field.</p>
+
+			<span>
+				Send your encrypted password to your email
+
+			</span>
+
+			<div class="popup_btn">
+				<button>Yes</button>
+				<button>No</button>
+			</div>
+		</article>
+
+<!-- 전송완료 팝업창 .popup05 -->
+		<article class="popup05">
+			<h2>
+			    *Notice*
+				<span>
+					I have sent an ID to the email address you entered when you signed up.
+				</span>
+			</h2>
+			<div class="popup_btn">
+				<button>Ok</button>
+			</div>
+		</article>
+
+<!-- header -->
+	<header>
+		<h1>
+			<a href="index.html">
+				<img src="./images/logo.png" alt="logo">
+			</a>
+		</h1>
+				
+		<span><img src="./images/ham.png" alt="ham"></span>
+		<span><a href="index02.html"><img src="./images/cart.png" alt="cart"></a></span>
+	</header>
+
+<!-- content -->
+	<article class="content02">
+		<!-- 아이디 패스워드 입력 -->
+			<section class="sign_up login">
+				<!-- 타이틀 -->
+					<h2>
+						LOGIN
+					</h2>
+
+				<!-- 아이디,패스워드 입력 -->
+					<table>
+						<tr>
+							<td>
+								<label>
+									ID
+								</label>
+								<input type="text" id="id">
+								<p>This is a required field.</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<label>
+									PASSWORD
+								</label>
+								<input type="text" id="pw">
+								<p>This is a required field.</p>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								<input type="checkbox" checked="checked">
+								<label>
+									Stay signed in
+								</label>
+							</td>
+						</tr>
+					</table>
+
+				<!-- login 버튼 -->
+					
+
+
+				<!-- 아이디찾기 , 패스워드분실 , 회원가입 --> 
+					<ul>
+						<li>
+							Find ID
+						</li>
+
+						<li>
+							Forgot your password
+						</li>
+
+						<li>
+							<a href="index06.html">
+								Sign Up
+							</a>
+						</li>
+					</ul>
+			</section>
+
+		<!-- 하단 광고 -->
+			<section class="ad">
+				<img src="./images/bottom_banner.png" alt="bottom_banner">
+			</section>
+	</article>
+
+<!-- footer -->
+	<footer>
+		<h2>
+			ABOUT ME
+			<span>Call Center:000.0000.0000</span>
+		</h2>
+
+		<ul>
+			<li>
+					Confirm Terms of Use ▼
+			</li>
+			<li>
+					Chapter 1: General Provisions
+					Article 1 [Purpose)
+					The purpose of these Terms and Conditions
+					is to provide the terms and conditions
+					of use of all services provided by About
+					Me (hereinafter referred to as "Company")
+					at aboutmeshop.com (hereinafter referred to as "Service").
+
+					Article 2 (Definitions)
+					The terms used in these Terms and Conditions are as follows.
+					1. User: Member and non-member who receive services provided
+					by the Company in accordance with these Terms and Conditions.
+					2. Use Contract: Agreement between the Company and the User
+					regarding the use of the Service
+					3. Enrollment: Completing the service usage contract by filling
+					in the information on the application form provided by the company
+					and agreeing to these terms and conditions.
+					4. Member: Anyone who has registered for membership by providing
+					personal information necessary for membership on this site
+					5. User ID (ID): A combination of alphabetic and numeric
+					characters selected by the user and approved by the company
+					for member identification and member service use
+			</li>
+		</ul>
+
+		<p> COPYRIGHT 2017 BY ..... ALL RIGHT RESERVED</p>
+	</footer>
+</body>
+</html>

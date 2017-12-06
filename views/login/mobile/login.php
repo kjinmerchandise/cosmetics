@@ -14,7 +14,7 @@
                 <!-- 아이디,패스워드 입력 -->
                     <table>
                         <?php
-                        echo validation_errors('<div class="alert alert-warning mt20" style="margin-bottom:0px;" role="alert">', '</div>');
+                        echo validation_errors('<div class="alert alert-warning" role="alert"><p>', '</p></div>');
                         echo show_alert_message(element('message', $view), '<div class="alert mt20 alert-auto-close alert-dismissible alert-info" style="margin-bottom:0px;">', '</div>');
                         echo show_alert_message($this->session->flashdata('message'), '<div class="alert mt20 alert-auto-close alert-dismissible alert-info" style="margin-bottom:0px;">', '</div>');
                         $attributes = array('class' => 'form-horizontal', 'name' => 'flogin', 'id' => 'flogin');
@@ -40,7 +40,12 @@
                                 <p>This is a required field.</p>
                             </td>
                         </tr>
-
+                        <tr>
+                            <td>
+                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                            </td>
+                        </tr>
+                        
                         <tr>
                             <td>
                                 <input type="checkbox" checked="checked" name="autologin" id="autologin" value="1" />
@@ -60,16 +65,16 @@
                 <!-- 아이디찾기 , 패스워드분실 , 회원가입 --> 
                     <ul>
                         <li id="findId">
-                            Find ID
+                            <p>Find ID</p>
                         </li>
 
                         <li id="forgotPass">
-                            Forgot your password
+                            <p>Forgot your password</p>
                         </li>
 
                         <li>
                             <a href="<?php echo site_url('register'); ?>">
-                                Sign Up
+                                <p>Sign Up</p>
                             </a>
                         </li>
                     </ul>

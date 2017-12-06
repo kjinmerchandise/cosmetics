@@ -33,22 +33,24 @@
         ?>
             <li><a href="<?php echo site_url('cmall/orderresult/' . element('cor_id', $result)); ?>">
                     <figure>
+                        <h3>
+                            <?php if(element('cca_value', $result)) echo '['.html_escape(element('cca_value', $result)).']';?> <?php echo html_escape(element('cit_name', $result)); ?>
+                        </h3>
+
                         <img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" class="" />
                         <figcaption>
-                            <h3>
-                                <?php if(element('cca_value', $result)) echo '['.html_escape(element('cca_value', $result)).']';?> <?php echo html_escape(element('cit_name', $result)); ?>
-                            </h3>
                             <p>
                                 <?php echo element('cit_summary', $result) ?>
                             </p>
-                            <b>
-                                ₱ <?php echo number_format(element('cor_total_money', $result) + 0); ?> PHP
-                            </b>
+                            
+                            <div class="price_cancel">
+                                <span>₱ </span> <b><?php echo number_format(element('cor_total_money', $result) + 0); ?></b> <span> PHP</span>
+                            </div>
                         </figcaption>
                     </figure>
 
                     <div class="payment">
-                        <p><?php
+                        <b><?php
                         if (element('cor_status', $result) === '1') {
                             echo '입금완료';
                         } elseif (element('cor_status', $result) === '2') {
@@ -56,7 +58,7 @@
                         } elseif ( ! element('cor_status', $result)) {
                             echo 'Waiting for Payment';
                         }
-                        ?> </p>
+                        ?> </b>
                         <span>Order Date : <?php echo display_datetime(element('cor_datetime', $result), 'full'); ?></span> 
                     </div>
                 </a>
@@ -67,7 +69,7 @@
         if ( ! element('list', element('data', $view))) {
         ?>
             <li>
-                <div class="nopost">회원님이 주문 내역이 없습니다</div>
+                <div class="nopost">You have no order history</div>
             </li>
         <?php
         }

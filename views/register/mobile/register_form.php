@@ -28,9 +28,9 @@
                         <li>
                             <a href="">
                                 <figure>
-                                    <img src="<?php echo base_url('assets/images/signup02.png');?>" alt="signup02">
+                                    <img src="<?php echo base_url('assets/images/signup02.png');?>" alt="signup02" style="border:2px solid #db2128;">
                                     <figcaption>
-                                        <h3>
+                                        <h3 style="color:#db2128;">
                                             02<br>
                                             Enter<br>
                                             Information
