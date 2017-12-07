@@ -2,22 +2,25 @@
 /* page */
 	.content01{
 			width: 100%;
-			padding:14% 0 5%;
+			padding:17% 0 5%;
 	}
 
 	.content02,
 	.mypage02{
-		padding: 14.9% 0 5%;
+		padding: 17% 0 5%;
 	}
 
 	.content02 > section:first-child > h2,
 	.mypage02 > h2{
 		width: 100%;
-		padding:4%;
 		box-sizing: border-box;
-		background-color: #000;
+		background-color: #92191c;
 		color: #fff;
 		text-align: center;
+		letter-spacing: 1px;
+		max-width: 420px;
+		min-width: 320px;
+		font-family: 'Quicksand', sans-serif;
 	}
 
 /*메인페이지 영역*/
@@ -28,7 +31,7 @@
 				}
 
 				/*RESET AND LAYOUT*/
-					.slide .bx-wrapper {position: relative;margin: 0 auto 4%; padding: 0;	*zoom: 1;}
+					.slide .bx-wrapper {position: relative;margin: 1% auto 8%; padding: 0;	*zoom: 1;}
 					.slide .bx-wrapper img {max-width: 100%;display: block;}
 
 				/*THEME*/
@@ -102,15 +105,15 @@
 /* 제품 상세페이지 영역*/
 	/*슬라이드 영역*/
 		.product_details .product-box{
-			margin-top: 4%;
+			padding-top:2%;
 		}
 		
 	/*제품 정보 영역*/
-		#fitem .product-right{
+		.product_details .product-right{
 			margin-top: 0;
 		}
 
-		#fitem td{
+		.product_details td{
 			padding:3% 4%;
 			display: inline-block;
 			width: 100%;
@@ -118,56 +121,55 @@
 		}
 
 		/*상품명*/
-			#fitem tr:first-child td{
+			.product_details tr:first-child td{
 				border-top:0;
 			}
 
-			#fitem td .product-title{
+			.product_details td .product-title{
 				padding-bottom:0;
-				font-weight: normal;
-				font-size: 15px;
+				font-weight: 500;
+				font-size: 16px;
 			}
 
 		/*가격*/
-			#fitem td p{
+			.product_details td p{
 				display: inline;
 				float: left;
 			}
 
-			#fitem td .price_cancel{
+			.product_details td .price_cancel{
 				display: inline;
 				float: right;
 			}
 
 		/*수량 조절*/
-			#fitem td .quantity{
+			.product_details td .quantity{
 				float: right;
 			}
 
 		/*총 금액 + 구매하기버튼 + 장바구니 버튼*/
-			#fitem tr.success{
-				background-color: #ededed;
+			.product_details tr.success{
+				background-color: #f9f9f9;
 			}
 
-			#fitem tr.success div.text-right{
+			.product_details tr.success div.text-right{
 				padding-top:0;
 				font-size: 12px;
-				color: #db2128;
+				color: #92191c;
 				margin-bottom:4%;
 			}
 
-			#fitem tr.success div.text-right #total_order_price{
-				font-family: 'Jeju Gothic', sans-serif;
-				font-size: 14px;
+			.product_details tr.success div.text-right #total_order_price{
+				font-size: 17px;
 			}
 
-			#fitem tr.success button{
+			.product_details tr.success button{
 				width: 49% !important;
 				margin-right: 2%;
 				float: left;
 			}
 
-			#fitem tr.success button:last-child{
+			.product_details tr.success button:last-child{
 				margin-right: 0;
 			}
 

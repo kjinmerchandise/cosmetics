@@ -660,7 +660,35 @@ class Register extends CB_Controller
                     $required = element('required', $value) ? 'required' : '';
 
                     $html_content[$k]['field_name'] = element('field_name', $value);
-                    $html_content[$k]['display_name'] = element('display_name', $value);
+                    switch (element('field_name', $value)) {
+                        case 'mem_userid':
+                            
+                            $html_content[$k]['display_name'] = 'ID';
+                            break;
+                        case 'mem_password':
+                            
+                            $html_content[$k]['display_name'] = 'Password';
+                            break;
+
+                        case 'mem_email':
+                            
+                            $html_content[$k]['display_name'] = 'E-mail';
+                            break;
+                        case 'mem_phone':
+                            
+                            $html_content[$k]['display_name'] = 'Phone';
+                            break;
+                        case 'mem_address':
+                            
+                            $html_content[$k]['display_name'] = 'Address';
+                            break;
+                        
+                        default:
+                            # code...
+                            $html_content[$k]['display_name'] = element('display_name', $value);
+                            break;
+                    }
+                    
                     $html_content[$k]['input'] = '';
 
                     //field_type : text, url, email, phone, textarea, radio, select, checkbox, date
@@ -740,7 +768,7 @@ class Register extends CB_Controller
                     if (element('field_name', $value) === 'mem_password') {
                         $k++;
                         $html_content[$k]['field_name'] = 'mem_password_re';
-                        $html_content[$k]['display_name'] = 'password confirm';
+                        $html_content[$k]['display_name'] = 'Password confirm';
                         $html_content[$k]['input'] = '<input type="password" id="mem_password_re" name="mem_password_re" class="form-control input" minlength="' . $password_length . '" />';
                     }
                     $k++;

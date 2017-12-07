@@ -17,7 +17,7 @@
                         echo validation_errors('<div class="alert alert-warning" role="alert"><p>', '</p></div>');
                         echo show_alert_message(element('message', $view), '<div class="alert mt20 alert-auto-close alert-dismissible alert-info" style="margin-bottom:0px;">', '</div>');
                         echo show_alert_message($this->session->flashdata('message'), '<div class="alert mt20 alert-auto-close alert-dismissible alert-info" style="margin-bottom:0px;">', '</div>');
-                        $attributes = array('class' => 'form-horizontal', 'name' => 'flogin', 'id' => 'flogin');
+                        $attributes = array('class' => 'form-horizontal', 'name' => 'flogin', 'id' => 'flogin','onsubmit'=> 'return form_submit(this)');
                         echo form_open(element('login_url', $view), $attributes);
                         ?>
                         <input type="hidden" name="url" value="<?php echo html_escape($this->input->get_post('url')); ?>" />
@@ -190,27 +190,36 @@ $(document).on('change', "input:checkbox[name='autologin']", function() {
     }
 });
 
-$(document).on('click', 'section.sign_up > h2', function() {
+// $(document).on('click', 'section.sign_up > h2', function() {
 
  
-    if($('#mem_userid').val().length === 0){
-        $('#mem_userid').siblings('p').slideDown();
-    }else{
-        $('#mem_userid').siblings('p').slideUp();
-    }
+//     if($('#mem_userid').val().length === 0){
+//         $('#mem_userid').siblings('p').slideDown();
+//     }else{
+//         $('#mem_userid').siblings('p').slideUp();
+//     }
 
-    if($('#mem_password').val().length === 0){
-        $('#mem_password').siblings('p').slideDown();
+//     if($('#mem_password').val().length === 0){
+//         $('#mem_password').siblings('p').slideDown();
         
-    }else{
-        $('#mem_password').siblings('p').slideUp();
-    }
+//     }else{
+//         $('#mem_password').siblings('p').slideUp();
+//     }
 
-     if( $('#mem_userid').val().length > 0 && $('#mem_password').val().length > 0)
-         document.flogin.submit();
+//      if( $('#mem_userid').val().length > 0 && $('#mem_password').val().length > 0)
+//          document.flogin.submit();
         
-});
+// });
 
+
+function form_submit(f){
+
+    if( $('#mem_userid').val().length > 0 && $('#mem_password').val().length > 0)
+         return true;
+    else return false;
+}
+
+    
 $(document).on('click', '#findId , #forgotPass', function() {
     $('.cover').fadeIn(500);
     $('#telnum').val(''); // 기존에 작성되어 있던 val 값 삭제

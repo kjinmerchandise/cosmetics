@@ -46,6 +46,7 @@ class Mypage extends CB_Controller
         $eventname = 'event_mypage_index';
         $this->load->event($eventname);
 
+            
         /**
          * 로그인이 필요한 페이지입니다
          */

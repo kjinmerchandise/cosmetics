@@ -54,7 +54,7 @@ $route['default_controller'] = 'cmall';
 $route['404_override'] = '';
 
 $route[config_item('uri_segment_admin') . '/preview/adminshow/(.+)'] = "$1";
-
+$route[config_item('uri_segment_admin')] = 'admin/main';
 if (config_item('uri_segment_admin') !== 'admin') {
     $route['admin'] = '_show404notfounderrorpage';
     $route[config_item('uri_segment_admin')] = 'admin';

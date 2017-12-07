@@ -7,25 +7,22 @@ html,body{
 		min-width: 320px;
 		margin: 0 auto;
 		font-size: 14px;
-		font-family: 'Nanum Gothic', sans-serif;
+		font-weight: 500;
 	}
 
 button{
 	padding:2.5% 0 2%;
 	box-sizing: border-box;
-	background-color: #000;
+	background-color: #333;
 	color: #fff;
 }
 
 h2{
-	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 16px;
-
-}
+	}
 
 h3{
-	font-family: 'Jeju Gothic', sans-serif;
-	font-size: 15px;
+	font-size: 16px;
 	color:#000;
 }
 
@@ -34,44 +31,52 @@ label{
 }
 
 p{
-    font-size: 13px;
+    font-size: 14px;
     line-height: 17px;
-    word-break: break-all;
 }
 
 span{
 	font-size: 12px;
-	font-family: 'Nanum Gothic', sans-serif;
 }
 
 
 b{
-	font-family: 'Jeju Gothic', sans-serif;
-	color:#db2128;
+	color:#92191c;
 	font-size: 14px;
 }
 
 strong{
-	font-family: 'Jeju Gothic', sans-serif;
 	font-size: 13px;
 	display: inline-block;
 }
 
 
-@media screen and (min-width:420px){
-	header{
-		border:1px solid #ededed;
-		border-top: 0;
-		box-sizing: border-box;
-	}
 
-	.content01,.content02{
-		border:1px solid #ededed;
-		border-bottom:0;
-		box-sizing: border-box;
-		z-index: 6666;
+
+
+/*width 값이 421 이상일경우*/
+@media screen and (max-width:421px){
+	.content02 > section:first-child > h2,
+	.mypage02 > h2{
+		padding:3.1% 4%;
 	}
 }
+
+/*width 값이 420 이하일 경우*/
+@media screen and (min-width:420px){
+	.content01,.content02{
+		z-index: 6666;
+	}
+
+	.content02 > section:first-child > h2,
+	.mypage02 > h2{
+		padding:13px 17px;
+		top: 9%;
+	}
+}
+
+
+
 
 
 /*top 영역*/
@@ -153,7 +158,7 @@ strong{
 
 			.ham_menu ul li h2{
 				text-align: left;
-				font-family: 'Jeju Gothic', sans-serif;
+				font-family: 'Quicksand', sans-serif;
 				font-size: 16px;
 			}
 
@@ -165,7 +170,7 @@ strong{
 				border:1px solid #000;
 				padding:4%;
 				box-sizing: border-box;
-				font-family: 'Nanum Gothic', sans-serif;
+				font-family: 'Quicksand', sans-serif;
 			}
 
 			.ham_menu ul li:nth-child(4) td span{
@@ -202,9 +207,7 @@ strong{
 				background-color: #fff;
 				position:fixed;
 				top: 0;
-				border-bottom: 1px solid #ededed;
 				z-index: 1;
-
 			}
 
 			header h1{
@@ -227,9 +230,10 @@ strong{
 
 			header span:nth-child(2){
 				left: 4%;
+
 			}
 
-			header span:last-child{
+			header span:nth-child(3){
 				right: 4%;
 			}
 
@@ -244,7 +248,7 @@ strong{
 			padding:4%;
 			box-sizing: border-box;
 			font-size: 16px;
-			font-family: 'Jeju Gothic', sans-serif;
+			font-family: 'Quicksand', sans-serif;
 			text-align: left;
 		}
 
@@ -258,6 +262,11 @@ strong{
 			width: 100%;
 		}
 
+		footer span a{
+			color: #fff;
+			display: inline;
+		}
+
 		footer ul{
 			width: 100%;
 			margin-bottom: 6%;
@@ -266,7 +275,7 @@ strong{
 
 		footer ul li {
 			font-size: 16px;
-			font-family: 'Jeju Gothic', sans-serif;
+			font-family: 'Quicksand', sans-serif;
 			color: #fff;
 			padding:3.5% 3% 3%;
 			box-sizing: border-box;
@@ -278,14 +287,14 @@ strong{
 		footer ul li:nth-child(2){
 			font-size: 12px;
 			line-height: 18px;
-			font-family: 'Nanum Gothic', sans-serif;
+			font-family: 'Quicksand', sans-serif;
 			display: none;
 		}
 
 		footer p{
 			font-size: 10px;
 			text-align: center;
-			font-family: 'Nanum Gothic', sans-serif;
+			font-family: 'Quicksand', sans-serif;
 			color: #fff;
 		}
 
@@ -386,52 +395,54 @@ strong{
 /*수량 증감 조절 영역*/
 	div.quantity{
 		position: relative;
-		height: 30px;
+		height: 25px;
 		display: inline-block;
+		width: 30%;
 		border:1px solid #ededed;
 	}
 
 	div.quantity input{
 		width: 100%;
-		height: 30px;
-		line-height: 30px;
+		height: 25px;
+		line-height: 26px;
 		background-color: #fff;
 		color: #000;
 		font-size:16px;
 		text-align: center;
 		font-family: 'Jeju Gothic', sans-serif;
+		padding: 0;
 	}
 
 	div.quantity span{
-		width: 30px;
-		height: 30px;
-		display: inline-block;
-		background-color: #000;
-		color: #fff;
+		width: 25px;
+		height: 25px;
+		color: #000;
 		text-align: center;
-		line-height: 30px;
-		font-size: 40px;
+		font-size: 18px;
 		position: absolute;
 		top:0;
+		line-height: 24px;
+		font-family: 'Quicksand', sans-serif;
 	}
 
 	div.quantity span:nth-child(1){
 		left: 0;
+		font-size: 23px;
+
 	}
 
 	div.quantity span:nth-child(3){
 		right: 0;
-		font-size: 25px;
+		font-size: 20px;
 	}
 
 	div.quantity p{
-		height: 30px;
-		line-height: 30px;
+		height: 25px;
+		line-height: 25px;
 		background-color: #fff;
 		color: #000;
 		font-size: 16px;
 		text-align: center;
-		font-family: 'Jeju Gothic', sans-serif;
 	}
 
 /*가격 , 가격 취소선 영역*/
@@ -440,7 +451,7 @@ strong{
 	}
 
 	.price_cancel > span{
-		color: #db2128;
+		color: #92191c;
 	}
 
 

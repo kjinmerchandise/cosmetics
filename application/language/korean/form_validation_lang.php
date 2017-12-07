@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['form_validation_required'] = "{field} 항목은 필수 입력입니다.";
+$lang['form_validation_required'] = "The {field} entry is a required entry.";
 $lang['form_validation_isset'] = "{field} 항목은 비워둘 수 없습니다.";
 $lang['form_validation_valid_email'] = "{field} 항목에 올바른 이메일 주소를 입력해주시기 바랍니다.";
 $lang['form_validation_valid_emails'] = "{field} 항목에 올바른 이메일 주소들을 입력해주시기 바랍니다.";

@@ -43,7 +43,7 @@
                     <?php
                     if (element('result', element('data', $view))) {
                         foreach (element('result', element('data', $view)) as $key => $result) {
-                            if (! array_key_exists ($key, element('default_form', element('data', $view)))) {
+                            if ( array_key_exists ($key, element('default_form', element('data', $view)))) {
                     ?>
                         <div class="form-group list-group-item">
                             <div class="col-sm-1"><div class="fa fa-arrows" style="cursor:pointer;"></div><input type="hidden" name="key[<?php echo $key; ?>]" value="<?php echo $key; ?>" /><input type="hidden" name="basic[<?php echo $key; ?>]" value="<?php echo $key; ?>" /></div>
@@ -69,6 +69,7 @@
                             <div class="col-sm-3">
                                 <select name="field_type[<?php echo $key; ?>]" class="form-control field_type">
                                     <option value="text" <?php echo element('field_type', $result) === 'text' ? ' selected="selected" ' : ''; ?>>한줄 입력 형식(text)</option>
+                                    <option value="number" <?php echo element('field_type', $result) === 'number' ? ' selected="selected" ' : ''; ?>>한줄 입력 형식(number)</option>
                                     <option value="url" <?php echo element('field_type', $result) === 'url' ? ' selected="selected" ' : ''; ?>>URL 형식</option>
                                     <option value="email" <?php echo element('field_type', $result) === 'email' ? ' selected="selected" ' : ''; ?>>이메일 형식(email)</option>
                                     <option value="phone" <?php echo element('field_type', $result) === 'phone' ? ' selected="selected" ' : ''; ?>>전화번호 형식(phone)</option>
@@ -104,7 +105,7 @@
 <script type="text/javascript">
 //<![CDATA[
 $(document).on('click', '.btn-add-rows', function() {
-    $('#sortable').append(' <div class="form-group list-group-item"><div class="col-sm-1"><div class="fa fa-arrows" style="cursor:pointer;"></div><input type="hidden" name="key[]" /></div><div class="col-sm-2"><input type="text" class="form-control field_name" name="field_name[]" placeholder="입력항목ID" /></div><div class="col-sm-2"><input type="text" class="form-control display_name" name="display_name[]" placeholder="입력항목제목" /></div><div class="col-sm-3"><select name="field_type[]" class="form-control field_type"><option value="text">한줄 입력 형식(text)</option><option value="url">URL 형식</option><option value="email">이메일 형식(email)</option><option value="phone">전화번호 형식(phone)</option><option value="textarea">여러 줄 입력칸(textarea)</option><option value="radio">단일 선택(radio)</option><option value="select">단일 선택(select)</option><option value="checkbox">다중 선택(checkbox)</option><option value="date">일자(연월일)</option></select><br /><textarea name="options[]" class="form-control options" style="margin-top:5px;display:none;" placeholder="선택 옵션 (엔터로 구분하여 입력)"></textarea></div><div class="col-sm-1"><input type="checkbox" name="use[]" value="1" checked="checked" /></div><div class="col-sm-1"><input type="checkbox" name="open[]" value="1" /></div><div class="col-sm-1"><input type="checkbox" name="required[]" value="1" /></div><div class="col-sm-1"><button type="button" class="btn btn-outline btn-default btn-xs btn-delete-row" >삭제</button></div></div>');
+    $('#sortable').append(' <div class="form-group list-group-item"><div class="col-sm-1"><div class="fa fa-arrows" style="cursor:pointer;"></div><input type="hidden" name="key[]" /></div><div class="col-sm-2"><input type="text" class="form-control field_name" name="field_name[]" placeholder="입력항목ID" /></div><div class="col-sm-2"><input type="text" class="form-control display_name" name="display_name[]" placeholder="입력항목제목" /></div><div class="col-sm-3"><select name="field_type[]" class="form-control field_type"><option value="text">한줄 입력 형식(text)</option><option value="number">한줄 입력 형식(number)</option><option value="url">URL 형식</option><option value="email">이메일 형식(email)</option><option value="phone">전화번호 형식(phone)</option><option value="textarea">여러 줄 입력칸(textarea)</option><option value="radio">단일 선택(radio)</option><option value="select">단일 선택(select)</option><option value="checkbox">다중 선택(checkbox)</option><option value="date">일자(연월일)</option></select><br /><textarea name="options[]" class="form-control options" style="margin-top:5px;display:none;" placeholder="선택 옵션 (엔터로 구분하여 입력)"></textarea></div><div class="col-sm-1"><input type="checkbox" name="use[]" value="1" checked="checked" /></div><div class="col-sm-1"><input type="checkbox" name="open[]" value="1" /></div><div class="col-sm-1"><input type="checkbox" name="required[]" value="1" /></div><div class="col-sm-1"><button type="button" class="btn btn-outline btn-default btn-xs btn-delete-row" >삭제</button></div></div>');
 });
 $(document).on('click', '.btn-delete-row', function() {
     $(this).parents('div.list-group-item').remove();
