@@ -28,9 +28,9 @@
                         <li>
                             <a href="">
                                 <figure>
-                                    <img src="<?php echo base_url('assets/images/signup02.png');?>" alt="signup02" style="border:2px solid #db2128;">
+                                    <img src="<?php echo base_url('assets/images/signup02.png');?>" alt="signup02" style="border:2px solid #931b1e;">
                                     <figcaption>
-                                        <h3 style="color:#db2128;">
+                                        <h3 style="color:#931b1e;">
                                             02<br>
                                             Enter<br>
                                             Information
@@ -81,7 +81,7 @@
                                 <div class="">
                                     <?php echo element('input', $value); ?>
                                     <?php if (element('description', $value)) { ?>
-                                        <p class="help-block"><?php echo element('description', $value); ?></p>
+                                        <span class="help-block"><?php echo element('description', $value); ?></span>
                                     <?php } ?>
                                 </div>
                                 </td>

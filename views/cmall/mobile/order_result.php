@@ -1,11 +1,11 @@
 <?php $this->managelayout->add_css(element('view_skin_url', $layout) . '/css/style.css'); ?>
-
+<meta name="format-detection" content="telephone=no">
 <article class="content02">
     <!-- 결제정보 -->
         <section class="billing_information billing_information02">
             <!-- 타이틀 -->
                 <h2>
-                    Billing Information
+                    BILLING INFORMATION
                 </h2>
 
             <!-- 상품이미지 + 상품명 + total payment amount -->
@@ -56,7 +56,7 @@
                     <tr>
                         <td>
                             <p>Payment status</p>
-                            <strong style="color:#db2128;">
+                            <strong style="color:#92191c;">
                             <?php
                             if (element('cor_status', $result) === '1') {
                                 echo 'Payment completed';
@@ -91,7 +91,7 @@
 
                             <!-- confirm 버튼 -->
                                 <button onClick='location.href="<?php echo site_url('cmall/orderlist'); ?>"'>
-                                    Confirm
+                                    CONFIRM
                                 </button>
                         </td>
                     </tr>

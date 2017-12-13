@@ -27,7 +27,7 @@
                                     ID
                                 </label>
                                 <input type="text" name="mem_userid" id="mem_userid" class="" value="<?php echo set_value('mem_userid'); ?>" accesskey="L" />
-                                <p>This is a required field.</p>
+                                <span>This is a required field.</span>
                             </td>
                         </tr>
 
@@ -37,12 +37,12 @@
                                     PASSWORD
                                 </label>
                                 <input type="password" id="mem_password" class="" name="mem_password" />
-                                <p>This is a required field.</p>
+                                <span>This is a required field.</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                            <button type="submit" class="btn btn-primary btn-sm">Login</button>
+                            <button type="submit" class="btn btn-primary btn-sm">LOGIN</button>
                             </td>
                         </tr>
                         

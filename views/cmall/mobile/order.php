@@ -6,7 +6,7 @@
         <section class="billing_information">
             <!-- 타이틀 -->
                 <h2>
-                    Billing Information
+                    BILLING INFORMATION
                 </h2>
 
             <!-- 상품이미지 + 상품명 + total payment amount -->
@@ -24,7 +24,7 @@
                         $total_price_sum +=$total_price;
                 ?>
                     <tr>
-                        <td style="padding:6% 4% 3%; background-color: #fff;">
+                        <td style="background-color: #fff; padding-top:8%">
                             
                             <figure>
                                 <h3>

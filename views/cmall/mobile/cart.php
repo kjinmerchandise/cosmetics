@@ -94,7 +94,7 @@
             <span>₱ </span> <b>'.number_format($total_price_sum).'</b> <span>PHP</span>
             </div>
             <button type="submit">
-                Order optional items
+                ORDER OPTIONAL ITEMS
             </button>
             </div>';
         }

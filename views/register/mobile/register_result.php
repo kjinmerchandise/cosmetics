@@ -42,9 +42,9 @@
                         <li>
                             <a href="">
                                 <figure>
-                                    <img src="<?php echo base_url('assets/images/signup03.png');?>" alt="signup03" style="border:2px solid #db2128;">
+                                    <img src="<?php echo base_url('assets/images/signup03.png');?>" alt="signup03" style="border:2px solid #931b1e;">
                                     <figcaption>
-                                        <h3 style="color:#db2128;">
+                                        <h3 style="color:#931b1e;">
                                             03<br>
                                             Signed<br>
                                             Up
@@ -59,21 +59,21 @@
                         <tr>
                             <td>
                                 <h3>ID</h3>
-                                <strong><?php echo html_escape($this->session->flashdata('userid')); ?></strong>
+                                <p><?php echo html_escape($this->session->flashdata('userid')); ?></p>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
                                 <h3>E-mail</h3>
-                                <strong><?php echo html_escape($this->session->flashdata('email')); ?></strong>
+                                <p><?php echo html_escape($this->session->flashdata('email')); ?></p>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
                                 <h3>Phone</h3>
-                                <strong><?php echo html_escape($this->session->flashdata('phone')); ?></strong>
+                                <p><?php echo html_escape($this->session->flashdata('phone')); ?></p>
                             </td>
                         </tr>
                         <!-- <tr>
@@ -86,14 +86,14 @@
                         <tr>
                             <td>
                                 <h3>Adress</h3>
-                                <strong><?php echo html_escape($this->session->flashdata('address')); ?></strong>
+                                <p><?php echo html_escape($this->session->flashdata('address')); ?></p>
                             </td>
                         </tr>
                     </table>
                 <!-- completed 버튼 영역 -->
                     <div class="sign_up_btn one_btn">
                         <button onClick="location.href='<?php echo site_url();?>';">
-                            Complete
+                            COMPLETE
                         </button>
                     </div>
             </section>

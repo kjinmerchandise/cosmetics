@@ -105,7 +105,7 @@
 
     <section class="best_of_best">
         <h2>
-            BEST OF BEST    
+            <span>B</span>est of best
         </h2>
         <ul>
 <?php

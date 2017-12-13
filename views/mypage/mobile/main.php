@@ -22,7 +22,7 @@
             <tr>
                 <td>
                     <h3>ID</h3>
-                    <strong><?php echo html_escape($this->member->item('mem_userid')); ?></strong>
+                    <p><?php echo html_escape($this->member->item('mem_userid')); ?></p>
                 </td>
             </tr>
 
@@ -40,15 +40,15 @@
             </tr>
             <tr>
                 <td>
-                    <h3>E-mail<span> (Used for password search)</span></h3>
-                    
+                    <h3>E-mail</h3>
+                    <span> (Used for password search)</span>
                     <input type="email" id="mem_email" name="mem_email" value="<?php echo html_escape($this->member->item('mem_email')); ?>">
                 </td>
             </tr>
             <tr>
                 <td>
                     <h3>Nickname</h3>
-                    <span>(please enter your Nickname)</span>
+                    <span>(Please enter your Nickname)</span>
                     <input type="text" id="mem_nickname" name="mem_nickname" value="<?php echo html_escape($this->member->item('mem_nickname')); ?>">
                 </td>
             </tr>
@@ -57,7 +57,7 @@
             <tr>
                 <td>
                     <h3>Phone</h3>
-                    <span>(please enter your mobile number)</span>
+                    <span>(Please enter your mobile number)</span>
                     <input type="text" id="mem_phone" name="mem_phone" value="<?php echo html_escape($this->member->item('mem_phone')); ?>">
                 </td>
             </tr>
@@ -72,7 +72,7 @@
     <!-- complete버튼  -->
         <div class="sign_up_btn one_btn">
             <button type="submit" >
-                Complete
+                COMPLETE
             </button>
         </div>  
     </section>

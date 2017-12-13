@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div id="display_pay_button">
     <div class="text-center">
-        <button type="button" onClick="fpayment_check();" class="btn btn-order">Order</button>
+        <button type="button" onClick="fpayment_check();" class="btn btn-order">ORDER</button>
     </div>
 </div>
 <div id="display_pay_process" style="display:none">

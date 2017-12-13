@@ -22,7 +22,7 @@
                             continue;
                         }
                     ?>
-                        <div><img src="<?php echo thumb_url('cmallitem', element('cit_file_' . $i, element('data', $view))); ?>" alt="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" title="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" style="width:100%;" onClick="window.open('<?php echo site_url('cmall/itemimage/' . html_escape(element('cit_key', element('data', $view)))); ?>', 'win_image', 'left=100,top=100,width=730,height=700,scrollbars=1');" /></div>
+                        <div><img src="<?php echo thumb_url('cmallitem', element('cit_file_' . $i, element('data', $view))); ?>" alt="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" title="<?php echo html_escape(element('cit_name', element('data', $view))); ?>" " onClick="window.open('<?php echo site_url('cmall/itemimage/' . html_escape(element('cit_key', element('data', $view)))); ?>', 'win_image', 'left=100,top=100,width=730,height=700,scrollbars=1');" /></div>
                     <?php } ?>
                 </div>
                 <span class="prev" id="slider-prev"></span>
@@ -91,11 +91,11 @@
                             <div class="text-right">
                                 ₱ <span id="total_order_price"><?php echo number_format(element('cit_price', element('data', $view)) + 0); ?></span> PHP
                             </div>
-                            <button type="submit" onClick="$('#stype').val('order');" style="width:100%">
+                            <button type="submit" onClick="$('#stype').val('order');">
                                 Buy Now
                             </button>
 
-                             <button id="cart" type="button"  style="width:100%">
+                             <button id="cart" type="button">
                                 Shopping Basket
                             </button>
                         </td>                        

@@ -50,15 +50,15 @@
                     </figure>
 
                     <div class="payment">
-                        <b><?php
+                        <strong><?php
                         if (element('cor_status', $result) === '1') {
-                            echo '입금완료';
+                            echo 'Payment completed';
                         } elseif (element('cor_status', $result) === '2') {
-                            echo '주문취소';
+                            echo 'Order Cancellation';
                         } elseif ( ! element('cor_status', $result)) {
                             echo 'Waiting for Payment';
                         }
-                        ?> </b>
+                        ?> </strong>
                         <span>Order Date : <?php echo display_datetime(element('cor_datetime', $result), 'full'); ?></span> 
                     </div>
                 </a>

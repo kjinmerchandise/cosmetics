@@ -344,10 +344,10 @@ class Managelayout extends CI_Controller
     {
         $return = '
         <footer>
-                <h2>
+                <h3>
                     ABOUT ME
-                    <span>Call Center : +63323843526</span>
-                </h2>
+                    <span>Call Center : <a href="tel:+63323843526">+63323843526</a></span>
+                </h3>
 
                 <ul>
                     <li>
@@ -355,9 +355,16 @@ class Managelayout extends CI_Controller
                     </li>
                     <li>
                         We are a Korean cosmetic specialty store.<br>
-                        All content on the site is illegal Use prohibited.<br>
+                        All content on the site is illegal Use prohibited.<br><br>
                         K Cosmetics Store<br>
                         CEO: Julia Marie V Tamoza<br>
+
+                        <table>
+                        <tr>
+                        <td>Terms of Use</td>
+                        <td>Privacy Statement</td>
+                        </tr>
+                        </table>
                     </li>
                 </ul>
 

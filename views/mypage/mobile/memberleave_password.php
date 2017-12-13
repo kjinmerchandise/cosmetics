@@ -2,7 +2,7 @@
 
 <div class="mypage mypage02">
     
-    <h2>Confirm Password</h2>
+    <h2>CONFIRM PASSWORD</h2>
 
     <?php
     echo validation_errors('<div class="alert alert-warning" role="alert">', '</div>');
@@ -15,21 +15,21 @@
         echo form_open(current_url(), $attributes);
         ?>
             <div class="alert alert-dismissible alert-danger infoalert">
-                <p>This is a password entry page for unsubscribing members.
+                <span>This is a password entry page for unsubscribing members.
                 If you enter your password, your membership will be canceled normally.
-                Membership information can not be restored, so please select carefully.</p>
+                Membership information can not be restored, so please select carefully.</span>
             </div>
             <ol class="askpassword">
                 <li>
                     <h3>ID</h3>
-                    <div class="form-text"><strong><?php echo $this->member->item('mem_userid'); ?></strong></div>
+                    <div class="form-text"><p><?php echo $this->member->item('mem_userid'); ?></p></div>
                 </li>
                 <li>
                     <h3>Password</h3>
                     <input type="password" class="input px100" id="mem_password" name="mem_password" />
                 </li>
                 <li>
-                    <button class="btn btn-primary" type="submit">Confirm</button>
+                    <button class="btn btn-primary" type="submit">CONFIRM</button>
                     <div>
                         <p>
                             <span class="fa fa-exclamation-circle"></span>

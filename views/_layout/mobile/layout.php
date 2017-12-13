@@ -59,7 +59,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
                     <?php 
                     if ($this->member->is_member()) {
                         echo ' <button onclick="location.href=\''.site_url('login/logout?url=' . urlencode(current_full_url())).'\'">
-                            hi '.$this->member->item('mem_userid') .' [LOGOUT]
+                            Hi '.$this->member->item('mem_userid') .' [LOGOUT]
                         </button>';
                     } else {
                         echo '<button onclick="location.href=\''.site_url('login?url=' . urlencode(current_full_url())).'\'">
@@ -74,23 +74,23 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
                 </li>
 
                 <li>
-                    <h2>
+                    <p>
                         <a href="<?php echo site_url('mypage'); ?>" title="mypage">
                             My Page
                         </a>
-                    </h2>
+                    </p>
                 </li>
 
                 <li>
-                    <h2>
+                    <p>
                         <a href="<?php echo site_url('cmall/orderlist'); ?>" title="Order Inquiry">
                             Order Inquiry
                         </a>
-                    </h2>
+                    </p>
                 </li>
 
                 <li>
-                    <h2>SERVICE</h2>
+                    <h3>SERVICE</h3>
                     <table>
                         <tr>
                             <td>
@@ -116,9 +116,8 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
                 </li>
 
                 <li>
-                    <h2>ABOUT ME</h2>
-                    Call Center : 000.0000.0000
-
+                    <h3>ABOUT ME</h3>
+                    Call Center : +63323843526
                 </li>
             </ul>
         </section>
