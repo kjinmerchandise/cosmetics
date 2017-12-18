@@ -133,8 +133,8 @@
 
                         <tr>
                             <td class="well">
-                                <h3>Deposit account</h3>
-                                <strong><?php echo nl2br(html_escape($this->cbconfig->item('payment_bank_info'))); ?></strong>
+                                <!-- <h3>Deposit account</h3>
+                                <strong><?php echo nl2br(html_escape($this->cbconfig->item('payment_bank_info'))); ?></strong> -->
 
                                 <!-- 결제 정보 이미지 -->
                                     <figure class="account_information">

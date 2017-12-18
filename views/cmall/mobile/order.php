@@ -152,8 +152,8 @@
                         </tr>
                         <tr>
                             <td>
-                            <h3 class="control-label">Account information</h3>
-                            <strong><?php echo nl2br($this->cbconfig->item('payment_bank_info')); ?> </strong>
+                            <!-- <h3 class="control-label">Account information</h3>
+                            <strong><?php echo nl2br($this->cbconfig->item('payment_bank_info')); ?> </strong> -->
 
                              <!-- 결제 정보 이미지 -->
                                 <figure class="account_information">
