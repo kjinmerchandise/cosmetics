@@ -55,7 +55,9 @@
                             echo 'Payment completed';
                         } elseif (element('cor_status', $result) === '2') {
                             echo 'Order Cancellation';
-                        } elseif ( ! element('cor_status', $result)) {
+                        } elseif (element('cor_status', $result) === '3') {
+                            echo 'Delivery completed';
+                        }elseif ( ! element('cor_status', $result)) {
                             echo 'Waiting for Payment';
                         }
                         ?> </strong>

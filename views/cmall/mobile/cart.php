@@ -23,11 +23,15 @@
             foreach (element('data', $view) as $result) {
                 $total_num = 0;
                 $total_price = 0;
-
-                
+                $price = 0;
+                $cde_id = 0;
+                $cde_title = '';
+                $cct_count=0;
                 foreach (element('detail', $result) as $detail) { 
-        
-        
+                    $cct_count = element('cct_count', $detail);
+                    $cde_title = element('cde_title', $detail); 
+                    $cde_id = element('cde_id', $detail);        
+                    $price = element('cit_price', $result) + element('cde_price', $detail);
                     $total_num += element('cct_count', $detail);
                     $total_price += ((int) element('cit_price', $result) + (int) element('cde_price', $detail)) * element('cct_count', $detail);
                 }
@@ -59,28 +63,21 @@
 
                 <!-- 수정 입니다. -->
                 <div>
-                    <p>Change Quantity</p>
+                    <input type="hidden" name="chk_detail[]" value="<?php echo $cde_id; ?>" />
+                    <input type="hidden" name="cit_price[<?php echo $cde_id; ?>]" value="<?php echo $price; ?>" />
+                    <p><?php echo html_escape($cde_title); ?></p>
                     <div class="quantity">
-                        <span>-</span>
-                        <input value="1" style="border:0">
-                        <span>+</span>
+                        <span class="btn-change-qty" data-change-type="minus">-</span>
+                        <input type="text"  data-cde_id="<?php echo $cde_id; ?>" name="detail_qty[<?php echo $cde_id; ?>]"  style="border:0px;" value="<?php echo $cct_count ? $cct_count : 1; ?>" />
+                        <span class="btn-change-qty" data-change-type="plus">+</span>
                     </div>
+                    
                 </div>
 
 
 
 
-<!--
-                <div class="change_btn">    
-                    <h3>
-                        <td><?php echo number_format($total_num); ?></td> ITEM
-                    </h3>
-                    <button class="change_option" type="button" data-cit-id="<?php echo element('cit_id', $result); ?>">
-                        Change quantity
-                    </button>
-                </div>
--->
-               
+
             </li>
         </ul>
         <?php
@@ -91,7 +88,7 @@
                 Total Order Amount
             </h3>
             <div class="price_cancel">
-            <span>₱ </span> <b>'.number_format($total_price_sum).'</b> <span>PHP</span>
+            <span>₱ </span> <b id="total_order_price">'.number_format($total_price_sum).'</b> <span>PHP</span>
             </div>
             <button type="submit">
                 ORDER OPTIONAL ITEMS
@@ -117,55 +114,9 @@
 </article>
 <script type="text/javascript">
 //<![CDATA[
-$(document).on('change', '.list-chkbox', function() {
-    var sum = 0;
-    $('.list-chkbox:checked').each(function () {
-        sum += parseInt($("input[name='total_price[" + $(this).val() + "]']").val());
-    });
-    $('.checked_price').text(number_format(sum.toString()));
-});
 
-$(function() {
-    var close_btn_idx;
 
-    /* 선택사항수정*/
-    $(document).on('click', '.change_option', function() {
-        var cit_id = $(this).attr('data-cit-id');
-        var $this = $(this);
-        close_btn_idx = $('.change_option').index($(this));
 
-        $.post(
-            cb_url + '/cmall/cartoption',
-            { cit_id: cit_id, csrf_test_name: cb_csrf_hash },
-            function(data) {
-
-                $('#cart_option_modify').remove();
-                $($this).parents('.change_btn').after("<div id=\"cart_option_modify\"></div>");
-                $('#cart_option_modify').html(data);
-                $('#cart_option_modify').slideDown()
-            }
-        );
-    });
-
-    // 모두선택
-    $(document).on('click', 'input[name=ct_all]', function() {
-        if ($(this).is(':checked')) {
-            $('input[name^=ct_chk]').attr('checked', true);
-        } else {
-            $('input[name^=ct_chk]').attr('checked', false);
-        }
-    });
-
-    // 옵션수정 닫기
-    $(document).on('click', '#mod_option_close', function() {
-        $('#cart_option_modify').slideUp('nomal', function() {
-            $('#cart_option_modify').remove();
-        });
-        
-        $('.change_option').eq(close_btn_idx).focus();
-    });
-
-});
 
 function flist_submit(f) {
         

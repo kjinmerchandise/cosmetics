@@ -187,13 +187,7 @@
 				margin-right: 0;
 			}
 
-		/*상세페이지 이미지*/
-			.product-info .product-detail p {
-				background:url(/assets/images/detail_page.png) no-repeat top center;
-				height: 600px;
-				background-size:100%;
-				color: transparent; 
-			}
+		
 
 /*장바구니 영역*/
 	.shopping_basket #flist li{
@@ -292,6 +286,29 @@
 			color: #333;
 		}
 
+		table.billing_table td{
+			padding:3% 4%;
+			box-sizing: border-box;
+			border-bottom:1px solid #ededed;
+			background-color: #fff;
+		}
+
+		
+
+		table.billing_table td > p{
+			display: inline;
+		}
+
+		table.billing_table td > strong{
+			float: right;
+			line-height: 20px;
+			color: #333;
+		}
+
+		table.billing_table td a{
+			color: #333;
+		}
+
 	/*총구매 금액 영역*/
 		.billing_information .well{
 			width: 100%;
@@ -307,7 +324,7 @@
 		}
 
 	/*구매자 정보 영역*/
-		#fpayment .market-order-person > h3{
+		.market-order-person > h3{
 			font-weight: normal;
 			padding:8% 4% 4%;
 			font-family: 'Jeju Gothic', sans-serif;
@@ -385,33 +402,35 @@
 		}
 
 	/*.billing_information02 영역*/
-		.billing_information02 > table td{
+		.billing_information02  table td{
 			background-color: #fff;
 		}
 
-		.billing_information02 > table tr:nth-child(5) td{
+		.billing_information02  table tr:nth-child(5) td{
 			padding:4%;
 			background:#f9f9f9;
 		}
 
-		.billing_information02 > table tr:nth-child(5) td h3{
+		.billing_information02  table tr:nth-child(5) td h3{
 			font-family:'Jeju Gothic', sans-serif;
 		}
 
-		.billing_information02 > table tr:nth-child(6) td{
+		.billing_information02  table tr:nth-child(6) td{
 			padding:4%;
 			background-color: #ededed;
 		}
 
-		.billing_information02 > table tr:nth-child(6) td h3{
+		.billing_information02  table tr:nth-child(6) td h3{
 			font-family: 'Jeju Gothic', sans-serif;
 			margin-bottom:4%;
 		}
-		.billing_information02 > table tr:nth-child(6) td strong{
+		.billing_information02  table tr:nth-child(6) td strong{
 			font-family: 'Nanum Gothic', sans-serif;
 			font-size: 13px;
 			color: #000;
 		}
+
+
 
 /*order inquiry 영역*/
 	/*기간 설정 영역*/
@@ -680,6 +699,14 @@
 				font-size: 13px;
 				word-break: break-all;
 			}
+
+			.sign_up01 .terms p.document {
+				
+				height: 250px;
+				overflow-y: scroll;
+				overflow-x: hidden;
+				line-height: 15px
+			}
 		/*다음 , 취소 버튼 영역*/
 			.sign_up01 .sign_up_btn{
 				padding:0 4%;
@@ -710,6 +737,13 @@
 
 		.sign_up02 td label.error{
 			color: #92191c;
+			width: 100%;
+			text-align: right;
+			margin:4% 0 2%;
+		}
+
+		.sign_up02 td label.available{
+			color: blue;
 			width: 100%;
 			text-align: right;
 			margin:4% 0 2%;
@@ -935,7 +969,7 @@
 		display: inline-block;
 		margin:4%;
 		border:1px solid #ededed;
-		font-size: 0;
+		
 	}
 	.notice li{
 		width: 100%;
@@ -964,7 +998,7 @@
 	/*글제목 영역*/
 		.notice h3{
 			width: 90%;
-			float: left;
+			display: inline-block;
 			text-overflow: ellipsis;
 			font-size: 14px;
 			overflow:hidden;

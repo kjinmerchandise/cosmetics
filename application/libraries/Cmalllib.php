@@ -202,7 +202,7 @@ class Cmalllib extends CI_Controller
     }
 
 
-    public function cart_to_order($mem_id = 0, $cit_id_array = '', $session_id = '')
+    public function cart_to_order($mem_id = 0, $cit_id_array = '', $detail_array = '', $qty_array = '', $session_id = '')
     {
         $mem_id = (int) $mem_id;
         if (empty($mem_id) && empty($session_id)) {
@@ -243,7 +243,7 @@ class Cmalllib extends CI_Controller
                             'mem_id' => $mem_id,
                             'cit_id' => $cit_id,
                             'cde_id' => element('cde_id', $value),
-                            'cct_count' => element('cct_count', $value),
+                            'cct_count' => element(element('cde_id', $value), $qty_array),
                             'cct_order' => 1,
                             'cct_datetime' => cdate('Y-m-d H:i:s'),
                             'cct_ip' => $this->CI->input->ip_address(),

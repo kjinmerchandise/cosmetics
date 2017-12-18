@@ -350,7 +350,7 @@ class Managelayout extends CI_Controller
                 </h3>
 
                 <ul>
-                    <li>
+                    <li id="confirmTerms">
                             Confirm Terms of Use ▼
                     </li>
                     <li>
@@ -361,8 +361,8 @@ class Managelayout extends CI_Controller
 
                         <table>
                         <tr>
-                        <td>Terms of Use</td>
-                        <td>Privacy Statement</td>
+                        <td id="terms" ><a href="'.document_url('provision').'" target="_blank" title="Terms of Use" style="color: #fff !important;">Terms of Use</a></td>
+                        <td id="privacy"><a href="'.document_url('privacy').'" target="_blank" title="Privacy Statement" style="color: #fff !important;">Privacy Statement</a></td>
                         </tr>
                         </table>
                     </li>

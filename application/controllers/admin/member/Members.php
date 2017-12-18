@@ -620,7 +620,7 @@ class Members extends CB_Controller
                 'mem_level' => $this->input->post('mem_level', null, ''),
                 'mem_homepage' => $this->input->post('mem_homepage', null, ''),
                 'mem_birthday' => $this->input->post('mem_birthday', null, ''),
-                'mem_phone' => $this->input->post('mem_phone', null, ''),
+                'mem_phone' => preg_replace("/[^0-9]*/s", "", $this->input->post('mem_phone', null, '')),
                 'mem_sex' => $mem_sex,
                 'mem_zipcode' => $this->input->post('mem_zipcode', null, ''),
                 'mem_address1' => $this->input->post('mem_address1', null, ''),

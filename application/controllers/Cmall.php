@@ -588,6 +588,7 @@ class Cmall extends CB_Controller
 
     public function cart()
     {
+
         // 이벤트 라이브러리를 로딩합니다
         $eventname = 'event_cmall_cart';
         $this->load->event($eventname);
@@ -609,15 +610,18 @@ class Cmall extends CB_Controller
         $view['view']['event']['before'] = Events::trigger('before', $eventname);
 
         $this->load->model(array('Cmall_cart_model'));
-
+        
         if ($this->input->post('chk')) {
             $cit_id = $this->input->post('chk');
             $return = $this->cmalllib->cart_to_order(
                 $mem_id,
                 $cit_id,
+                $this->input->post('chk_detail'),
+                $this->input->post('detail_qty'),
                 $_COOKIE[config_item('sess_cookie_name')]
             );
             if ($return) {
+                required_user_login();
                 redirect('cmall/order');
             }
         }
@@ -1384,8 +1388,11 @@ class Cmall extends CB_Controller
         $insertdata['mem_nickname'] = $this->member->item('mem_nickname');
         $insertdata['mem_email'] = $this->input->post('mem_email', null, '');
         $insertdata['mem_phone'] = $this->input->post('mem_phone', null, '');
+
+        $insertdata['mem_phone'] = preg_replace("/[^0-9]*/s", "", $insertdata['mem_phone']);
         $insertdata['cor_pay_type'] = $this->input->post('pay_type', null, '');
         $insertdata['cor_content'] = $this->input->post('cor_content', null, '');
+        $insertdata['cor_addr'] = $this->input->post('cor_addr', null, '');
         $insertdata['cor_ip'] = $this->input->ip_address();
         $insertdata['cor_useragent'] = $this->agent->agent_string();
         $insertdata['is_test'] = $this->cbconfig->item('use_pg_test');

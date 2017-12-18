@@ -137,7 +137,7 @@ $(function() {
         onclick: false,
         rules: {
             mem_userid: {required :true, minlength:3, maxlength:20, is_userid_available:true},
-            mem_email: {required :true, email:true, is_email_available:true},
+            mem_email: {required :true, email:true},
             mem_password: {required :true, is_password_available:true},
             mem_password_re : {required: true, equalTo : '#mem_password' },
             mem_nickname: {required :true, is_nickname_available:true},

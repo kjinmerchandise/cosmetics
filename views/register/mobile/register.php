@@ -71,7 +71,7 @@
                             <input type="checkbox" name="agree" id="agree" value="1" checked="checked"/> 
                             <label>Accept terms and conditions(necessary)</label>
                         </div>
-                        <p>
+                        <p class="document">
                             <?php echo element('member_register_policy1', $view); ?>
                         </p>
                     </div>
@@ -82,7 +82,7 @@
                             Next
                         </button>
 
-                        <button onclick="location.href='<?php echo site_url() ?>'">
+                        <button type="button" onclick="location.href='<?php echo site_url() ?>'">
                             Cancel
                         </button>
                     </div>

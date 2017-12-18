@@ -86,8 +86,8 @@ function check_form_changed() {
     return true;
 }
 $(document).on('click', '.reset_findaccount', function() {
-    $('#send_email_findaccount_user_title').val('{회원닉네임}님의 아이디와 패스워드를 보내드립니다');
-    var sHTML = '<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-left: 1px solid rgb(226,226,225);border-right: 1px solid rgb(226,226,225);background-color: rgb(255,255,255);border-top:10px solid #348fe2; border-bottom:5px solid #348fe2;border-collapse: collapse;"><tr><td style="font-size:12px;padding:20px 30px;font-family: Arial,sans-serif;color: rgb(0,0,0);font-size: 14px;line-height: 20px;"><span style="font-size:14px;font-weight:bold;color:rgb(0,0,0)">안녕하세요 {회원닉네임}님,</span><br />회원님의 아이디와 패스워드를 보내드립니다.</td></tr><tr style="border-top:1px solid #e2e2e2; border-bottom:1px solid #e2e2e2;"><td style="padding:20px 30px;font-family: Arial,sans-serif;color: rgb(0,0,0);font-size: 14px;line-height: 20px;"><p>안녕하세요,</p><p>&nbsp;</p><p>회원님의 아이디는 <strong>{회원아이디}</strong> 입니다.</p><p>아래 링크를 클릭하시면 회원님의 패스워드 변경이 가능합니다.</p><p><a href="{패스워드변경주소}" target="_blank" style="font-weight:bold;">패스워드 변경하기</a></p><p>&nbsp;</p><p>감사합니다.</p></td></tr><tr><td style="padding:10px;font-family: Arial,sans-serif;color: rgb(0,0,0);font-size: 14px;line-height: 20px;text-align:center;">{홈페이지명}</td></tr></table>';
+    $('#send_email_findaccount_user_title').val('{회원닉네임} We will send you your ID and password');
+    var sHTML = '<table width="100%" border="0" cellpadding="0" cellspacing="0" style="border-left: 1px solid rgb(226,226,225);border-right: 1px solid rgb(226,226,225);background-color: rgb(255,255,255);border-top:10px solid #348fe2; border-bottom:5px solid #348fe2;border-collapse: collapse;"><tr><td style="font-size:12px;padding:20px 30px;font-family: Arial,sans-serif;color: rgb(0,0,0);font-size: 14px;line-height: 20px;"><span style="font-size:14px;font-weight:bold;color:rgb(0,0,0)">Hello {회원닉네임},</span><br />We will send you your ID and password</td></tr><tr style="border-top:1px solid #e2e2e2; border-bottom:1px solid #e2e2e2;"><td style="padding:20px 30px;font-family: Arial,sans-serif;color: rgb(0,0,0);font-size: 14px;line-height: 20px;"><p>Hello,</p><p>&nbsp;</p><p>Your ID is <strong>{회원아이디}</strong>.</p><p>You can change your password by clicking the link below.</p><p><a href="{패스워드변경주소}" target="_blank" style="font-weight:bold;">Changing your password</a></p><p>&nbsp;</p><p>Thank you.</p></td></tr><tr><td style="padding:10px;font-family: Arial,sans-serif;color: rgb(0,0,0);font-size: 14px;line-height: 20px;text-align:center;">{홈페이지명}</td></tr></table>';
     oEditors.getById["send_email_findaccount_user_content"].exec("SET_CONTENTS", [sHTML]);
 });
 $(document).on('click', '.reset_resendverify', function() {
@@ -97,3 +97,4 @@ $(document).on('click', '.reset_resendverify', function() {
 });
 //]]>
 </script>
+동아대학교 병원 특 5호실 나영학 

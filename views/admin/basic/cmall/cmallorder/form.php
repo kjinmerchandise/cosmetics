@@ -28,7 +28,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <thead>
                     <tr class="success">
                         <th>
-                            <input type="checkbox" name="chkall" id="chkall">
+                            <input type="checkbox" name="chkall" id="chkall" checked="checked">
                         </th>
                         <th>이미지</th>
                         <th>상품명</th>
@@ -48,7 +48,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 ?>
                     <tr>
                         <td>
-                        <input type="checkbox" id="ct_chk_<?php echo $i; ?>" class="product_chk" name="chk[]" value="<?php echo $i; ?>">
+                        <input type="checkbox" id="ct_chk_<?php echo $i; ?>" class="product_chk" name="chk[]" value="<?php echo $i; ?>" checked="checked">
                         <input type="hidden" name="cit_id[]" value="<?php echo element('cit_id', element('item', $row)); ?>">
                         </td>
                         <td><a href="<?php echo cmall_item_url(element('cit_key', element('item', $row))); ?>" target="_blank"><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', element('item', $row)), 60, 60); ?>" class="thumbnail" style="margin:0;width:60px;height:60px;" alt="<?php echo html_escape(element('cit_name', element('item', $row))); ?>" title="<?php echo html_escape(element('cit_name', element('item', $row))); ?>" /></a></td>
@@ -61,14 +61,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 ?>
                                     <li class="clearfix mt5"><?php echo html_escape(element('cde_title', $detail)) . ' ' . element('cod_count', $detail);?>개 (+<?php echo number_format(element('cde_price', $detail)); ?>원)
                                 <?php
-                                    if (element('cor_status', $result) === '1') {
-                                        if (element('possible_download', element('item', $row))) {
+                                    if (element('cor_status', $result) === '0') {
+                                        
                                 ?>
-                                            <button type="button" class="btn btn-xs btn-success pull-right">다운로드가능</button>
-                                <?php } else { ?>
-                                            <button type="button" class="btn btn-xs btn-danger pull-right">다운로드 기간 완료</button>
-                                <?php } } else { ?>
-                                            <button type="button" class="btn btn-xs btn-danger pull-right">입금확인중</button>
+                                            <button type="button" class="btn btn-xs btn-success pull-right">입금확인중</button>
+                                <?php } elseif(element('cor_status', $result) === '1') { ?>
+                                            <button type="button" class="btn btn-xs btn-danger pull-right">입금완료</button>
+                                <?php }  elseif (element('cor_status', $result) === '2') { ?>
+                                            <button type="button" class="btn btn-xs btn-danger pull-right">취소</button>
+                                <?php
+                                    }  elseif (element('cor_status', $result) === '3') { ?>
+                                            <button type="button" class="btn btn-xs btn-danger pull-right">배송완료</button>
                                 <?php
                                     }
                                 ?>
@@ -111,9 +114,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <p>
                     <input type="hidden" name="chk_cnt" value="<?php echo $i; ?>">
                     <strong>주문 상태 변경</strong>
-                    <input type="submit" name="ct_status" value="주문" onclick="document.pressed=this.value" class="btn btn-sm">
-                    <input type="submit" name="ct_status" value="입금" onclick="document.pressed=this.value" class="btn btn-sm">
-                    <input type="submit" name="ct_status" value="취소" onclick="document.pressed=this.value" class="btn btn-sm">
+                    <input type="submit" name="ct_status" value="주문" onclick="document.pressed=this.value" class="btn btn-sm <?php echo element('cor_status', $result) === '0'? 'btn-success':''; ?>">
+                    <input type="submit" name="ct_status" value="입금" onclick="document.pressed=this.value" class="btn btn-sm <?php echo element('cor_status', $result) === '1'? 'btn-success':''; ?>">
+                    <input type="submit" name="ct_status" value="취소" onclick="document.pressed=this.value" class="btn btn-sm <?php echo element('cor_status', $result) === '2'? 'btn-success':''; ?>">
+                    <input <?php echo element('cor_status', $result) === '1'? ' type="submit" ':' type="button" '; ?>  name="ct_status" value="배송"  onclick="document.pressed=this.value" class="btn btn-sm <?php echo element('cor_status', $result) === '3'? 'btn-success':''; ?> <?php echo element('cor_status', $result) === '1'? '':'disabled'; ?>" title="입금 확인해 주세요">
                 </p>
             </div>
         <?php echo form_close(); ?>
@@ -122,10 +126,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         ?>
     </ul>
 
-    <div class="alert alert-success">
+    <!-- <div class="alert alert-success">
         <p>주문, 입금, 준비, 배송, 완료는 장바구니와 주문서 상태를 모두 변경하지만, 취소, 반품, 품절은 장바구니의 상태만 변경하며, 주문서 상태는 변경하지 않습니다.</p>
         <p>개별적인(이곳에서의) 상태 변경은 모든 작업을 수동으로 처리합니다. 예를 들어 주문에서 입금으로 상태 변경시 입금액(결제금액)을 포함한 모든 정보는 수동 입력으로 처리하셔야 합니다.</p>
-    </div>
+    </div> -->
 
     <?php if ( element('is_test', element('data', $view)) ) { ?>
     <div class="bg-classes">
@@ -162,6 +166,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <td><?php echo element('cor_id', element('data', $view)); ?></td>
                         </tr>
                         <tr>
+                            <th>연락처</th>
+                            <td><?php echo get_phone(element('mem_phone', element('data', $view))); ?></td>
+                        </tr>
+                        <tr>
                             <th>결제방식</th>
                             <td><?php echo $this->cmalllib->get_paymethodtype(element('cor_pay_type', element('data', $view)));?></td>
                         </tr>
@@ -169,15 +177,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <th>총 주문액</th>
                             <td><?php echo number_format(element('cor_total_money', element('data', $view))); ?> 원</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th>결제요청금액</th>
                             <td><?php echo (element('cor_cash_request', element('data', $view))) ? number_format(abs(element('cor_cash_request', element('data', $view)))).' 원' : '아직 입금되지 않았습니다'; ?></td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <th>결제된 금액</th>
                             <td><?php echo number_format(element('cor_cash', element('data', $view))); ?> 원</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <th>미결제액</th>
                             <td>
                                 <?php
@@ -185,7 +193,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 echo number_format($notyet);
                                 ?> 원
                             </td>
-                        </tr>
+                        </tr> -->
                         <?php if (element('cor_approve_datetime', element('data', $view)) > '0000-00-00 00:00:00') { ?>
                             <tr>
                                 <th>결제일시</th>
@@ -397,6 +405,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
         </div>
         </div>
+        
+        <div class="cor_admin_memo_box">
+            <h4>사용자 메모 및 배송지 주소</h4>
+
+            <div class="bg-classes">
+                <p class="bg-primary">
+                    현재 열람 중인 주문에 대한 사용자 메모 와 배송지 주소입니다.
+                </p>
+            </div>
+
+            <div class="tbl_wrap">
+                <label for="cor_content" class="">사용자메모</label>
+                <textarea name="cor_content" id="cor_content" rows="2" class="form-control"><?php echo stripslashes(element('cor_content', element('data', $view))); ?></textarea>
+            </div>
+            <div class="tbl_wrap">
+                <label for="cor_addr" class="">배송지 주소</label>
+                <textarea name="cor_addr" id="cor_addr" rows="2" class="form-control"><?php echo stripslashes(element('cor_addr', element('data', $view))); ?></textarea>
+            </div>
+        </div>
 
         <div class="cor_admin_memo_box">
             <h4>관리자메모</h4>
@@ -409,7 +436,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             <div class="tbl_wrap">
                 <label for="cor_admin_memo" class="sound_only">관리자메모</label>
-                <textarea name="cor_admin_memo" id="cor_admin_memo" rows="8" class="form-control"><?php echo stripslashes(element('cor_admin_memo', element('data', $view))); ?></textarea>
+                <textarea name="cor_admin_memo" id="cor_admin_memo" rows="4" class="form-control"><?php echo stripslashes(element('cor_admin_memo', element('data', $view))); ?></textarea>
             </div>
         </div>
 

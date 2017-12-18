@@ -10,4 +10,7 @@
             Thank you for using our site.
         </p>
     </div>
+    <section class="ad">
+            <?php echo banner('product_details_banner'); ?>
+            </section>
 </div>

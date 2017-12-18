@@ -38,7 +38,7 @@
                             <th>요청일시</th>
                             <th>주문번호</th>
                             <th>총주문액</th>
-                            <th><?php echo html_escape($this->depositconfig->item('deposit_name')); ?> 사용</th>
+                            <!-- <th><?php echo html_escape($this->depositconfig->item('deposit_name')); ?> 사용</th> -->
                             <th>결제해야할금액</th>
                             <th>결제한금액</th>
                             <th>미수금액</th>
@@ -56,15 +56,15 @@
                             <td><?php echo element('display_name', $result); ?></td>
                             <td><?php echo html_escape(element('mem_realname', $result)); ?></td>
                             <td><?php echo html_escape(element('mem_email', $result)); ?></td>
-                            <td><?php echo html_escape(element('mem_phone', $result)); ?></td>
+                            <td><?php echo get_phone(element('mem_phone', $result)); ?></td>
                             <td><?php echo display_datetime(element('cor_datetime', $result), 'full'); ?></td>
                             <td><a href="<?php echo site_url('cmall/orderresult/' . element('cor_id', $result)); ?>" target="_blank"><?php echo html_escape(element('cor_id', $result)); ?></a></td>
                             <td class="align-right"><?php echo number_format(element('cor_total_money', $result)) . '원'; ?></td>
-                            <td class="align-right"><?php echo number_format(element('cor_deposit', $result)) . '원'; ?></td>
+                            <!-- <td class="align-right"><?php echo number_format(element('cor_deposit', $result)) . '원'; ?></td> -->
                             <td class="align-right"><?php echo number_format(element('cor_cash_request', $result)) . '원'; ?></td>
                             <td class="align-right"><?php echo number_format(element('cor_cash', $result)) . '원'; ?></td>
                             <td class="align-right"><?php echo number_format(element('cor_cash_request', $result)-element('cor_cash', $result)) . '원'; ?></td>
-                            <td><?php if ( ! element('cor_status', $result)) { ?><a href="<?php echo admin_url($this->pagedir); ?>/write/<?php echo element(element('primary_key', $view), $result); ?>?<?php echo $this->input->server('QUERY_STRING', null, ''); ?>" class="btn btn-outline btn-default btn-xs">수정</a><?php } ?></td>
+                            <td><?php if ( ! 1) { ?><a href="<?php echo admin_url($this->pagedir); ?>/write/<?php echo element(element('primary_key', $view), $result); ?>?<?php echo $this->input->server('QUERY_STRING', null, ''); ?>" class="btn btn-outline btn-default btn-xs">수정</a><?php } ?></td>
                             <td><?php if ( ! element('cor_status', $result)) { ?><input type="checkbox" name="chk[]" class="list-chkbox" value="<?php echo element(element('primary_key', $view), $result); ?>" /><?php } ?></td>
                         </tr>
                     <?php

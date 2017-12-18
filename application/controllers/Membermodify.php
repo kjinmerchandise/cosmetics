@@ -771,6 +771,8 @@ class Membermodify extends CB_Controller
                 $updatedata['mem_phone'] = $selfcert_phone;
             } else if (isset($form['mem_phone']['use']) && $form['mem_phone']['use']) {
                 $updatedata['mem_phone'] = $this->input->post('mem_phone', null, '');
+
+                $updatedata['mem_phone'] = preg_replace("/[^0-9]*/s", "", $updatedata['mem_phone']);
             }
             if ($selfcert_birthday) {
                 $updatedata['mem_birthday'] = $selfcert_birthday;

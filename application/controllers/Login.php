@@ -438,13 +438,13 @@ class Login extends CB_Controller
         if ($this->input->post('findtype') === 'findid') {
             $config[] = array(
                 'field' => 'telnum',
-                'label' => '핸드폰',
+                'label' => 'Phone',
                 'rules' => 'trim|required|valid_phone|callback__existphone',
             );
         } elseif ($this->input->post('findtype') === 'findidpw') {
             $config[] = array(
                 'field' => 'telnum',
-                'label' => '핸드폰',
+                'label' => 'Phone',
                 'rules' => 'trim|required|valid_phone|callback__existphone',
             );
         } 
@@ -489,11 +489,6 @@ class Login extends CB_Controller
                 $mem_id = (int) element('mem_id', $mb);
                 
 
-               
-                
-
-                
-
                 $searchconfig = array(
                     '{홈페이지명}',
                     '{회사명}',
@@ -506,7 +501,7 @@ class Login extends CB_Controller
                     '{쪽지수신여부}',
                     '{문자수신여부}',
                     '{회원아이피}',
-                    '{패스워드변경주소}',
+                    
                 );
                 $receive_email = element('mem_receive_email', $mb) ? '동의' : '거부';
                 $receive_note = element('mem_use_note', $mb) ? '동의' : '거부';
@@ -523,6 +518,7 @@ class Login extends CB_Controller
                     $receive_note,
                     $receive_sms,
                     $this->input->ip_address(),
+                    
                 );
                 $replaceconfig_escape = array(
                     html_escape($this->cbconfig->item('site_title')),
@@ -536,12 +532,13 @@ class Login extends CB_Controller
                     $receive_note,
                     $receive_sms,
                     $this->input->ip_address(),
+                    
                 );
 
                 $title = str_replace(
                     $searchconfig,
                     $replaceconfig,
-                    $this->cbconfig->item('send_email_findaccount_user_title')
+                    $this->cbconfig->item('send_email_findid_user_title')
                 );
                 $content = str_replace(
                     $searchconfig,
@@ -577,6 +574,8 @@ class Login extends CB_Controller
                     '',
                     password_hash($mem_id . '-' . $this->input->post('telnum') . '-' . random_string('alnum', 10), PASSWORD_BCRYPT)
                 );
+
+                $this->load->model('Member_auth_email_model');
 
                 $beforeauthdata = array(
                     'mem_id' => $mem_id,
@@ -705,13 +704,15 @@ class Login extends CB_Controller
 
     public function _existphone($str)
     {
+        
+        $str = preg_replace("/[^0-9]*/s", "", $str);
         $userinfo = $this->Member_model
             ->get_by_phone($str, 'mem_id, mem_email, mem_denied, mem_email_cert');
         
         if ( ! element('mem_id', $userinfo)) {
             $this->form_validation->set_message(
                 '_existphone',
-                '존재하지 않는 핸드폰입니다'
+                'A nonexistent cell phone number'
             );
             return false;
         }

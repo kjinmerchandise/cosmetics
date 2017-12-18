@@ -163,14 +163,7 @@ var cookie_prefix = "<?php echo config_item('cookie_prefix'); ?>";
     
 </div>
 
-<script type="text/javascript">
-$(document).on('click', '.viewpcversion', function(){
-    Cookies.set('device_view_type', 'desktop', { expires: 1 });
-});
-$(document).on('click', '.viewmobileversion', function(){
-    Cookies.set('device_view_type', 'mobile', { expires: 1 });
-});
-</script>
+
 <?php echo element('popup', $layout); ?>
 <?php echo $this->cbconfig->item('footer_script'); ?>
 
@@ -219,15 +212,19 @@ $(document).ready(function(){
 /*하단 footer 영역 confirm terms of use 내용 펼치기*/
     $('footer ul li:nth-child(1)').click(function(){
             if($('footer ul li:nth-child(2)').css('display') == 'none'){
+                $("#confirmTerms").html("Confirm Terms of Use ▲");
                 $('footer ul li:nth-child(2)').slideDown();
                 $('footer ul li:nth-child(2)').css('border-top' , '0');
             }else{
+                $("#confirmTerms").html("Confirm Terms of Use ▼");
                 $('footer ul li:nth-child(2)').slideUp();
             }
 
             $('html,body').animate({'scrollTop' : $(document).height()} , 1000);
 
         });
+
+    
 });
 
 

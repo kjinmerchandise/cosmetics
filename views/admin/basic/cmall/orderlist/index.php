@@ -76,7 +76,7 @@
                                                 <th class="text-center">총수량</th>
                                                 <th>판매가</th>
                                                 <th>소계</th>
-                                                <th>다운로드기간</th>
+                                                <th>비고</th>
                                                 <!-- <th>기간변경</th> -->
                                             </tr>
                                         </thead>

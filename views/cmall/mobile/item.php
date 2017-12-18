@@ -69,7 +69,7 @@
                                 <p style="height: 30px; line-height: 30px;"><?php echo html_escape(element('cde_title', $detail)); ?></p>
                                 <div class="quantity">
                                     <span class="btn-change-qty" data-change-type="minus">-</span>
-                                    <input type="text" name="detail_qty[<?php echo element('cde_id', $detail); ?>]"  style="border:0px;" value="1" />
+                                    <input type="text" class="pointer" name="detail_qty[<?php echo element('cde_id', $detail); ?>]"  style="border:0px;" value="1" />
                                     <span class="btn-change-qty" data-change-type="plus">+</span>
                                 </div>
                             </td>
@@ -273,5 +273,13 @@ $('.popup_btn button:nth-child(1)').click(function(){
     f.submit();
 });
 
+/*팝업창  스크롤바 따라다니기 */
+var currentPosition = parseInt($(".popup").css("top"));
+
+$(window).scroll(function() {
+    var position = $(window).scrollTop();
+    $(".popup").stop().animate({"top":position+currentPosition+"px"},500);
+});
+                
 //]]>
 </script>

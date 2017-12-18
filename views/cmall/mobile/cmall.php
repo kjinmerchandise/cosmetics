@@ -45,11 +45,11 @@
                 }
             });  
 
-            $(document).on('click','.bx-next, .bx-prev',function() {
+            $('.bx-next, .bx-prev').click(function(){
                 slider.stopAuto();
                 slider.startAuto();
             });
-            $(document).on('click','.bx-pager, #bx-pager1',function() {
+            $('.bx-pager, #bx-pager').click(function(){
                 slider.stopAuto();
                 slider.startAuto();
             });            

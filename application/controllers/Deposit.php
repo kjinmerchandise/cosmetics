@@ -531,6 +531,10 @@ class Deposit extends CB_Controller
         $insertdata['mem_nickname'] = $this->member->item('mem_nickname');
         $insertdata['mem_email'] = $this->input->post('mem_email', null, '');
         $insertdata['mem_phone'] = $this->input->post('mem_phone', null, '');
+
+        $insertdata['mem_phone'] = preg_replace("/[^0-9]*/s", "", $insertdata['mem_phone']);
+
+        
         $insertdata['dep_from_type'] = 'cash';
         $insertdata['dep_to_type'] = 'deposit';
         $insertdata['dep_pay_type'] = $pay_type;

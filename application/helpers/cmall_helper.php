@@ -63,6 +63,7 @@ if ( ! function_exists('get_cmall_key_localize')) {
             'order' =>  '주문',    //주문
             'deposit'   =>  '입금',  //입금
             'cancel'    =>  '취소', //취소
+            'delivery'    =>  '배송', //배송
         );
 
         return $keys;
@@ -178,7 +179,7 @@ if ( ! function_exists('get_cmall_order_amounts')) {
 
                     if( in_array( $cod_status, array('cancel') )  ){    //주문취소
                         $od_cancel_price += ((int) element('cit_price', $item) + (int) element('cde_price', $detail)) * element('cod_count', $detail);
-                    } else if ( $cod_status === 'deposit' ) {
+                    } else if ( $cod_status === 'deposit' || $cod_status === 'delivery' ) {
                         $od_cash_price += ((int) element('cit_price', $item) + (int) element('cde_price', $detail)) * element('cod_count', $detail);
                     }
                     

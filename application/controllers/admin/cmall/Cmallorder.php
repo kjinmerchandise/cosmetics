@@ -285,6 +285,7 @@ class Cmallorder extends CB_Controller
             $pcase = $this->input->post('pcase');
 
             if( $pcase === 'product' ){
+
                 $ori_ct_status = $this->input->post('ct_status');
                 $ct_status = $this->input->post('ct_status') ? cmall_get_stype_names($ori_ct_status) : '';
                 $pg_cancel = $this->input->post('pg_cancel');
@@ -295,7 +296,7 @@ class Cmallorder extends CB_Controller
                 $ct_qtys = $this->input->post('ct_qty') ? $this->input->post('ct_qty') : array();
 
                 $order = get_cmall_order_data($cor_id);
-                $status_normal =  array('order', 'deposit');
+                $status_normal =  array('order', 'deposit', 'cancel', 'delivery');
 
                 for ($i=0; $i<$cnt; $i++)
                 {
@@ -443,6 +444,12 @@ class Cmallorder extends CB_Controller
 
                     if ( $ct_status === 'deposit' ){        //입금이면
                         $updatedata['cor_status'] = 1;
+                    } 
+                    // elseif ( $ct_status === 'cancel' ){        
+                    //     $updatedata['cor_status'] = 2;
+                    // } 
+                    elseif ( $ct_status === 'delivery' ){        
+                        $updatedata['cor_status'] = 3;
                     } else {   //주문 또는 취소 인 경우
 
                         $select = "count(*) as od_count1, SUM(IF(cod_status = 'order', 1, 0)) as od_count2, SUM(IF(cod_status = 'cancel', 1, 0)) as od_count3";
@@ -454,7 +461,11 @@ class Cmallorder extends CB_Controller
                         $row = $this->Cmall_order_detail_model->get_one('', $select, $where);
                         
                         if( ($row['od_count1'] === $row['od_count2']) || ($row['od_count1'] === $row['od_count3']) ) {
-                            $updatedata['cor_status'] = 0;
+                            
+                            if($ct_status === 'cancel') 
+                                $updatedata['cor_status'] = 2;
+                            else $updatedata['cor_status'] = 0;
+
                             $updatedata['status'] = $ct_status;
                         }
 
@@ -477,6 +488,9 @@ class Cmallorder extends CB_Controller
                 $cor_refund_price = (int) $this->input->post('cor_refund_price');
                 $cor_admin_memo = $this->input->post('cor_admin_memo');
                 $cor_bank_info = $this->input->post('cor_bank_info');
+                $cor_content = $this->input->post('cor_content');
+                $cor_addr = $this->input->post('cor_addr');
+                
 
                 if($cor_approve_datetime){
                     if (check_datetime( $cor_approve_datetime ) == false){
@@ -498,6 +512,8 @@ class Cmallorder extends CB_Controller
                     'cor_refund_price' => $cor_refund_price,
                     'cor_admin_memo' => $cor_admin_memo,
                     'cor_bank_info' => $cor_bank_info,
+                    'cor_content' => $cor_content,
+                    'cor_addr' => $cor_addr,
                     );
 
                 //미수금 금액을 구함

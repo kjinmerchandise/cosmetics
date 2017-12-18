@@ -15,9 +15,9 @@
                     response = true;
                     if ($('#mem_userid-error').length) {
                         $("#mem_userid-error").remove();
-                        $("#mem_userid").after('<label id="mem_userid-error" class="error" for="mem_userid">'+data.reason+'</label>');
+                        $("#mem_userid").after('<label id="mem_userid-error" class="available" for="mem_userid">'+data.reason+'</label>');
                     } else {
-                        $("#mem_userid").after('<label id="mem_userid-error" class="error" for="mem_userid">'+data.reason+'</label>');
+                        $("#mem_userid").after('<label id="mem_userid-error" class="available" for="mem_userid">'+data.reason+'</label>');
                     }
                     
                 } else {
@@ -46,9 +46,9 @@
                     response = true;
                     if ($('#mem_email-error').length) {
                         $("#mem_email-error").remove();
-                        $("#mem_email").after('<label id="mem_email-error" class="error" for="mem_email">'+data.reason+'</label>');
+                        $("#mem_email").after('<label id="mem_email-error" class="available" for="mem_email">'+data.reason+'</label>');
                     } else {
-                        $("#mem_email").after('<label id="mem_email-error" class="error" for="mem_email">'+data.reason+'</label>');
+                        $("#mem_email").after('<label id="mem_email-error" class="available" for="mem_email">'+data.reason+'</label>');
                     }
                 } else {
                     response = false;
@@ -101,9 +101,9 @@
                     response = true;
                     if ($('#mem_nickname-error').length) {
                         $("#mem_nickname-error").remove();
-                        $("#mem_nickname").after('<label id="mem_nickname-error" class="error" for="mem_nickname">'+data.reason+'</label>');
+                        $("#mem_nickname").after('<label id="mem_nickname-error" class="available" for="mem_nickname">'+data.reason+'</label>');
                     } else {
-                        $("#mem_nickname").after('<label id="mem_nickname-error" class="error" for="mem_nickname">'+data.reason+'</label>');
+                        $("#mem_nickname").after('<label id="mem_nickname-error" class="available" for="mem_nickname">'+data.reason+'</label>');
                     }                    
                 } else {
                     response = false;

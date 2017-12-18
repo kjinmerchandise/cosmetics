@@ -682,6 +682,16 @@ class Emailform extends CB_Controller
                 'rules' => 'trim|numeric',
             ),
             array(
+                'field' => 'send_email_findID_user_title',
+                'label' => 'ID찾기 발송메일 제목',
+                'rules' => 'trim|required',
+            ),
+            array(
+                'field' => 'send_email_findID_user_content',
+                'label' => 'ID찾기 발송메일 내용',
+                'rules' => 'trim|required',
+            )
+            array(
                 'field' => 'send_email_findaccount_user_title',
                 'label' => 'ID/PW찾기 발송메일 제목',
                 'rules' => 'trim|required',

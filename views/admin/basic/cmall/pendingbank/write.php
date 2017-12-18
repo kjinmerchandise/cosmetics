@@ -27,14 +27,14 @@
                                 <?php echo number_format(element('cor_total_money', element('data', $view))); ?> 원
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label class="col-sm-2 control-label"><?php echo html_escape($this->depositconfig->item('deposit_name')); ?> 사용</label>
                             <div class="col-sm-10">
                                 <?php echo number_format(element('cor_deposit', element('data', $view))); ?> 원
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">결제해야할 금액 (<?php echo html_escape($this->depositconfig->item('deposit_name')); ?>제외)</label>
+                            <label class="col-sm-2 control-label">결제해야할 금액 <!-- (<?php echo html_escape($this->depositconfig->item('deposit_name')); ?>제외) --></label>
                             <div class="col-sm-10">
                                 <?php echo number_format(element('cor_cash_request', element('data', $view))); ?> 원
                             </div>
@@ -51,7 +51,7 @@
                                 <label class="radio-inline" for="cor_cash_status_3" >
                                     <input type="radio" name="cor_cash_status" class="cor_cash_status" id="cor_cash_status_3" value="all" <?php echo set_checkbox('cor_cash_status', 'all', ((int) element('cor_cash_request', element('data', $view)) === (int) element('cor_cash', element('data', $view)) ? true : false)); ?> /> 완납
                                 </label>
-                                <div class="help-block">완납으로 변경시 결제가 완료되며, 회원님은 상품을 다운로드 가능하게 됩니다</div>
+                                
                             </div>
                         </div>
                         <div class="form-group some_cash">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">하고싶은 말</label>
+                            <label class="col-sm-2 control-label">사용자 메모</label>
                             <div class="col-sm-10">
                                 <?php echo nl2br(html_escape(element('cor_content', element('data', $view)))); ?>
                             </div>

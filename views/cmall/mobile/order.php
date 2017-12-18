@@ -30,7 +30,7 @@
                                 <h3>
                                     <?php if(element('cca_value', $result)) echo '['.html_escape(element('cca_value',$result)).']';?> <?php echo html_escape(element('cit_name', $result)); ?>
                                 </h3>
-                                <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>"><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" class="" style="margin:0;" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" /></a>                                
+                                <a href="<?php echo element('item_url', $result); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>"><img src="<?php echo thumb_url('cmallitem', element('cit_file_1', $result)); ?>" class="billing_information" style="margin:0;" alt="<?php echo html_escape(element('cit_name', $result)); ?>" title="<?php echo html_escape(element('cit_name', $result)); ?>" /></a>                                
                                 </a>
                                 <figcaption>
                                     

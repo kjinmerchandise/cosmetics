@@ -32,7 +32,7 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
             } else if (change_type === 'minus') {
                 qty--;
                 if (qty < 1) {
-                    alert('수량은 1이상 입력해 주십시오.');
+                    alert('Please input 1 or more quantity.');
                     $qty.val(1);
                     return false;
                 }
@@ -54,7 +54,7 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
         }
 
         if (qty < 1) {
-            alert('수량은 1이상 입력해 주십시오.');
+            alert('Please input 1 or more quantity.');
             $(this).val(1);
             return false;
         }
@@ -72,9 +72,9 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
         if( $total_order_price.triggerHandler( 'item_total_order_price' ) !== false ){
 
             if ($sel.size() > 0) {
-                $sel.each(function() {
-                    price = parseInt($('input[name^=cit_price]').val());
-                    qty = parseInt($('input[name^=detail_qty]').val());
+                $sel.each(function(index) {
+                    price = parseInt($('input[name^=cit_price]').eq(index).val());
+                    qty = parseInt($('input[name^=detail_qty]').eq(index).val());
                     
                     tot_price += (price * qty);
                 });
@@ -92,7 +92,7 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
             return true;
         }
 
-        // var $el_chk = jQuery('input[name^=chk_detail]:checked');
+        var $el_chk = jQuery('input[name^=chk_detail]:checked');
 
         // if ($el_chk.size() < 1) {
         //     alert('상품의 옵션을 하나이상 선택해 주십시오.');
@@ -100,10 +100,12 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
         // }
 
         if( jQuery(f).triggerHandler( 'item_form_submit' ) !== false ){
+            
             // 수량체크
             var is_qty = true;
             var detail_qty = 0;
             $el_chk.each(function() {
+
                 detail_qty = parseInt($(this).closest('tr').find('input[name^=detail_qty]').val().replace(/[^0-9]/g, ""));
                 if (isNaN(detail_qty)) {
                     detail_qty = 0;
@@ -116,7 +118,7 @@ if (typeof(CMALLITEM_JS) === 'undefined') {
             });
 
             if ( ! is_qty) {
-                alert('수량을 1이상 입력해 주십시오.');
+                alert('Please input 1 or more quantity.');
                 return false;
             }
         }

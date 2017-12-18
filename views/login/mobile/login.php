@@ -64,11 +64,11 @@
 
                 <!-- 아이디찾기 , 패스워드분실 , 회원가입 --> 
                     <ul>
-                        <li id="findId">
+                        <li id="findId" class="pointer">
                             <p>Find ID</p>
                         </li>
 
-                        <li id="forgotPass">
+                        <li id="forgotPass" class="pointer">
                             <p>Forgot your password</p>
                         </li>
 
@@ -245,10 +245,10 @@ $(document).on('click', '#popupNo', function() {
 });
 
 $(document).on('click', '#popupYes', function() {
-    var re_pw = /^[0-9]{3,16}$/;
+    
 
     
-    if(re_pw.test($('#telnum').val()) != true)
+    if(!$.trim($('#telnum').val()))
         $('#telnum').siblings('p').slideDown().text('Invalid phone number.');
     else document.findidpwform.submit();
 });

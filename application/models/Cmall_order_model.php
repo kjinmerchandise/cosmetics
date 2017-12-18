@@ -72,7 +72,7 @@ class Cmall_order_model extends CB_Model
     public function get_list($limit = '', $offset = '', $where = '', $like = '', $findex = '', $forder = '', $sfield = '', $skeyword = '', $sop = 'OR')
     {   
         $select = 'cb_cmall_order.*, cb_cmall_item.*,cb_cmall_category.cca_value';
-        $join[] = array('table' => 'cb_cmall_order_detail', 'on' => 'cb_cmall_order.cor_id = cb_cmall_order_detail.cor_id', 'type' => 'inner');
+        $join[] = array('table' => '(select * from cb_cmall_order_detail group by cor_id order by cod_id) as cb_cmall_order_detail', 'on' => 'cb_cmall_order.cor_id = cb_cmall_order_detail.cor_id', 'type' => 'inner');
         $join[] = array('table' => 'cb_cmall_item', 'on' => 'cb_cmall_order_detail.cit_id = cb_cmall_item.cit_id', 'type' => 'inner');
         $join[] = array('table' => 'cb_cmall_category_rel', 'on' => 'cb_cmall_category_rel.cit_id = cb_cmall_item.cit_id', 'type' => 'inner');
         $join[] = array('table' => 'cb_cmall_category', 'on' => 'cb_cmall_category_rel.cca_id = cb_cmall_category.cca_id', 'type' => 'inner');

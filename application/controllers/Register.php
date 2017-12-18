@@ -128,6 +128,12 @@ class Register extends CB_Controller
             $this->session->set_userdata('selfcertinfo', '');
             
             $view['view']['member_register_policy1'] = $this->cbconfig->item('member_register_policy1');
+
+            $view['view']['member_register_policy1'] = display_html_content(
+                element('member_register_policy1', element('view', $view))
+            );
+
+
             $view['view']['member_register_policy2'] = $this->cbconfig->item('member_register_policy2');
             $view['view']['canonical'] = site_url('register');
 
@@ -342,7 +348,7 @@ class Register extends CB_Controller
         $configbasic['mem_email'] = array(
             'field' => 'mem_email',
             'label' => 'email',
-            'rules' => 'trim|required|valid_email|max_length[50]|is_unique[member.mem_email]|callback__mem_email_check',
+            'rules' => 'trim|required|valid_email',
             'description' => $email_description,
         );
         $configbasic['mem_homepage'] = array(
@@ -354,7 +360,7 @@ class Register extends CB_Controller
             $configbasic['mem_phone'] = array(
                 'field' => 'mem_phone',
                 'label' => 'phone',
-                'rules' => 'trim',
+                'rules' => 'trim|required',
             );
         }
         if ( ! $selfcert_birthday) {
@@ -854,6 +860,8 @@ class Register extends CB_Controller
                 $insertdata['mem_phone'] = $selfcert_phone;
             } else if (isset($form['mem_phone']['use']) && $form['mem_phone']['use']) {
                 $insertdata['mem_phone'] = $this->input->post('mem_phone', null, '');
+
+                $insertdata['mem_phone'] = preg_replace("/[^0-9]*/s", "", $insertdata['mem_phone']);
             }
             if ($selfcert_birthday) {
                 $insertdata['mem_birthday'] = $selfcert_birthday;

@@ -1,9 +1,12 @@
 <?php $this->managelayout->add_css(element('view_skin_url', $layout) . '/css/style.css'); ?>
+
 <article class="content02">
         <!-- notice -->
             <section class="notice service">
                 <!-- title -->
-                    <h2>FAQ</h2>
+                    <h2>                    
+                    <?php echo strtoupper($this->uri->segment(2));?>
+                    </h2>
                     <ul>
                     <?php
                     $i = 0;
@@ -11,14 +14,14 @@
                     
                         foreach (element('list', element('data', $view)) as $result) {
                     ?>
-                        <li class="table-service">
-                            <h3 class="table-heading" id="heading_<?php echo $i; ?>" onclick="return faq_open(this);">
+                        <li class="table-service" id="heading_<?php echo $i; ?>" onclick="return faq_open(this);">
+                            <h3 class="table-heading" >
                                 <?php echo element('title', $result); ?>
                             </h3>
-                            <span>▼</span>
-                            <p class="table-answer answer" id="answer_<?php echo $i; ?>">
+                            <span class='arrows'>▼</span>
+                            <div class="table-answer answer" id="answer_<?php echo $i; ?>">
                                 <?php echo element('content', $result); ?>
-                            </p>
+                            </div>
                         </li>
                     <?php
                             $i++;

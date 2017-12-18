@@ -121,15 +121,12 @@ class CB_Form_validation extends CI_Form_validation
 
     public function valid_phone($value)
     {
+
         $value = trim($value);
         if ($value === '') {
             return true;
         } else {
-            if (preg_match('/^\(?[0-9]{2,3}\)?[-. ]?[0-9]{3,4}[-. ]?[0-9]{4}$/', $value)) {
-                return preg_replace('/^\(?([0-9]{2,3})\)?[-. ]?([0-9]{3,4})[-. ]?([0-9]{4})$/', '$1-$2-$3', $value);
-            } else {
-                return false;
-            }
+            return preg_replace("/[^0-9]*/s", "", $value); 
         }
     }
 }
